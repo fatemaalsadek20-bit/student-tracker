@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظم الطالب 2027</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>مُخططي الدراسي 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #f7f5f0;
-            --card-bg: #fcfbf9;
-            --accent-soft: #e8e3d9;
-            --accent-main: #8a9a86;
-            --accent-muted: #73826f;
-            --text-dark: #383734;
-            --text-muted: #706f6b;
-            --border-color: #e3ded6;
+            --bg-main: #fcf8f6;
+            --card-bg: #ffffff;
+            --pink-soft: #f7ebe8;
+            --pink-accent: #d8969f;
+            --pink-hover: #c7838c;
+            --text-main: #4a3e3d;
+            --text-muted: #8c7b79;
+            --border-color: #eededb;
         }
 
         * {
@@ -28,16 +28,16 @@
             min-height: 100vh;
             width: 100%;
             background-color: var(--bg-main);
-            color: var(--text-dark);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
         }
 
         .container {
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px 15px;
+            padding: 25px 18px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -45,59 +45,58 @@
 
         header {
             text-align: center;
-            margin-bottom: 1.2rem;
-            flex-shrink: 0;
+            margin-bottom: 1.5rem;
         }
 
         header h1 {
-            font-size: 2rem;
-            color: var(--text-dark);
+            font-size: 2.3rem;
+            color: var(--pink-accent);
             font-weight: 900;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 4px;
+            font-size: 1.1rem;
+            margin-top: 5px;
+            font-weight: 500;
         }
 
         /* Nav Tabs */
         .nav-tabs {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
             overflow-x: auto;
             padding-bottom: 5px;
-            flex-shrink: 0;
         }
 
         .nav-btn {
             background-color: var(--card-bg);
-            color: var(--text-dark);
-            border: 1px solid var(--border-color);
-            padding: 0.7rem 1.1rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            padding: 0.8rem 1.3rem;
+            border-radius: 14px;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s ease;
+            transition: all 0.25 ease;
         }
 
         .nav-btn.active, .nav-btn:hover {
-            background-color: var(--accent-main);
+            background-color: var(--pink-accent);
             color: #ffffff;
-            border-color: var(--accent-main);
+            border-color: var(--pink-accent);
         }
 
-        /* Page System - Vertical Layout */
+        /* Page Content */
         .page-content {
             display: none;
             background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 18px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem;
+            border-radius: 22px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(216, 150, 159, 0.08);
             flex: 1;
             width: 100%;
         }
@@ -108,117 +107,145 @@
         }
 
         h2 {
-            font-size: 1.35rem;
-            color: var(--text-dark);
+            font-size: 1.6rem;
+            color: var(--pink-accent);
             margin-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--pink-soft);
             padding-bottom: 0.6rem;
-            flex-shrink: 0;
-        }
-
-        /* Timer Box */
-        .timer-box {
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.2rem;
-            text-align: center;
-            margin-bottom: 1.2rem;
-        }
-
-        .timer-display {
-            font-size: 3.2rem;
             font-weight: 900;
-            color: var(--text-dark);
-            margin: 0.4rem 0;
         }
 
-        /* Progress Bar */
-        .progress-box {
-            background-color: var(--bg-main);
-            padding: 1rem;
-            border-radius: 12px;
+        /* Status Badges Section (From Image) */
+        .status-container {
             margin-bottom: 1.2rem;
+            background: var(--pink-soft);
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        .status-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .badges-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge-btn {
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
+            padding: 0.5rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-main);
         }
 
-        .progress-bar-bg {
-            background-color: var(--accent-soft);
-            height: 12px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 0.6rem;
-        }
-
-        .progress-bar-fill {
-            background-color: var(--accent-main);
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease;
+        .badge-btn.selected {
+            background-color: var(--pink-accent);
+            color: white;
+            border-color: var(--pink-accent);
         }
 
         /* Inputs & Buttons */
         .input-group {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.8rem;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
             width: 100%;
         }
 
         input[type="text"], input[type="url"], textarea {
             flex: 1;
-            padding: 0.75rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
             background-color: var(--bg-main);
-            color: var(--text-dark);
-            font-size: 0.9rem;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            font-weight: 500;
             outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--pink-accent);
         }
 
         textarea {
             resize: vertical;
-            min-height: 85px;
+            min-height: 100px;
         }
 
         .btn {
-            background-color: var(--accent-main);
+            background-color: var(--pink-accent);
             color: #ffffff;
             border: none;
-            padding: 0.75rem 1.2rem;
-            font-size: 0.9rem;
+            padding: 0.85rem 1.4rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: 0.2s ease;
+            white-space: nowrap;
         }
 
         .btn:hover {
-            background-color: var(--accent-muted);
+            background-color: var(--pink-hover);
+        }
+
+        /* Notebook Day Block */
+        .day-block {
+            background-color: var(--bg-main);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            width: 100%;
+        }
+
+        .day-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         /* Lists & Items */
         .item-list {
             list-style: none;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             width: 100%;
         }
 
         .item-list li {
-            background-color: var(--bg-main);
-            padding: 0.7rem 0.9rem;
-            border-radius: 10px;
-            margin-bottom: 0.5rem;
+            background-color: var(--card-bg);
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.5rem;
-            border-right: 3px solid var(--accent-main);
+            gap: 0.6rem;
+            border-right: 4px solid var(--pink-accent);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+            font-size: 1.05rem;
         }
 
         .item-list li.done span {
             text-decoration: line-through;
-            opacity: 0.45;
+            opacity: 0.5;
         }
 
         .checkbox-label {
@@ -227,66 +254,100 @@
             gap: 0.8rem;
             cursor: pointer;
             flex: 1;
+            font-weight: 700;
         }
 
         .checkbox-label input {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent-main);
+            width: 20px;
+            height: 20px;
+            accent-color: var(--pink-accent);
         }
 
         .btn-del {
-            background-color: #d1c7bd;
-            color: var(--text-dark);
+            background-color: var(--pink-soft);
+            color: var(--text-main);
             border: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
+            padding: 0.4rem 0.7rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        /* Notebook Day Block */
-        .day-block {
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            width: 100%;
-        }
-
-        .day-title {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.7rem;
         }
 
-        /* Realistic Anti-Procrastination Cards */
+        /* Calendar Row (From Image) */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-day-head {
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 0.3rem;
+        }
+
+        /* Timer Box */
+        .timer-box {
+            background-color: var(--bg-main);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .timer-display {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--pink-accent);
+            margin: 0.4rem 0;
+        }
+
+        /* Procrastination Cards */
         .tip-card {
             background-color: var(--bg-main);
-            border-right: 3px solid var(--accent-main);
-            padding: 0.9rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
+            border-right: 4px solid var(--pink-accent);
+            padding: 1.1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
         }
 
         .tip-card h4 {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+            font-weight: 900;
         }
 
         .tip-card p {
-            font-size: 0.85rem;
+            font-size: 0.98rem;
             color: var(--text-muted);
-            line-height: 1.5;
+            line-height: 1.6;
+            font-weight: 500;
         }
 
         footer {
             text-align: center;
-            padding: 1.2rem 0 0.5rem;
-            font-size: 0.85rem;
+            padding: 1.5rem 0 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
             color: var(--text-muted);
             direction: ltr;
             margin-top: auto;
@@ -297,194 +358,203 @@
 
     <div class="container">
         <header>
-            <h1>منظم الطالب 2027</h1>
-            <p>مساحة هادئة ومريحة للعين لتنظيم الدراسة</p>
+            <h1>مُخططي الدراسي 🌸</h1>
+            <p>منظم الترم التفاعلي - ترتيب أنيق ومريح للعين</p>
         </header>
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-btn active" onclick="showPage('p1', this)">⏱️ المؤقت واليوم</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">📅 الخطة الأسبوعية</button>
-            <button class="nav-btn" onclick="showPage('p3', this)">📚 المواد وملفاتي</button>
-            <button class="nav-btn" onclick="showPage('p4', this)">🔗 الشروحات والروابط</button>
-            <button class="nav-btn" onclick="showPage('p5', this)">💡 نصائح العوائق والتركيز</button>
+            <button class="nav-btn active" onclick="showPage('p1', this)">📅 الخطة الأسبوعية</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">🗓️ التقويم واليوم</button>
+            <button class="nav-btn" onclick="showPage('p3', this)">⏱️ مؤقت التركيز</button>
+            <button class="nav-btn" onclick="showPage('p4', this)">📚 المواد والروابط</button>
+            <button class="nav-btn" onclick="showPage('p5', this)">💡 نصائح عدم التسويف</button>
         </div>
 
-        <!-- Page 1: Today & Interactive Timer -->
+        <!-- Page 1: Weekly Plan (Main Notebook) -->
         <div id="p1" class="page-content active">
-            <h2>جلسة التركيز ومهام اليوم</h2>
-
-            <div class="timer-box">
-                <div style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">جلسة المذاكرة (25 دقيقة)</div>
-                <div class="timer-display" id="timer">25:00</div>
-                <div>
-                    <button class="btn" onclick="startTimer()">بدء</button>
-                    <button class="btn" style="background-color: var(--accent-soft); color: var(--text-dark);" onclick="pauseTimer()">إيقاف</button>
-                    <button class="btn" style="background-color: var(--accent-soft); color: var(--text-dark);" onclick="resetTimer()">إعادة</button>
-                </div>
-            </div>
-
-            <div class="progress-box">
-                <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
-                    <span>نسبة إنجاز اليوم:</span>
-                    <span id="progressText">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="progressBar"></div>
-                </div>
-            </div>
-
-            <h3 style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.95rem;">أهداف اليوم:</h3>
-            <div class="input-group">
-                <input type="text" id="todayGoalInput" placeholder="أضيفي هدفًا يوميًا جديدًا...">
-                <button class="btn" onclick="addTodayGoal()">إضافة</button>
-            </div>
-            <ul class="item-list" id="todayGoalList"></ul>
-        </div>
-
-        <!-- Page 2: Weekly Plan (7 Days Vertical Notebook) -->
-        <div id="p2" class="page-content">
-            <h2>الخطة الأسبوعية</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.85rem;">أضيفي مهام كل يوم وتزداد المربعات تلقائيًا كالنوتة:</p>
+            <h2>🌸 الخطة الأسبوعية والمهام</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1rem; font-weight: 500;">أضيفي مهام كل يوم وتزيد المربعات تلقائيًا كالنوتة:</p>
 
             <div id="weeklyDaysContainer">
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الأحد</div>
+                    <div class="day-title">🌸 يوم الأحد</div>
                     <div class="input-group">
                         <input type="text" id="input-sun" placeholder="أضيفي مهام يوم الأحد...">
-                        <button class="btn" onclick="addDayTask('sun')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('sun')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-sun"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الإثنين</div>
+                    <div class="day-title">🌸 يوم الإثنين</div>
                     <div class="input-group">
                         <input type="text" id="input-mon" placeholder="أضيفي مهام يوم الإثنين...">
-                        <button class="btn" onclick="addDayTask('mon')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('mon')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-mon"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الثلاثاء</div>
+                    <div class="day-title">🌸 يوم الثلاثاء</div>
                     <div class="input-group">
                         <input type="text" id="input-tue" placeholder="أضيفي مهام يوم الثلاثاء...">
-                        <button class="btn" onclick="addDayTask('tue')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('tue')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-tue"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الأربعاء</div>
+                    <div class="day-title">🌸 يوم الأربعاء</div>
                     <div class="input-group">
                         <input type="text" id="input-wed" placeholder="أضيفي مهام يوم الأربعاء...">
-                        <button class="btn" onclick="addDayTask('wed')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('wed')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-wed"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الخميس</div>
+                    <div class="day-title">🌸 يوم الخميس</div>
                     <div class="input-group">
                         <input type="text" id="input-thu" placeholder="أضيفي مهام يوم الخميس...">
-                        <button class="btn" onclick="addDayTask('thu')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('thu')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-thu"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم الجمعة</div>
+                    <div class="day-title">🌸 يوم الجمعة</div>
                     <div class="input-group">
                         <input type="text" id="input-fri" placeholder="أضيفي مهام يوم الجمعة...">
-                        <button class="btn" onclick="addDayTask('fri')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('fri')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-fri"></ul>
                 </div>
 
                 <div class="day-block">
-                    <div class="day-title">📌 يوم السبت</div>
+                    <div class="day-title">🌸 يوم السبت</div>
                     <div class="input-group">
                         <input type="text" id="input-sat" placeholder="أضيفي مهام يوم السبت...">
-                        <button class="btn" onclick="addDayTask('sat')">إضافة</button>
+                        <button class="btn" onclick="addDayTask('sat')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-sat"></ul>
                 </div>
             </div>
+
+            <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 3: Subjects & PDFs -->
+        <!-- Page 2: Calendar & Daily Note (From Provided Image) -->
+        <div id="p2" class="page-content">
+            <h2>🗓️ اختر يومًا من التقويم</h2>
+
+            <div class="calendar-header">
+                <span>‹</span>
+                <span>الشهر الحالية 🌸</span>
+                <span>›</span>
+            </div>
+
+            <div class="calendar-days">
+                <div class="calendar-day-head">أح</div>
+                <div class="calendar-day-head">إث</div>
+                <div class="calendar-day-head">ثلا</div>
+                <div class="calendar-day-head">أرب</div>
+                <div class="calendar-day-head">خم</div>
+                <div class="calendar-day-head">جم</div>
+                <div class="calendar-day-head">سب</div>
+            </div>
+
+            <!-- Badges Section from Image -->
+            <div class="status-container">
+                <div class="status-title">حالة اليوم / ملصق:</div>
+                <div class="badges-group">
+                    <button class="badge-btn" onclick="toggleBadge(this)">✨ إنجاز</button>
+                    <button class="badge-btn" onclick="toggleBadge(this)">📚 اختبار</button>
+                    <button class="badge-btn" onclick="toggleBadge(this)">☕ راحة</button>
+                    <button class="badge-btn" onclick="toggleBadge(this)">💡 فكرة</button>
+                    <button class="badge-btn" onclick="toggleBadge(this)">🎯 هام</button>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">مهام اليوم:</h3>
+            <div class="input-group">
+                <input type="text" id="calTaskInput" placeholder="أضف مادة أو مهمة جديدة...">
+                <button class="btn" onclick="addCalTask()">إضافة 🌸</button>
+            </div>
+            <ul class="item-list" id="calTaskList"></ul>
+
+            <div style="margin-top: 1.2rem;">
+                <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">ملاحظات وتدوين:</h3>
+                <textarea placeholder="اكتبي ملخص يومك، انطباعاتك، أو تذكيرات للغد..."></textarea>
+            </div>
+
+            <footer>@insta:ams_m_5</footer>
+        </div>
+
+        <!-- Page 3: Timer Section -->
         <div id="p3" class="page-content">
-            <h2>المواد الدراسية وملفاتي (PDF)</h2>
+            <h2>⏱️ مؤقت جلسة المذاكرة (Pomodoro)</h2>
+
+            <div class="timer-box">
+                <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-muted);">جلسة التركيز (25 دقيقة)</div>
+                <div class="timer-display" id="timer">25:00</div>
+                <div style="display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem;">
+                    <button class="btn" onclick="startTimer()">بدء 🌸</button>
+                    <button class="btn" style="background-color: var(--pink-soft); color: var(--text-main);" onclick="pauseTimer()">إيقاف</button>
+                    <button class="btn" style="background-color: var(--pink-soft); color: var(--text-main);" onclick="resetTimer()">إعادة</button>
+                </div>
+            </div>
+
+            <footer>@insta:ams_m_5</footer>
+        </div>
+
+        <!-- Page 4: Subjects & Links -->
+        <div id="p4" class="page-content">
+            <h2>📚 المواد الشروحات والملفات</h2>
             
-            <h3 style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.95rem;">قائمة المواد الدراسية:</h3>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">المواد الدراسية:</h3>
             <div class="input-group">
                 <input type="text" id="subjectInput" placeholder="أضيفي مادة دراسية...">
-                <button class="btn" onclick="addSubject()">إضافة</button>
+                <button class="btn" onclick="addSubject()">إضافة 🌸</button>
             </div>
             <ul class="item-list" id="subjectList"></ul>
 
-            <h3 style="margin: 1.2rem 0 0.5rem; color: var(--text-muted); font-size: 0.95rem;">ملفاتي والكتب الدراسية (PDF):</h3>
-            <div class="input-group">
-                <input type="text" id="pdfNameInput" placeholder="اسم الكتاب/الملف...">
-                <input type="url" id="pdfUrlInput" placeholder="رابط الملف (Google Drive/PDF)...">
-                <button class="btn" onclick="addPdf()">إضافة</button>
-            </div>
-            <ul class="item-list" id="pdfList"></ul>
-        </div>
-
-        <!-- Page 4: Links & Explanations -->
-        <div id="p4" class="page-content">
-            <h2>الروابط والشروحات الدراسية</h2>
-            <p style="color: var(--text-muted); margin-bottom: 0.8rem; font-size: 0.85rem;">أضيفي روابط دروس اليوتيوب والشروحات الخارجية لسهولة الوصول إليها:</p>
-            
+            <h3 style="margin: 1.5rem 0 0.6rem; color: var(--text-muted); font-size: 1.05rem;">الروابط الشروحات ودروس اليوتيوب:</h3>
             <div class="input-group">
                 <input type="text" id="linkTitleInput" placeholder="عنوان الدرس / الشرح...">
-                <input type="url" id="linkUrlInput" placeholder="رابط الشرح (YouTube/موقع)...">
-                <button class="btn" onclick="addLink()">إضافة</button>
+                <input type="url" id="linkUrlInput" placeholder="الرابط (YouTube/Drive)...">
+                <button class="btn" onclick="addLink()">إضافة 🌸</button>
             </div>
             <ul class="item-list" id="linkList"></ul>
+
+            <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 5: Realistic Anti-Procrastination & Obstacles -->
+        <!-- Page 5: Tips & Procrastination -->
         <div id="p5" class="page-content">
-            <h2>تجاوز التسويف وملاحظات الأسبوع</h2>
-            
-            <h3 style="margin-bottom: 0.8rem; color: var(--text-muted); font-size: 0.95rem;">خطوات واقعية لتقليل المماطلة أثناء المذاكرة:</h3>
+            <h2>💡 خطوات واقعية لتقليل التسويف</h2>
             
             <div class="tip-card">
-                <h4>1. قاعدة الـ 5 دقائق</h4>
-                <p>إذا كنتِ تشعرين بثقل البدء في مادة معينة، اتفقي مع نفسك على المذاكرة لمدة 5 دقائق فقط. غالباً ما يزول الحاجز النفسي بمجرد البداية.</p>
+                <h4>1. قاعدة الـ 5 دقائق 🌸</h4>
+                <p>إذا تشعرين بثقل البدء في المذاكرة، ابدئي لمدة 5 دقائق فقط. غالبًا الحواجز النفسية تتلاشى فورًا بعد البداية.</p>
             </div>
 
             <div class="tip-card">
-                <h4>2. تجزئة المهمة الكبيرة</h4>
-                <p>بدلاً من كتابة "مذاكرة الفصل الأول"، قسمي المهمة إلى "قراءة 3 صفحات" أو "حل 5 تمارين". الأهداف الصغيرة أقل إخافة للدماغ.</p>
+                <h4>2. تقسيم المهام الكبيرة 🌸</h4>
+                <p>بدلاً من كتابة "مذاكرة الفيزياء"، قسمي الهدف إلى "حل صفحتين" أو "قراءة عنوانين". الأهداف الصغيرة مشجعة ومريحة للعقل.</p>
             </div>
 
             <div class="tip-card">
-                <h4>3. إبعاد الهاتف عن نطاق الرؤية</h4>
-                <p>مجرد وجود الهاتف أمامك يستهلك جزءاً من تركيزك. ضعيه في مكان بعيد خلال جلسة المؤقت (25 دقيقة).</p>
+                <h4>3. إبعاد المشتتات 🌸</h4>
+                <p>ضعي هاتفك في مكان بعيد تماماً أثناء تشغيل مؤقت المذاكرة ليظل تركيزك صافياً ومستقراً.</p>
             </div>
 
-            <div style="margin: 1.5rem 0 1rem;">
-                <label style="display:block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.9rem;">العوائق التي تسببت في تأخري هذا الأسبوع:</label>
-                <textarea placeholder="اكتبي العوائق أو أسباب التشتت لتجنبها..."></textarea>
-            </div>
-
-            <div style="margin-bottom: 1.2rem;">
-                <label style="display:block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.9rem;">حلول عمليّة للأسبوع القادم:</label>
-                <textarea placeholder="اكتبي خطة بسيطة للتعامل مع هذه العوائق..."></textarea>
-            </div>
+            <footer>@insta:ams_m_5</footer>
         </div>
-
-        <footer>
-            @insta:ams_m_5
-        </footer>
     </div>
 
     <script>
-        // Page Navigation
+        // Tab Navigation
         function showPage(pageId, btn) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -493,7 +563,48 @@
             btn.classList.add('active');
         }
 
-        // Pomodoro Timer Logic
+        // Add Task to Specific Day
+        function addDayTask(dayKey) {
+            let input = document.getElementById(`input-${dayKey}`);
+            let text = input.value.trim();
+            if (!text) return;
+
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <label class="checkbox-label">
+                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
+                    <span>🌸 ${text}</span>
+                </label>
+                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
+            `;
+            document.getElementById(`list-${dayKey}`).appendChild(li);
+            input.value = '';
+        }
+
+        // Calendar Day Task
+        function addCalTask() {
+            let input = document.getElementById('calTaskInput');
+            let text = input.value.trim();
+            if (!text) return;
+
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <label class="checkbox-label">
+                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
+                    <span>🌸 ${text}</span>
+                </label>
+                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
+            `;
+            document.getElementById('calTaskList').appendChild(li);
+            input.value = '';
+        }
+
+        // Badge Select
+        function toggleBadge(btn) {
+            btn.classList.toggle('selected');
+        }
+
+        // Timer Logic
         let timerInterval;
         let timeLeft = 25 * 60;
 
@@ -512,7 +623,7 @@
                     updateTimerDisplay();
                 } else {
                     clearInterval(timerInterval);
-                    alert("انتهت جلسة التركيز! خذي استراحة قصيرة 🌿");
+                    alert("انتهت جلسة التركيز! خذي استراحة قصيرة 🌸");
                 }
             }, 1000);
         }
@@ -527,58 +638,7 @@
             updateTimerDisplay();
         }
 
-        // Progress Calculation
-        function updateProgress() {
-            let items = document.querySelectorAll('#todayGoalList input[type="checkbox"]');
-            if (items.length === 0) {
-                document.getElementById('progressBar').style.width = '0%';
-                document.getElementById('progressText').innerText = '0%';
-                return;
-            }
-            let checked = document.querySelectorAll('#todayGoalList input[type="checkbox"]:checked');
-            let percentage = Math.round((checked.length / items.length) * 100);
-            
-            document.getElementById('progressBar').style.width = percentage + '%';
-            document.getElementById('progressText').innerText = percentage + '%';
-        }
-
-        function addTodayGoal() {
-            let input = document.getElementById('todayGoalInput');
-            let text = input.value.trim();
-            if (!text) return;
-
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <label class="checkbox-label">
-                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done'); updateProgress();">
-                    <span>${text}</span>
-                </label>
-                <button class="btn-del" onclick="this.parentElement.remove(); updateProgress();">حذف</button>
-            `;
-            document.getElementById('todayGoalList').appendChild(li);
-            input.value = '';
-            updateProgress();
-        }
-
-        // Add Day Task (Notebook Notebook Items)
-        function addDayTask(dayKey) {
-            let input = document.getElementById(`input-${dayKey}`);
-            let text = input.value.trim();
-            if (!text) return;
-
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <label class="checkbox-label">
-                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
-                    <span>${text}</span>
-                </label>
-                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
-            `;
-            document.getElementById(`list-${dayKey}`).appendChild(li);
-            input.value = '';
-        }
-
-        // Add Subjects
+        // Add Subject
         function addSubject() {
             let input = document.getElementById('subjectInput');
             let text = input.value.trim();
@@ -593,26 +653,7 @@
             input.value = '';
         }
 
-        // Add PDF Files
-        function addPdf() {
-            let nameInput = document.getElementById('pdfNameInput');
-            let urlInput = document.getElementById('pdfUrlInput');
-            let name = nameInput.value.trim();
-            let url = urlInput.value.trim() || '#';
-
-            if (!name) return;
-
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <span>📄 <a href="${url}" target="_blank" style="color:var(--text-dark); text-decoration:underline;">${name}</a></span>
-                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
-            `;
-            document.getElementById('pdfList').appendChild(li);
-            nameInput.value = '';
-            urlInput.value = '';
-        }
-
-        // Add Links
+        // Add Link
         function addLink() {
             let titleInput = document.getElementById('linkTitleInput');
             let urlInput = document.getElementById('linkUrlInput');
@@ -623,7 +664,7 @@
 
             let li = document.createElement('li');
             li.innerHTML = `
-                <span>🎥 <a href="${url}" target="_blank" style="color:var(--accent-muted); font-weight:700;">${title}</a></span>
+                <span>🎥 <a href="${url}" target="_blank" style="color:var(--pink-accent); font-weight:700;">${title}</a></span>
                 <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
             `;
             document.getElementById('linkList').appendChild(li);
