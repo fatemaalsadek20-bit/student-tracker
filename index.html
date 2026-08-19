@@ -227,6 +227,63 @@
             transition: width 0.4s ease;
         }
 
+        /* Water Tracker Bar */
+        .water-tracker-box {
+            background-color: var(--pink-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .water-cups {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .water-cup {
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .water-cup.active {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        /* Motivational Card Generator */
+        .quote-box {
+            background-color: var(--pink-soft);
+            border-right: 4px solid var(--pink-accent);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--pink-accent);
+            margin-bottom: 0.6rem;
+        }
+
+        /* Reward Box */
+        .reward-card {
+            background-color: var(--bg-main);
+            border: 2px dashed var(--pink-accent);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
         /* Animated Star Rating System */
         .star-rating-box {
             margin-top: 0.8rem;
@@ -309,7 +366,7 @@
             width: 100%;
         }
 
-        input[type="text"], input[type="url"], textarea {
+        input[type="text"], input[type="number"], input[type="date"], input[type="url"], textarea, select {
             flex: 1;
             padding: 0.85rem 1rem;
             border-radius: 12px;
@@ -321,7 +378,7 @@
             outline: none;
         }
 
-        input[type="text"]:focus, textarea:focus {
+        input[type="text"]:focus, textarea:focus, select:focus {
             border-color: var(--pink-accent);
         }
 
@@ -468,7 +525,7 @@
             font-weight: 700;
         }
 
-        /* Timer Box */
+        /* Timer Box & Task Splitter */
         .timer-box {
             background-color: var(--bg-main);
             border: 2px solid var(--border-color);
@@ -483,6 +540,14 @@
             font-weight: 900;
             color: var(--pink-accent);
             margin: 0.4rem 0;
+        }
+
+        .calculator-card {
+            background-color: var(--bg-main);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-top: 1.2rem;
         }
 
         /* Procrastination Cards */
@@ -511,6 +576,26 @@
             font-weight: 500;
         }
 
+        /* Exam Table & Habit Tracker */
+        .exam-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .exam-table th, .exam-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .exam-table th {
+            background-color: var(--pink-soft);
+            color: var(--pink-accent);
+            font-weight: 900;
+        }
+
         footer {
             text-align: center;
             padding: 1.5rem 0 0.5rem;
@@ -529,6 +614,12 @@
             <h1 contenteditable="true" id="plannerTitle" onblur="savePlannerTitle()">مُخططي الدراسي 🌸</h1>
             <p>منظم الترم التفاعلي (اضغطي على العنوان لتعديل اسمك)</p>
         </header>
+
+        <!-- Motivational Quote Banner -->
+        <div class="quote-box">
+            <div class="quote-text" id="quoteDisplay">"كل خطوة صغيرة تقومين بها اليوم تقربك من هدفك الكبير 💫"</div>
+            <button class="btn" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="generateQuote()">عبارة تشجيعية جديدة ✨</button>
+        </div>
 
         <!-- Top Overview Section -->
         <div class="top-overview-card">
@@ -550,10 +641,11 @@
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-btn active" onclick="showPage('p1', this)">📅 الخطة الأسبوعية</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">✨ قائمة الإنجاز</button>
-            <button class="nav-btn" onclick="showPage('p3', this)">⏱️ مؤقت التركيز</button>
-            <button class="nav-btn" onclick="showPage('p4', this)">📚 المواد والروابط</button>
-            <button class="nav-btn" onclick="showPage('p5', this)">💡 نصائح عدم التسويف</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">✨ قائمة الإنجاز والمكافأة</button>
+            <button class="nav-btn" onclick="showPage('p3', this)">📝 الاختبارات والعادات</button>
+            <button class="nav-btn" onclick="showPage('p4', this)">⏱️ المؤقت وحاسبة المهام</button>
+            <button class="nav-btn" onclick="showPage('p5', this)">📚 المواد والأسئلة</button>
+            <button class="nav-btn" onclick="showPage('p6', this)">💡 نصائح عدم التسويف</button>
         </div>
 
         <!-- Page 1: Weekly Plan -->
@@ -590,6 +682,17 @@
                     </div>
                     <ul class="item-list" id="list-sun"></ul>
                     
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-sun">
+                            <span class="water-cup" onclick="toggleWater('sun', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sun', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sun', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sun', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sun', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -624,6 +727,17 @@
                     </div>
                     <ul class="item-list" id="list-mon"></ul>
                     
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-mon">
+                            <span class="water-cup" onclick="toggleWater('mon', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('mon', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('mon', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('mon', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('mon', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -658,6 +772,17 @@
                     </div>
                     <ul class="item-list" id="list-tue"></ul>
                     
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-tue">
+                            <span class="water-cup" onclick="toggleWater('tue', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('tue', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('tue', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('tue', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('tue', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -691,7 +816,18 @@
                         <button class="btn" onclick="addDayTask('wed')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-wed"></ul>
-                    
+
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-wed">
+                            <span class="water-cup" onclick="toggleWater('wed', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('wed', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('wed', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('wed', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('wed', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -725,7 +861,18 @@
                         <button class="btn" onclick="addDayTask('thu')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-thu"></ul>
-                    
+
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-thu">
+                            <span class="water-cup" onclick="toggleWater('thu', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('thu', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('thu', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('thu', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('thu', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -759,7 +906,18 @@
                         <button class="btn" onclick="addDayTask('fri')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-fri"></ul>
-                    
+
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-fri">
+                            <span class="water-cup" onclick="toggleWater('fri', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('fri', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('fri', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('fri', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('fri', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -793,7 +951,18 @@
                         <button class="btn" onclick="addDayTask('sat')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-sat"></ul>
-                    
+
+                    <div class="water-tracker-box">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
+                        <div class="water-cups" id="water-sat">
+                            <span class="water-cup" onclick="toggleWater('sat', 0)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sat', 1)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sat', 2)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sat', 3)">💧</span>
+                            <span class="water-cup" onclick="toggleWater('sat', 4)">💧</span>
+                        </div>
+                    </div>
+
                     <div class="day-progress-box">
                         <div class="day-progress-info">
                             <span>نسبة إنجاز اليوم:</span>
@@ -817,7 +986,7 @@
                 </div>
             </div>
 
-            <!-- Weekly Review Block (New Section) -->
+            <!-- Weekly Review Block -->
             <div class="weekly-review-box">
                 <div class="weekly-review-title">📝 مراجعة وملاحظات الأسبوع</div>
                 
@@ -837,23 +1006,66 @@
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 2: Achievement & General Stickers -->
+        <!-- Page 2: Achievement & Rewards -->
         <div id="p2" class="page-content">
-            <h2>✨ قائمة الإنجاز العامة</h2>
+            <h2>✨ قائمة الإنجاز العامة وصندوق المكافآت</h2>
 
-            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضفي إنجازًا عامًا للترم:</h3>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضيفي إنجازًا عامًا للترم:</h3>
             <div class="input-group">
                 <input type="text" id="achievementInput" placeholder="أكتبي هدفًا أو إنجازًا كبيرًا...">
                 <button class="btn" onclick="addAchievementTask()">إضافة 🌸</button>
             </div>
             <ul class="item-list" id="achievementList"></ul>
 
+            <!-- Reward System -->
+            <div class="reward-card">
+                <h3 style="color: var(--pink-accent); font-weight: 900; margin-bottom: 0.5rem;">🎁 صندوق المكافآت الأسبوعية</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.8rem;">حددي مكافأتكِ عند تحقق نسبة إنجاز 80% أو أكثر في الأسبوع:</p>
+                <div class="input-group">
+                    <input type="text" id="rewardInput" placeholder="مثال: الخروج مع صديقة، طلب وجبة مفضلة، قراءة كتاب مفضل..." oninput="saveRewardData()">
+                </div>
+            </div>
+
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 3: Timer Section -->
+        <!-- Page 3: Exams & Habit Tracker -->
         <div id="p3" class="page-content">
-            <h2>⏱️ مؤقت جلسة المذاكرة (Pomodoro)</h2>
+            <h2>📝 جدول الاختبارات ومُتتبع العادات</h2>
+
+            <h3 style="margin-bottom: 0.6rem; color: var(--pink-accent); font-weight: 900;">📅 جدول الاختبارات الشهرية والنهائية</h3>
+            <div class="input-group">
+                <input type="text" id="examSubject" placeholder="المادة...">
+                <input type="date" id="examDate">
+                <input type="text" id="examScope" placeholder="التحديد المقرر...">
+                <button class="btn" onclick="addExam()">إضافة 🌸</button>
+            </div>
+
+            <table class="exam-table">
+                <thead>
+                    <tr>
+                        <th>المادة</th>
+                        <th>التاريخ</th>
+                        <th>التحديد المقرر</th>
+                        <th>إجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="examTableBody"></tbody>
+            </table>
+
+            <h3 style="margin: 2rem 0 0.6rem; color: var(--pink-accent); font-weight: 900;">🌱 مُتتبع العادات الدراسية والصحية</h3>
+            <div class="input-group">
+                <input type="text" id="habitInput" placeholder="أضيفي عادتكِ (مثال: قراءة 10 دقائق، نوم مبكر)...">
+                <button class="btn" onclick="addHabit()">إضافة 🌸</button>
+            </div>
+            <ul class="item-list" id="habitList"></ul>
+
+            <footer>@insta:ams_m_5</footer>
+        </div>
+
+        <!-- Page 4: Timer & Task Splitter -->
+        <div id="p4" class="page-content">
+            <h2>⏱️ مؤقت التركيز وحاسبة المهام</h2>
 
             <div class="timer-box">
                 <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-muted);">جلسة التركيز (25 دقيقة)</div>
@@ -865,12 +1077,23 @@
                 </div>
             </div>
 
+            <!-- Task Splitter -->
+            <div class="calculator-card">
+                <h3 style="color: var(--pink-accent); font-weight: 900; margin-bottom: 0.8rem;">📐 مُقسّم الوقت والصفحات للواجبات</h3>
+                <div class="input-group">
+                    <input type="number" id="totalPages" placeholder="إجمالي عدد الصفحات...">
+                    <input type="number" id="totalMinutes" placeholder="الوقت المتاح (بالدقائق)...">
+                    <button class="btn" onclick="calculateSplit()">حساب 🌸</button>
+                </div>
+                <div id="calculatorResult" style="font-weight: 700; color: var(--text-main); margin-top: 0.5rem;"></div>
+            </div>
+
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 4: Subjects & Links -->
-        <div id="p4" class="page-content">
-            <h2>📚 المواد الشروحات والملفات</h2>
+        <!-- Page 5: Subjects & Teacher Questions -->
+        <div id="p5" class="page-content">
+            <h2>📚 المواد والروابط وأسئلة المعلم/المعلمة</h2>
             
             <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">المواد الدراسية:</h3>
             <div class="input-group">
@@ -887,11 +1110,19 @@
             </div>
             <ul class="item-list" id="linkList"></ul>
 
+            <!-- Teacher Questions Section -->
+            <h3 style="margin: 1.5rem 0 0.6rem; color: var(--pink-accent); font-weight: 900;">❓ أسئلة واستفسارات أود سؤال المعلم/المعلمة عنها</h3>
+            <div class="input-group">
+                <input type="text" id="questionInput" placeholder="دون النقاط غير الواضحة أثناء المذاكرة...">
+                <button class="btn" onclick="addTeacherQuestion()">إضافة 🌸</button>
+            </div>
+            <ul class="item-list" id="teacherQuestionList"></ul>
+
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 5: Realistic Procrastination Tips -->
-        <div id="p5" class="page-content">
+        <!-- Page 6: Realistic Procrastination Tips -->
+        <div id="p6" class="page-content">
             <h2>💡 تجارب وخطوات واقعية لتجاوز التسويف</h2>
             
             <div class="tip-card">
@@ -921,8 +1152,21 @@
     <script>
         let currentTargetDay = 'sun';
         const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+        
+        const quotes = [
+            "كل خطوة صغيرة تقومين بها اليوم تقربك من هدفك الكبير 💫",
+            "أنتِ أقدر مما تظنين والنجاح يليق بكِ دائمًا ✨",
+            "الاستمرارية الهادئة تحقق ما لا تحققه البدايات القوية 🌸",
+            "ركزي على إنجاز اليوم، والغد سيتكفل بنفسه 👑",
+            "الفخر الحقيقي هو أن تتحدي كاهلك وتستمرين 💪"
+        ];
 
-        // Web Audio API Sound Generator (No external files needed)
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quoteDisplay').innerText = quotes[randomIndex];
+        }
+
+        // Sound Generator
         function playPopSound() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -940,7 +1184,7 @@
             } catch (e) {}
         }
 
-        // Tab Navigation
+        // Navigation
         function showPage(pageId, btn) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -949,7 +1193,7 @@
             btn.classList.add('active');
         }
 
-        // Add Task to Specific Day
+        // Day Task Handlers
         function addDayTask(dayKey) {
             let input = document.getElementById(`input-${dayKey}`);
             let text = input.value.trim();
@@ -1010,13 +1254,8 @@
             percentSpan.innerText = percentage + '%';
             barFill.style.width = percentage + '%';
 
-            // Confetti Trigger on 100%
             if (percentage === 100) {
-                confetti({
-                    particleCount: 50,
-                    spread: 60,
-                    origin: { y: 0.7 }
-                });
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
             }
 
             updateTotalWeeklyProgress();
@@ -1038,7 +1277,17 @@
             document.getElementById('totalWeeklyBar').style.width = totalPercent + '%';
         }
 
-        // Add Floating Stickers
+        // Water Tracker Toggle
+        function toggleWater(dayKey, index) {
+            let cups = document.querySelectorAll(`#water-${dayKey} .water-cup`);
+            for (let i = 0; i <= index; i++) {
+                cups[i].classList.toggle('active');
+            }
+            playPopSound();
+            saveAllData();
+        }
+
+        // Sticker System
         function addStickerToDay(stickerText) {
             createStickerElement(currentTargetDay, stickerText);
             playPopSound();
@@ -1053,7 +1302,7 @@
             stickersContainer.appendChild(chip);
         }
 
-        // Star Rating System
+        // Rating Stars
         function rateDay(dayKey, stars) {
             let starsBox = document.getElementById(`stars-${dayKey}`);
             let starElements = starsBox.querySelectorAll('.star-icon');
@@ -1069,12 +1318,13 @@
             saveAllData();
         }
 
-        // Reset Entire Week
+        // Reset Week
         function resetEntireWeek() {
             if (confirm("هل أنتِ متأكدة من إفراغ كافة مهام وملاحظات الأسبوع لبدء أسبوع جديد؟")) {
                 days.forEach(day => {
                     document.getElementById(`list-${day}`).innerHTML = '';
                     document.getElementById(`stickers-${day}`).innerHTML = '';
+                    document.querySelectorAll(`#water-${day} .water-cup`).forEach(c => c.classList.remove('active'));
                     rateDay(day, 0);
                     updateDayProgress(day);
                 });
@@ -1084,7 +1334,7 @@
             }
         }
 
-        // Achievement List
+        // Achievements
         function addAchievementTask() {
             let input = document.getElementById('achievementInput');
             let text = input.value.trim();
@@ -1109,7 +1359,60 @@
             document.getElementById('achievementList').appendChild(li);
         }
 
-        // Timer Logic
+        // Exam Manager
+        function addExam() {
+            let subject = document.getElementById('examSubject').value.trim();
+            let date = document.getElementById('examDate').value;
+            let scope = document.getElementById('examScope').value.trim();
+
+            if (!subject || !date) return;
+
+            createExamRow(subject, date, scope);
+            document.getElementById('examSubject').value = '';
+            document.getElementById('examDate').value = '';
+            document.getElementById('examScope').value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createExamRow(subject, date, scope) {
+            let tbody = document.getElementById('examTableBody');
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><b>${subject}</b></td>
+                <td>${date}</td>
+                <td>${scope || 'غير محدد'}</td>
+                <td><button class="btn-del" onclick="this.closest('tr').remove(); saveAllData();">حذف</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        // Habit Tracker
+        function addHabit() {
+            let input = document.getElementById('habitInput');
+            let text = input.value.trim();
+            if (!text) return;
+
+            createHabitElement(text, false);
+            input.value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createHabitElement(text, isDone) {
+            let li = document.createElement('li');
+            if (isDone) li.classList.add('done');
+            li.innerHTML = `
+                <label class="checkbox-label">
+                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="this.closest('li').classList.toggle('done'); saveAllData();">
+                    <span>🌱 ${text}</span>
+                </label>
+                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
+            `;
+            document.getElementById('habitList').appendChild(li);
+        }
+
+        // Timer
         let timerInterval;
         let timeLeft = 25 * 60;
 
@@ -1140,7 +1443,22 @@
             updateTimerDisplay();
         }
 
-        // Add Subject & Links
+        // Task Splitter Calculation
+        function calculateSplit() {
+            let pages = parseFloat(document.getElementById('totalPages').value);
+            let minutes = parseFloat(document.getElementById('totalMinutes').value);
+            let resultDiv = document.getElementById('calculatorResult');
+
+            if (!pages || !minutes || pages <= 0 || minutes <= 0) {
+                resultDiv.innerText = "الرجاء إدخال أرقام صحيحة أكبر من الصفر.";
+                return;
+            }
+
+            let perPage = (minutes / pages).toFixed(1);
+            resultDiv.innerText = `💡 تحتاجين إلى حوالي (${perPage}) دقيقة لكل صفحة لإتمام الواجب في الوقت المحدد!`;
+        }
+
+        // Subjects, Links & Questions
         function addSubject() {
             let input = document.getElementById('subjectInput');
             let text = input.value.trim();
@@ -1185,13 +1503,37 @@
             document.getElementById('linkList').appendChild(li);
         }
 
-        // LocalStorage Save & Load Engine
+        function addTeacherQuestion() {
+            let input = document.getElementById('questionInput');
+            let text = input.value.trim();
+            if (!text) return;
+
+            createTeacherQuestionElement(text);
+            input.value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createTeacherQuestionElement(text) {
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <span>❓ ${text}</span>
+                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
+            `;
+            document.getElementById('teacherQuestionList').appendChild(li);
+        }
+
+        // LocalStorage Engine
         function savePlannerTitle() {
             localStorage.setItem('planner_title', document.getElementById('plannerTitle').innerText);
         }
 
         function savePriorityData() {
             localStorage.setItem('planner_priority', document.getElementById('weeklyPriorityInput').value);
+        }
+
+        function saveRewardData() {
+            localStorage.setItem('planner_reward', document.getElementById('rewardInput').value);
         }
 
         function saveReviewData() {
@@ -1202,12 +1544,16 @@
             let data = {
                 priority: document.getElementById('weeklyPriorityInput').value,
                 title: document.getElementById('plannerTitle').innerText,
+                reward: document.getElementById('rewardInput').value,
                 reviewObstacles: document.getElementById('reviewObstacles').value,
                 reviewSolutions: document.getElementById('reviewSolutions').value,
                 days: {},
                 achievements: [],
+                exams: [],
+                habits: [],
                 subjects: [],
-                links: []
+                links: [],
+                questions: []
             };
 
             days.forEach(day => {
@@ -1224,14 +1570,27 @@
                     stickers.push(chip.childNodes[0].textContent.trim());
                 });
 
+                let waterCount = document.querySelectorAll(`#water-${day} .water-cup.active`).length;
                 let stars = document.querySelectorAll(`#stars-${day} .star-icon.active`).length;
 
-                data.days[day] = { tasks: dayTasks, stickers: stickers, stars: stars };
+                data.days[day] = { tasks: dayTasks, stickers: stickers, water: waterCount, stars: stars };
             });
 
             document.querySelectorAll('#achievementList li').forEach(li => {
                 data.achievements.push({
                     text: li.querySelector('span').innerText.replace('✨ ', ''),
+                    done: li.classList.contains('done')
+                });
+            });
+
+            document.querySelectorAll('#examTableBody tr').forEach(tr => {
+                let tds = tr.querySelectorAll('td');
+                data.exams.push({ subject: tds[0].innerText, date: tds[1].innerText, scope: tds[2].innerText });
+            });
+
+            document.querySelectorAll('#habitList li').forEach(li => {
+                data.habits.push({
+                    text: li.querySelector('span').innerText.replace('🌱 ', ''),
                     done: li.classList.contains('done')
                 });
             });
@@ -1245,6 +1604,10 @@
                 data.links.push({ title: a.innerText, url: a.href });
             });
 
+            document.querySelectorAll('#teacherQuestionList li span').forEach(span => {
+                data.questions.push(span.innerText.replace('❓ ', ''));
+            });
+
             localStorage.setItem('planner_master_data', JSON.stringify(data));
         }
 
@@ -1256,6 +1619,7 @@
 
             if (data.title) document.getElementById('plannerTitle').innerText = data.title;
             if (data.priority) document.getElementById('weeklyPriorityInput').value = data.priority;
+            if (data.reward) document.getElementById('rewardInput').value = data.reward;
             if (data.reviewObstacles) document.getElementById('reviewObstacles').value = data.reviewObstacles;
             if (data.reviewSolutions) document.getElementById('reviewSolutions').value = data.reviewSolutions;
 
@@ -1264,6 +1628,12 @@
                     if (data.days[day]) {
                         data.days[day].tasks.forEach(t => createTaskElement(day, t.text, t.done));
                         data.days[day].stickers.forEach(s => createStickerElement(day, s));
+                        
+                        let cups = document.querySelectorAll(`#water-${day} .water-cup`);
+                        for (let i = 0; i < (data.days[day].water || 0); i++) {
+                            if (cups[i]) cups[i].classList.add('active');
+                        }
+
                         rateDay(day, data.days[day].stars || 0);
                         updateDayProgress(day);
                     }
@@ -1271,13 +1641,15 @@
             }
 
             if (data.achievements) data.achievements.forEach(a => createAchievementElement(a.text, a.done));
+            if (data.exams) data.exams.forEach(e => createExamRow(e.subject, e.date, e.scope));
+            if (data.habits) data.habits.forEach(h => createHabitElement(h.text, h.done));
             if (data.subjects) data.subjects.forEach(s => createSubjectElement(s));
             if (data.links) data.links.forEach(l => createLinkElement(l.title, l.url));
+            if (data.questions) data.questions.forEach(q => createTeacherQuestionElement(q));
 
             updateTotalWeeklyProgress();
         }
 
-        // Initialize App
         window.onload = loadAllData;
     </script>
 </body>
