@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظم الطالب الذكي 2027</title>
+    <title>منظم الطالب 2027</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #faf6f0;
+            --bg-main: #f8f5fc;
             --card-bg: #ffffff;
-            --accent-soft: #f3e8dc;
-            --accent-warm: #e2b989;
-            --accent-hover: #cd9a61;
-            --text-dark: #3d342f;
-            --text-muted: #8c7a6b;
-            --border-color: #ebdcd0;
-            --success: #81c784;
+            --accent-main: #b892ff;
+            --accent-soft: #f0e6ff;
+            --accent-pink: #f7aef8;
+            --text-dark: #3a2e4c;
+            --text-muted: #827397;
+            --border-color: #e5d4f3;
         }
 
         * {
@@ -26,26 +25,29 @@
         }
 
         html, body {
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
             background-color: var(--bg-main);
             color: var(--text-dark);
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            flex: 1;
+            height: 100%;
             display: flex;
             flex-direction: column;
+            padding: 15px;
+            max-width: 100%;
+            flex: 1;
         }
 
         header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
         }
 
         header h1 {
@@ -56,25 +58,26 @@
 
         header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         /* Nav Tabs */
         .nav-tabs {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             overflow-x: auto;
             padding-bottom: 5px;
+            flex-shrink: 0;
         }
 
         .nav-btn {
             background-color: var(--card-bg);
             color: var(--text-dark);
             border: 1px solid var(--border-color);
-            padding: 0.8rem 1.2rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
@@ -82,32 +85,35 @@
         }
 
         .nav-btn.active, .nav-btn:hover {
-            background-color: var(--accent-warm);
+            background-color: var(--accent-main);
             color: #fff;
-            border-color: var(--accent-warm);
+            border-color: var(--accent-main);
         }
 
-        /* Page System */
+        /* Page System - Fill Available Height */
         .page-content {
             display: none;
             background-color: var(--card-bg);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 20px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 20px rgba(184, 146, 255, 0.08);
             flex: 1;
+            overflow-y: auto;
         }
 
         .page-content.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
         }
 
         h2 {
-            font-size: 1.6rem;
-            color: var(--accent-hover);
-            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            color: var(--accent-main);
+            margin-bottom: 1rem;
             border-bottom: 2px solid var(--bg-main);
             padding-bottom: 0.5rem;
+            flex-shrink: 0;
         }
 
         /* Progress Bar */
@@ -115,20 +121,21 @@
             background-color: var(--bg-main);
             padding: 1rem;
             border-radius: 12px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             border: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .progress-bar-bg {
-            background-color: #e0e0e0;
-            height: 18px;
+            background-color: #e8ddf5;
+            height: 16px;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 0.5rem;
         }
 
         .progress-bar-fill {
-            background-color: var(--accent-warm);
+            background-color: var(--accent-main);
             height: 100%;
             width: 0%;
             transition: width 0.4s ease;
@@ -138,17 +145,18 @@
         .input-group {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
         }
 
         input[type="text"], input[type="url"], textarea {
             flex: 1;
-            padding: 0.8rem;
+            padding: 0.75rem;
             border-radius: 10px;
             border: 1px solid var(--border-color);
             background-color: var(--bg-main);
             color: var(--text-dark);
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
         }
 
@@ -158,11 +166,11 @@
         }
 
         .btn {
-            background-color: var(--accent-warm);
+            background-color: var(--accent-main);
             color: #fff;
             border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+            padding: 0.75rem 1.3rem;
+            font-size: 0.95rem;
             font-weight: 700;
             border-radius: 10px;
             cursor: pointer;
@@ -170,29 +178,31 @@
         }
 
         .btn:hover {
-            background-color: var(--accent-hover);
+            background-color: var(--accent-pink);
+            color: var(--text-dark);
         }
 
-        /* List Items */
+        /* Lists & Days Notebook Style */
         .item-list {
             list-style: none;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .item-list li {
             background-color: var(--bg-main);
-            padding: 0.8rem 1rem;
+            padding: 0.7rem 1rem;
             border-radius: 10px;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 0.5rem;
+            border-right: 4px solid var(--accent-main);
         }
 
         .item-list li.done span {
             text-decoration: line-through;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         .checkbox-label {
@@ -204,50 +214,47 @@
         }
 
         .checkbox-label input {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent-warm);
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-main);
         }
 
         .btn-del {
-            background-color: #e57373;
+            background-color: #ff85a1;
             color: #fff;
             border: none;
             padding: 0.3rem 0.6rem;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        /* Weekly Accordion/Tabs */
-        .week-selector {
-            display: flex;
-            gap: 0.5rem;
+        /* Day Block - Notebook Layout */
+        .day-block {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1rem;
             margin-bottom: 1rem;
         }
 
-        .week-btn {
-            flex: 1;
-            padding: 0.6rem;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
+        .day-title {
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .week-btn.active {
-            background-color: var(--accent-soft);
-            border-color: var(--accent-warm);
+            color: var(--accent-main);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         footer {
             text-align: center;
-            padding: 1.5rem 0;
+            padding: 0.8rem 0;
             font-size: 0.85rem;
             color: var(--text-muted);
             direction: ltr;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -255,14 +262,14 @@
 
     <div class="container">
         <header>
-            <h1>منظم الطالب الذكي 2027</h1>
+            <h1>منظم الطالب 2027</h1>
             <p>مساحتك التفاعلية المتكاملة لتنظيم الدراسة والعادات</p>
         </header>
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-btn active" onclick="showPage('p1', this)">🎯 اليوم والتقدم</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">📅 الخطة الأسبوعية (4 أسابيع)</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">📅 الخطة الأسبوعية الشاملة</button>
             <button class="nav-btn" onclick="showPage('p3', this)">📚 المواد وملفاتي</button>
             <button class="nav-btn" onclick="showPage('p4', this)">🔗 الشروحات والروابط</button>
             <button class="nav-btn" onclick="showPage('p5', this)">📝 العوائق والحلول</button>
@@ -274,7 +281,7 @@
             
             <div class="progress-box">
                 <div style="display: flex; justify-content: space-between; font-weight: 700;">
-                    <span>نسبة الإنجاز:</span>
+                    <span>نسبة الإنجاز اليومي:</span>
                     <span id="progressText">0%</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -282,7 +289,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-bottom: 0.8rem; color: var(--text-muted);">أهداف اليوم:</h3>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1rem;">أهداف اليوم:</h3>
             <div class="input-group">
                 <input type="text" id="todayGoalInput" placeholder="أضف هدفًا يوميًا جديدًا...">
                 <button class="btn" onclick="addTodayGoal()">إضافة</button>
@@ -290,24 +297,81 @@
             <ul class="item-list" id="todayGoalList"></ul>
         </div>
 
-        <!-- Page 2: 4 Weeks Plan -->
+        <!-- Page 2: Weekly Plan (All 7 Days Vertical Notebook) -->
         <div id="p2" class="page-content">
-            <h2>الخطة الدراسية (4 أسابيع)</h2>
-            
-            <div class="week-selector">
-                <button class="week-btn active" onclick="switchWeek(1)">الأسبوع 1</button>
-                <button class="week-btn" onclick="switchWeek(2)">الأسبوع 2</button>
-                <button class="week-btn" onclick="switchWeek(3)">الأسبوع 3</button>
-                <button class="week-btn" onclick="switchWeek(4)">الأسبوع 4</button>
-            </div>
+            <h2>الخطة الأسبوعية</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">أضف أهدافك ومهامك لكل يوم، وتزيد المربعات تلقائيًا كالنوتة:</p>
 
-            <div id="weekContent">
-                <h3 id="weekTitle" style="margin: 1rem 0; color: var(--accent-hover);">أهداف الأسبوع 1</h3>
-                <div class="input-group">
-                    <input type="text" id="weekGoalInput" placeholder="أضف هدفًا خاصًا بهذا الأسبوع...">
-                    <button class="btn" onclick="addWeekGoal()">إضافة</button>
+            <div id="weeklyDaysContainer">
+                <!-- Sunday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الأحد</div>
+                    <div class="input-group">
+                        <input type="text" id="input-sun" placeholder="أضف هدفاً ليوم الأحد...">
+                        <button class="btn" onclick="addDayTask('sun')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-sun"></ul>
                 </div>
-                <ul class="item-list" id="weekGoalList"></ul>
+
+                <!-- Monday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الإثنين</div>
+                    <div class="input-group">
+                        <input type="text" id="input-mon" placeholder="أضف هدفاً ليوم الإثنين...">
+                        <button class="btn" onclick="addDayTask('mon')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-mon"></ul>
+                </div>
+
+                <!-- Tuesday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الثلاثاء</div>
+                    <div class="input-group">
+                        <input type="text" id="input-tue" placeholder="أضف هدفاً ليوم الثلاثاء...">
+                        <button class="btn" onclick="addDayTask('tue')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-tue"></ul>
+                </div>
+
+                <!-- Wednesday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الأربعاء</div>
+                    <div class="input-group">
+                        <input type="text" id="input-wed" placeholder="أضف هدفاً ليوم الأربعاء...">
+                        <button class="btn" onclick="addDayTask('wed')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-wed"></ul>
+                </div>
+
+                <!-- Thursday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الخميس</div>
+                    <div class="input-group">
+                        <input type="text" id="input-thu" placeholder="أضف هدفاً ليوم الخميس...">
+                        <button class="btn" onclick="addDayTask('thu')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-thu"></ul>
+                </div>
+
+                <!-- Friday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم الجمعة</div>
+                    <div class="input-group">
+                        <input type="text" id="input-fri" placeholder="أضف هدفاً ليوم الجمعة...">
+                        <button class="btn" onclick="addDayTask('fri')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-fri"></ul>
+                </div>
+
+                <!-- Saturday -->
+                <div class="day-block">
+                    <div class="day-title">📌 يوم السبت</div>
+                    <div class="input-group">
+                        <input type="text" id="input-sat" placeholder="أضف هدفاً ليوم السبت...">
+                        <button class="btn" onclick="addDayTask('sat')">إضافة</button>
+                    </div>
+                    <ul class="item-list" id="list-sat"></ul>
+                </div>
             </div>
         </div>
 
@@ -315,14 +379,14 @@
         <div id="p3" class="page-content">
             <h2>المواد الدراسية وملفاتي (PDF)</h2>
             
-            <h3 style="margin-bottom: 0.8rem; color: var(--text-muted);">قائمة المواد الدراسية:</h3>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1rem;">قائمة المواد الدراسية:</h3>
             <div class="input-group">
                 <input type="text" id="subjectInput" placeholder="إضافة مادة دراسية...">
                 <button class="btn" onclick="addSubject()">إضافة</button>
             </div>
             <ul class="item-list" id="subjectList"></ul>
 
-            <h3 style="margin: 1.5rem 0 0.8rem; color: var(--text-muted);">ملفاتي والكتب الدراسية (PDF):</h3>
+            <h3 style="margin: 1.2rem 0 0.6rem; color: var(--text-muted); font-size: 1rem;">ملفاتي والكتب الدراسية (PDF):</h3>
             <div class="input-group">
                 <input type="text" id="pdfNameInput" placeholder="اسم الكتاب/الملف...">
                 <input type="url" id="pdfUrlInput" placeholder="رابط الملف (Google Drive/PDF)...">
@@ -334,7 +398,7 @@
         <!-- Page 4: Links & Explanations -->
         <div id="p4" class="page-content">
             <h2>الروابط والشروحات الدراسية</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem;">أضف روابط دروس اليوتيوب والشروحات الخارجية لسهولة الوصول إليها:</p>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">أضف روابط دروس اليوتيوب والشروحات الخارجية لسهولة الوصول إليها:</p>
             
             <div class="input-group">
                 <input type="text" id="linkTitleInput" placeholder="عنوان الدرس / الشرح...">
@@ -347,26 +411,26 @@
         <!-- Page 5: Obstacles & Solutions -->
         <div id="p5" class="page-content">
             <h2>ملاحظات الأسبوع والعوائق</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem;">في حال عدم تحقيق نسبة إنجاز 100%، دون الأسباب والحلول لتتجاوزها:</p>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">في حال عدم تحقيق نسبة إنجاز 100%، دون الأسباب والحلول لتتجاوزها:</p>
             
             <div style="margin-bottom: 1.2rem;">
                 <label style="display:block; font-weight: 700; margin-bottom: 0.5rem;">العوائق التي كانت سببًا في تأخري عن تنفيذ المهام:</label>
-                <textarea id="obstaclesInput" placeholder="اكتب العوائق والتشتت الذي واجهك..."></textarea>
+                <textarea placeholder="اكتب العوائق والتشتت الذي واجهك..."></textarea>
             </div>
 
             <div style="margin-bottom: 1.2rem;">
                 <label style="display:block; font-weight: 700; margin-bottom: 0.5rem;">حلول عملية لهذه العوائق للأسبوع القادم:</label>
-                <textarea id="solutionsInput" placeholder="اكتب الحلول الممكنة لتجنب التقصير..."></textarea>
+                <textarea placeholder="اكتب الحلول الممكنة لتجنب التقصير..."></textarea>
             </div>
         </div>
+
+        <footer>
+            @insta:ams_m_5
+        </footer>
     </div>
 
-    <footer>
-        @insta:ams_m_5
-    </footer>
-
     <script>
-        // Tab Navigation
+        // Navigation Tabs
         function showPage(pageId, btn) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -375,7 +439,7 @@
             btn.classList.add('active');
         }
 
-        // Today's Goals & Progress Logic
+        // Today's Goals & Progress
         function updateProgress() {
             let items = document.querySelectorAll('#todayGoalList input[type="checkbox"]');
             if (items.length === 0) {
@@ -408,40 +472,22 @@
             updateProgress();
         }
 
-        // 4 Weeks System
-        let currentWeek = 1;
-        let weekGoalsData = { 1: [], 2: [], 3: [], 4: [] };
-
-        function switchWeek(weekNum) {
-            currentWeek = weekNum;
-            document.querySelectorAll('.week-btn').forEach((b, idx) => {
-                b.classList.toggle('active', idx + 1 === weekNum);
-            });
-            document.getElementById('weekTitle').innerText = `أهداف الأسبوع ${weekNum}`;
-            renderWeekGoals();
-        }
-
-        function addWeekGoal() {
-            let input = document.getElementById('weekGoalInput');
+        // Add Dynamic Day Tasks (Notebook Notebook Checkboxes)
+        function addDayTask(dayKey) {
+            let input = document.getElementById(`input-${dayKey}`);
             let text = input.value.trim();
             if (!text) return;
 
-            weekGoalsData[currentWeek].push(text);
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <label class="checkbox-label">
+                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
+                    <span>${text}</span>
+                </label>
+                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
+            `;
+            document.getElementById(`list-${dayKey}`).appendChild(li);
             input.value = '';
-            renderWeekGoals();
-        }
-
-        function renderWeekGoals() {
-            let list = document.getElementById('weekGoalList');
-            list.innerHTML = '';
-            weekGoalsData[currentWeek].forEach((goal, idx) => {
-                let li = document.createElement('li');
-                li.innerHTML = `
-                    <span>📌 ${goal}</span>
-                    <button class="btn-del" onclick="weekGoalsData[${currentWeek}].splice(${idx}, 1); renderWeekGoals();">حذف</button>
-                `;
-                list.appendChild(li);
-            });
         }
 
         // Add Subjects
@@ -489,7 +535,7 @@
 
             let li = document.createElement('li');
             li.innerHTML = `
-                <span>🎥 <a href="${url}" target="_blank" style="color:var(--accent-hover); font-weight:700;">${title}</a></span>
+                <span>🎥 <a href="${url}" target="_blank" style="color:var(--accent-main); font-weight:700;">${title}</a></span>
                 <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
             `;
             document.getElementById('linkList').appendChild(li);
@@ -499,4 +545,3 @@
     </script>
 </body>
 </html>
-
