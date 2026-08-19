@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظم الطالب الذكي 2027 | Smart Student Hub</title>
+    <title>منظم الطالب الذكي 2027</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0f172a;
-            --card-bg: #1e293b;
-            --accent-blue: #38bdf8;
-            --accent-green: #4ade80;
-            --accent-purple: #c084fc;
-            --text-title: #f8fafc;
-            --text-body: #cbd5e1;
-            --border-color: #334155;
+            --bg-main: #f5f0eb;
+            --card-bg: #fffdfa;
+            --accent-warm: #d4a373;
+            --accent-soft: #e9edc9;
+            --accent-hover: #bc8a5f;
+            --text-dark: #4a3e3d;
+            --text-muted: #7d6e63;
+            --border-color: #e6ccb2;
         }
 
         * {
@@ -26,107 +26,180 @@
 
         body {
             background-color: var(--bg-main);
-            color: var(--text-title);
-            padding: 20px;
+            color: var(--text-dark);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 950px;
             margin: 0 auto;
+            width: 100%;
         }
 
         header {
             text-align: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-weight: 900;
         }
 
         header p {
-            color: var(--text-body);
-            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
-        /* Layout Grid */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-title {
-            font-size: 1.4rem;
-            color: var(--accent-blue);
-            margin-bottom: 1rem;
+        /* Navigation Tabs */
+        .nav-tabs {
             display: flex;
-            align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        /* Pomodoro Timer */
+        .nav-btn {
+            background-color: var(--card-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.4rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background-color: var(--accent-warm);
+            color: #fff;
+            border-color: var(--accent-warm);
+        }
+
+        /* Pages System */
+        .page-content {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            min-height: 420px;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--accent-hover);
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--bg-main);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Pomodoro UI */
         .timer-box {
             text-align: center;
+            padding: 2rem 0;
         }
 
         .timer-display {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             font-weight: 900;
-            color: var(--accent-purple);
+            color: var(--accent-warm);
             margin: 1rem 0;
         }
 
         .btn {
-            background-color: var(--accent-blue);
-            color: #0f172a;
+            background-color: var(--accent-warm);
+            color: #fff;
             border: none;
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
+            padding: 0.8rem 1.8rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.2s ease;
-            margin: 0 0.2rem;
+            margin: 0 0.3rem;
         }
 
         .btn:hover {
-            opacity: 0.9;
+            background-color: var(--accent-hover);
         }
 
-        .btn-danger {
-            background-color: #f87171;
-            color: #fff;
+        .btn-reset {
+            background-color: #dda15e;
         }
 
-        /* Interactive Inputs & Lists */
+        /* Weekly Schedule Table */
+        .weekly-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .weekly-table th, .weekly-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.8rem;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .weekly-table th {
+            background-color: var(--accent-soft);
+            color: var(--text-dark);
+            width: 20%;
+        }
+
+        .weekly-table input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        /* Habit Checkboxes & Interactive Inputs */
         .input-group {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         input[type="text"] {
             flex: 1;
             padding: 0.8rem;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
             background-color: var(--bg-main);
-            color: #fff;
+            color: var(--text-dark);
             font-size: 1rem;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 1.1rem;
+        }
+
+        .habit-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--accent-warm);
+            cursor: pointer;
         }
 
         .item-list {
@@ -135,44 +208,37 @@
 
         .item-list li {
             background-color: var(--bg-main);
-            padding: 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid var(--border-color);
         }
 
         .item-list li.done {
             text-decoration: line-through;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
-        /* Habit Tracker Checkboxes */
-        .habit-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.6rem 0;
-            border-bottom: 1px dashed var(--border-color);
-            font-size: 1.1rem;
-        }
-
-        .habit-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent-green);
+        .btn-del {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 0.85rem;
         }
 
+        /* Footer Signature */
         footer {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-body);
-            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            direction: ltr;
         }
     </style>
 </head>
@@ -181,71 +247,93 @@
     <div class="container">
         <header>
             <h1>منظم الطالب الذكي 2027</h1>
-            <p>مساحتك التفاعلية لإدارة المذاكرة، المهام، والعادات اليومية</p>
+            <p>دليلك التفاعلي لعام دراسي منظم ومريح</p>
         </header>
 
-        <div class="grid-layout">
-            
-            <!-- 1. Pomodoro Focus Timer -->
-            <div class="card timer-box">
-                <div class="card-title">⏱️ مؤقت التركيز (البومودورو)</div>
-                <div class="timer-display" id="timer">25:00</div>
-                <div>
-                    <button class="btn" onclick="startTimer()">بدء الجلسة</button>
-                    <button class="btn btn-danger" onclick="resetTimer()">إعادة ضبط</button>
-                </div>
-            </div>
-
-            <!-- 2. Habits Tracker -->
-            <div class="card">
-                <div class="card-title">🌱 متتبع العادات اليومية</div>
-                <div class="habit-item">
-                    <input type="checkbox" id="h1">
-                    <label for="h1">المراجعة اليومية (20 دقيقة لكل مادة)</label>
-                </div>
-                <div class="habit-item">
-                    <input type="checkbox" id="h2">
-                    <label for="h2">حل الواجبات أولاً بأول</label>
-                </div>
-                <div class="habit-item">
-                    <input type="checkbox" id="h3">
-                    <label for="h3">شرب 2 لتر ماء</label>
-                </div>
-                <div class="habit-item">
-                    <input type="checkbox" id="h4">
-                    <label for="h4">نوم منتظم (7-8 ساعات)</label>
-                </div>
-            </div>
-
-            <!-- 3. Tasks & Assignments Tracker -->
-            <div class="card">
-                <div class="card-title">📝 جدول المهام والواجبات</div>
-                <div class="input-group">
-                    <input type="text" id="taskInput" placeholder="أضف واجبًا أو مهمة دراسية...">
-                    <button class="btn" onclick="addTask()">إضافة</button>
-                </div>
-                <ul class="item-list" id="taskList"></ul>
-            </div>
-
-            <!-- 4. Term Goals -->
-            <div class="card">
-                <div class="card-title">🎯 أهداف الفصل الدراسي</div>
-                <div class="input-group">
-                    <input type="text" id="goalInput" placeholder="أضف هدفًا دراسيًا جديدًا...">
-                    <button class="btn" onclick="addGoal()">إضافة</button>
-                </div>
-                <ul class="item-list" id="goalList"></ul>
-            </div>
-
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showPage('p1', this)">⏱️ مؤقت التركيز</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">📅 الجدول الأسبوعي</button>
+            <button class="nav-btn" onclick="showPage('p3', this)">🌱 العادات اليومية</button>
+            <button class="nav-btn" onclick="showPage('p4', this)">🎯 الأهداف والواجبات</button>
         </div>
 
-        <footer>
-            جميع الحقوق محفوظة © دليل الطالب التفاعلي 2027
-        </footer>
+        <!-- Page 1: Pomodoro Timer -->
+        <div id="p1" class="page-content active">
+            <h2>جلسة التركيز (تقنية البومودورو)</h2>
+            <p style="color: var(--text-muted);">ذاكر لمدة 25 دقيقة بتركيز تام ثم خذ استراحة لمدة 5 دقائق.</p>
+            <div class="timer-box">
+                <div class="timer-display" id="timer">25:00</div>
+                <button class="btn" onclick="startTimer()">بدء الجلسة</button>
+                <button class="btn btn-reset" onclick="resetTimer()">إعادة ضبط</button>
+            </div>
+        </div>
+
+        <!-- Page 2: Weekly Schedule -->
+        <div id="p2" class="page-content">
+            <h2>الجدول والمهام الأسبوعية</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">دون خطتك وملاحظاتك لكل يوم:</p>
+            <table class="weekly-table">
+                <tr><th>الأحد</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
+                <tr><th>الإثنين</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
+                <tr><th>الثلاثاء</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
+                <tr><th>الأربعاء</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
+                <tr><th>الخميس</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
+                <tr><th>الجمعة والسبت</th><td><input type="text" placeholder="مراجعة واستراحة..."></td></tr>
+            </table>
+        </div>
+
+        <!-- Page 3: Habit Tracker -->
+        <div id="p3" class="page-content">
+            <h2>متتبع العادات الدراسية</h2>
+            <div class="habit-item">
+                <input type="checkbox" id="h1">
+                <label for="h1">المراجعة اليومية (20 دقيقة لكل مادة)</label>
+            </div>
+            <div class="habit-item">
+                <input type="checkbox" id="h2">
+                <label for="h2">حل الواجبات فور العودة من المدرسة/الجامعة</label>
+            </div>
+            <div class="habit-item">
+                <input type="checkbox" id="h3">
+                <label for="h3">شرب قدر كافٍ من الماء والرياضة الخفيفة</label>
+            </div>
+            <div class="habit-item">
+                <input type="checkbox" id="h4">
+                <label for="h4">النوم المنتظم (7-8 ساعات)</label>
+            </div>
+        </div>
+
+        <!-- Page 4: Goals & Tasks -->
+        <div id="p4" class="page-content">
+            <h2>الأهداف والواجبات الدراسية</h2>
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="أضف أهدافك أو واجباتك هنا...">
+                <button class="btn" onclick="addTask()">إضافة</button>
+            </div>
+            <ul class="item-list" id="taskList"></ul>
+        </div>
     </div>
 
+    <!-- Fixed Instagram Signature on every page view -->
+    <footer>
+        @insta:ams_m_5
+    </footer>
+
     <script>
-        // Pomodoro Logic
+        // Page Navigation
+        function showPage(pageId, btn) {
+            let pages = document.querySelectorAll('.page-content');
+            pages.forEach(p => p.classList.remove('active'));
+
+            let btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Pomodoro Timer Logic
         let timerInterval;
         let timeLeft = 25 * 60;
 
@@ -284,24 +372,9 @@
             let li = document.createElement('li');
             li.innerHTML = `
                 <span onclick="this.parentElement.classList.toggle('done')" style="cursor:pointer">${text}</span>
-                <button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="this.parentElement.remove()">حذف</button>
+                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
             `;
             document.getElementById('taskList').appendChild(li);
-            input.value = '';
-        }
-
-        // Add Goal Logic
-        function addGoal() {
-            let input = document.getElementById('goalInput');
-            let text = input.value.trim();
-            if(!text) return;
-
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <span onclick="this.parentElement.classList.toggle('done')" style="cursor:pointer">🎯 ${text}</span>
-                <button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="this.parentElement.remove()">حذف</button>
-            `;
-            document.getElementById('goalList').appendChild(li);
             input.value = '';
         }
     </script>
