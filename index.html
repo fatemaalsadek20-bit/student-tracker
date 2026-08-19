@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مُخططي الدراسي 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --bg-main: #fcf8f6;
@@ -53,6 +55,14 @@
             font-size: 2.3rem;
             color: var(--pink-accent);
             font-weight: 900;
+            outline: none;
+            border-bottom: 2px dashed transparent;
+            display: inline-block;
+            transition: border 0.3s;
+        }
+
+        header h1:focus {
+            border-bottom-color: var(--pink-accent);
         }
 
         header p {
@@ -60,6 +70,27 @@
             font-size: 1.1rem;
             margin-top: 5px;
             font-weight: 500;
+        }
+
+        /* Top Bar: Weekly Progress & Priorities */
+        .top-overview-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(216, 150, 159, 0.05);
+        }
+
+        .priority-box {
+            margin-bottom: 1rem;
+        }
+
+        .priority-title {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--pink-accent);
+            margin-bottom: 0.5rem;
         }
 
         /* Nav Tabs */
@@ -159,12 +190,6 @@
 
         .badge-btn:hover {
             transform: scale(1.08) translateY(-2px);
-            border-color: var(--pink-accent);
-        }
-
-        .badge-btn.selected {
-            background-color: var(--pink-accent);
-            color: white;
             border-color: var(--pink-accent);
         }
 
@@ -317,6 +342,14 @@
             background-color: var(--pink-hover);
         }
 
+        .btn-reset {
+            background-color: var(--pink-soft);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            margin-top: 1rem;
+            width: 100%;
+        }
+
         /* Notebook Day Block */
         .day-block {
             background-color: var(--bg-main);
@@ -455,9 +488,26 @@
 
     <div class="container">
         <header>
-            <h1>مُخططي الدراسي 🌸</h1>
-            <p>منظم الترم التفاعلي</p>
+            <h1 contenteditable="true" id="plannerTitle" onblur="savePlannerTitle()">مُخططي الدراسي 🌸</h1>
+            <p>منظم الترم التفاعلي (اضغطي على العنوان لتعديل اسمك)</p>
         </header>
+
+        <!-- Top Overview Section -->
+        <div class="top-overview-card">
+            <div class="priority-box">
+                <div class="priority-title">🎯 أولوية الأسبوع الكبرى:</div>
+                <input type="text" id="weeklyPriorityInput" placeholder="اكتبي هدفك الرئيسي لهذا الأسبوع..." oninput="savePriorityData()">
+            </div>
+            <div>
+                <div class="day-progress-info">
+                    <span style="font-weight: 900; color: var(--pink-accent);">إجمالي إنجاز الأسبوع كاملًا:</span>
+                    <span id="totalWeeklyPercent" style="font-weight: 900; color: var(--pink-accent);">0%</span>
+                </div>
+                <div class="progress-bar-container" style="height: 18px;">
+                    <div class="progress-bar-fill" id="totalWeeklyBar"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
@@ -725,6 +775,8 @@
                 </div>
             </div>
 
+            <button class="btn btn-reset" onclick="resetEntireWeek()">🔄 بدء أسبوع جديد (مسح كافة مهام الأسبوع)</button>
+
             <footer>@insta:ams_m_5</footer>
         </div>
 
@@ -811,6 +863,25 @@
 
     <script>
         let currentTargetDay = 'sun';
+        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+        // Web Audio API Sound Generator (No external files needed)
+        function playPopSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch (e) {}
+        }
 
         // Tab Navigation
         function showPage(pageId, btn) {
@@ -821,34 +892,45 @@
             btn.classList.add('active');
         }
 
-        // Add Task to Specific Day & Update Day Progress
+        // Add Task to Specific Day
         function addDayTask(dayKey) {
             let input = document.getElementById(`input-${dayKey}`);
             let text = input.value.trim();
             if (!text) return;
 
+            createTaskElement(dayKey, text, false);
+            input.value = '';
+            currentTargetDay = dayKey;
+            playPopSound();
+            updateDayProgress(dayKey);
+            saveAllData();
+        }
+
+        function createTaskElement(dayKey, text, isDone) {
             let li = document.createElement('li');
+            if (isDone) li.classList.add('done');
+
             li.innerHTML = `
                 <label class="checkbox-label">
-                    <input type="checkbox" onchange="toggleTaskDone(this, '${dayKey}')">
+                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTaskDone(this, '${dayKey}')">
                     <span>🌸 ${text}</span>
                 </label>
                 <button class="btn-del" onclick="removeDayTask(this, '${dayKey}')">حذف</button>
             `;
             document.getElementById(`list-${dayKey}`).appendChild(li);
-            input.value = '';
-            currentTargetDay = dayKey; // Auto set last edited day as active
-            updateDayProgress(dayKey);
         }
 
         function toggleTaskDone(checkbox, dayKey) {
             checkbox.closest('li').classList.toggle('done');
+            playPopSound();
             updateDayProgress(dayKey);
+            saveAllData();
         }
 
         function removeDayTask(btn, dayKey) {
             btn.parentElement.remove();
             updateDayProgress(dayKey);
+            saveAllData();
         }
 
         function updateDayProgress(dayKey) {
@@ -861,6 +943,7 @@
             if (total === 0) {
                 percentSpan.innerText = '0%';
                 barFill.style.width = '0%';
+                updateTotalWeeklyProgress();
                 return;
             }
 
@@ -869,20 +952,51 @@
 
             percentSpan.innerText = percentage + '%';
             barFill.style.width = percentage + '%';
+
+            // Confetti Trigger on 100%
+            if (percentage === 100) {
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            }
+
+            updateTotalWeeklyProgress();
         }
 
-        // Add Floating Stickers to Active Day
+        function updateTotalWeeklyProgress() {
+            let totalTasks = 0;
+            let totalDone = 0;
+
+            days.forEach(day => {
+                let list = document.getElementById(`list-${day}`);
+                let items = list.querySelectorAll('li');
+                totalTasks += items.length;
+                totalDone += list.querySelectorAll('li.done').length;
+            });
+
+            let totalPercent = totalTasks === 0 ? 0 : Math.round((totalDone / totalTasks) * 100);
+            document.getElementById('totalWeeklyPercent').innerText = totalPercent + '%';
+            document.getElementById('totalWeeklyBar').style.width = totalPercent + '%';
+        }
+
+        // Add Floating Stickers
         function addStickerToDay(stickerText) {
-            let stickersContainer = document.getElementById(`stickers-${currentTargetDay}`);
-            
+            createStickerElement(currentTargetDay, stickerText);
+            playPopSound();
+            saveAllData();
+        }
+
+        function createStickerElement(dayKey, stickerText) {
+            let stickersContainer = document.getElementById(`stickers-${dayKey}`);
             let chip = document.createElement('div');
             chip.className = 'applied-sticker-chip';
-            chip.innerHTML = `${stickerText} <span onclick="this.parentElement.remove()">✕</span>`;
-            
+            chip.innerHTML = `${stickerText} <span onclick="this.parentElement.remove(); saveAllData();">✕</span>`;
             stickersContainer.appendChild(chip);
         }
 
-        // Star Rating Logic
+        // Star Rating System
         function rateDay(dayKey, stars) {
             let starsBox = document.getElementById(`stars-${dayKey}`);
             let starElements = starsBox.querySelectorAll('.star-icon');
@@ -894,24 +1008,46 @@
                     star.classList.remove('active');
                 }
             });
+            playPopSound();
+            saveAllData();
         }
 
-        // Achievement List Logic
+        // Reset Entire Week
+        function resetEntireWeek() {
+            if (confirm("هل أنتِ متأكدة من إفراغ كافة مهام وملصقات الأسبوع لبدء أسبوع جديد؟")) {
+                days.forEach(day => {
+                    document.getElementById(`list-${day}`).innerHTML = '';
+                    document.getElementById(`stickers-${day}`).innerHTML = '';
+                    rateDay(day, 0);
+                    updateDayProgress(day);
+                });
+                saveAllData();
+            }
+        }
+
+        // Achievement List
         function addAchievementTask() {
             let input = document.getElementById('achievementInput');
             let text = input.value.trim();
             if (!text) return;
 
+            createAchievementElement(text, false);
+            input.value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createAchievementElement(text, isDone) {
             let li = document.createElement('li');
+            if (isDone) li.classList.add('done');
             li.innerHTML = `
                 <label class="checkbox-label">
-                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
+                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="this.closest('li').classList.toggle('done'); saveAllData();">
                     <span>✨ ${text}</span>
                 </label>
-                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
+                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
             `;
             document.getElementById('achievementList').appendChild(li);
-            input.value = '';
         }
 
         // Timer Logic
@@ -938,32 +1074,34 @@
             }, 1000);
         }
 
-        function pauseTimer() {
-            clearInterval(timerInterval);
-        }
-
+        function pauseTimer() { clearInterval(timerInterval); }
         function resetTimer() {
             clearInterval(timerInterval);
             timeLeft = 25 * 60;
             updateTimerDisplay();
         }
 
-        // Add Subject
+        // Add Subject & Links
         function addSubject() {
             let input = document.getElementById('subjectInput');
             let text = input.value.trim();
             if (!text) return;
 
+            createSubjectElement(text);
+            input.value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createSubjectElement(text) {
             let li = document.createElement('li');
             li.innerHTML = `
                 <span>📖 ${text}</span>
-                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
+                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
             `;
             document.getElementById('subjectList').appendChild(li);
-            input.value = '';
         }
 
-        // Add Link
         function addLink() {
             let titleInput = document.getElementById('linkTitleInput');
             let urlInput = document.getElementById('linkUrlInput');
@@ -972,15 +1110,109 @@
 
             if (!title) return;
 
+            createLinkElement(title, url);
+            titleInput.value = '';
+            urlInput.value = '';
+            playPopSound();
+            saveAllData();
+        }
+
+        function createLinkElement(title, url) {
             let li = document.createElement('li');
             li.innerHTML = `
                 <span>🎥 <a href="${url}" target="_blank" style="color:var(--pink-accent); font-weight:700;">${title}</a></span>
-                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
+                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
             `;
             document.getElementById('linkList').appendChild(li);
-            titleInput.value = '';
-            urlInput.value = '';
         }
+
+        // LocalStorage Save & Load Engine
+        function savePlannerTitle() {
+            localStorage.setItem('planner_title', document.getElementById('plannerTitle').innerText);
+        }
+
+        function savePriorityData() {
+            localStorage.setItem('planner_priority', document.getElementById('weeklyPriorityInput').value);
+        }
+
+        function saveAllData() {
+            let data = {
+                priority: document.getElementById('weeklyPriorityInput').value,
+                title: document.getElementById('plannerTitle').innerText,
+                days: {},
+                achievements: [],
+                subjects: [],
+                links: []
+            };
+
+            days.forEach(day => {
+                let dayTasks = [];
+                document.querySelectorAll(`#list-${day} li`).forEach(li => {
+                    dayTasks.push({
+                        text: li.querySelector('span').innerText.replace('🌸 ', ''),
+                        done: li.classList.contains('done')
+                    });
+                });
+
+                let stickers = [];
+                document.querySelectorAll(`#stickers-${day} .applied-sticker-chip`).forEach(chip => {
+                    stickers.push(chip.childNodes[0].textContent.trim());
+                });
+
+                let stars = document.querySelectorAll(`#stars-${day} .star-icon.active`).length;
+
+                data.days[day] = { tasks: dayTasks, stickers: stickers, stars: stars };
+            });
+
+            document.querySelectorAll('#achievementList li').forEach(li => {
+                data.achievements.push({
+                    text: li.querySelector('span').innerText.replace('✨ ', ''),
+                    done: li.classList.contains('done')
+                });
+            });
+
+            document.querySelectorAll('#subjectList li span').forEach(span => {
+                data.subjects.push(span.innerText.replace('📖 ', ''));
+            });
+
+            document.querySelectorAll('#linkList li').forEach(li => {
+                let a = li.querySelector('a');
+                data.links.push({ title: a.innerText, url: a.href });
+            });
+
+            localStorage.setItem('planner_master_data', JSON.stringify(data));
+        }
+
+        function loadAllData() {
+            let saved = localStorage.getItem('planner_master_data');
+            if (!saved) return;
+
+            let data = JSON.parse(saved);
+
+            if (data.title) document.getElementById('plannerTitle').innerText = data.title;
+            if (data.priority) document.getElementById('weeklyPriorityInput').value = data.priority;
+
+            if (data.days) {
+                days.forEach(day => {
+                    if (data.days[day]) {
+                        data.days[day].tasks.forEach(t => createTaskElement(day, t.text, t.done));
+                        data.days[day].stickers.forEach(s => createStickerElement(day, s));
+                        rateDay(day, data.days[day].stars || 0);
+                        updateDayProgress(day);
+                    }
+                });
+            }
+
+            if (data.achievements) data.achievements.forEach(a => createAchievementElement(a.text, a.done));
+            if (data.subjects) data.subjects.forEach(s => createSubjectElement(s));
+            if (data.links) data.links.forEach(l => createLinkElement(l.title, l.url));
+
+            updateTotalWeeklyProgress();
+        }
+
+        // Initialize App
+        window.onload = loadAllData;
     </script>
 </body>
 </html>
+
