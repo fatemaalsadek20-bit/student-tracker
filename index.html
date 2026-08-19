@@ -325,6 +325,12 @@
             border-color: var(--pink-accent);
         }
 
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.5;
+        }
+
         .btn {
             background-color: var(--pink-accent);
             color: #ffffff;
@@ -348,6 +354,38 @@
             border: 2px solid var(--border-color);
             margin-top: 1rem;
             width: 100%;
+        }
+
+        /* Weekly Review Block */
+        .weekly-review-box {
+            background-color: var(--bg-main);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .weekly-review-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--pink-accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .review-field {
+            margin-bottom: 1rem;
+        }
+
+        .review-field label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
         }
 
         /* Notebook Day Block */
@@ -526,6 +564,10 @@
             <div class="status-container">
                 <div class="status-title">اضغطي على الملصق لإضافته ليومك الحالي:</div>
                 <div class="badges-group">
+                    <button class="badge-btn" onclick="addStickerToDay('👑 ممتازة')">👑 ممتازة</button>
+                    <button class="badge-btn" onclick="addStickerToDay('🌟 متفوقة')">🌟 متفوقة</button>
+                    <button class="badge-btn" onclick="addStickerToDay('💪 بطلة الأسبوع')">💪 بطلة الأسبوع</button>
+                    <button class="badge-btn" onclick="addStickerToDay('⭐ فخورة بك')">⭐ فخورة بك</button>
                     <button class="badge-btn" onclick="addStickerToDay('✨ إنجاز')">✨ إنجاز</button>
                     <button class="badge-btn" onclick="addStickerToDay('📚 اختبار')">📚 اختبار</button>
                     <button class="badge-btn" onclick="addStickerToDay('☕ راحة')">☕ راحة</button>
@@ -775,7 +817,22 @@
                 </div>
             </div>
 
-            <button class="btn btn-reset" onclick="resetEntireWeek()">🔄 بدء أسبوع جديد (مسح كافة مهام الأسبوع)</button>
+            <!-- Weekly Review Block (New Section) -->
+            <div class="weekly-review-box">
+                <div class="weekly-review-title">📝 مراجعة وملاحظات الأسبوع</div>
+                
+                <div class="review-field">
+                    <label for="reviewObstacles">العوائق التي كانت سببًا في تأخري عن تنفيذ بعض المهام:</label>
+                    <textarea id="reviewObstacles" placeholder="مثال: التشتت بالجوال، عدم تحديد وقت معين للمذاكرة، التعب..." oninput="saveReviewData()"></textarea>
+                </div>
+
+                <div class="review-field">
+                    <label for="reviewSolutions">حلول واقتراحات لتفادي هذه العوائق الأسبوع القادم:</label>
+                    <textarea id="reviewSolutions" placeholder="مثال: وضع الجوال في غرفة أخرى، البدء بمهام أصغر، النوم المبكر..." oninput="saveReviewData()"></textarea>
+                </div>
+            </div>
+
+            <button class="btn btn-reset" onclick="resetEntireWeek()">🔄 بدء أسبوع جديد (مسح كافة مهام وملاحظات الأسبوع)</button>
 
             <footer>@insta:ams_m_5</footer>
         </div>
@@ -1014,13 +1071,15 @@
 
         // Reset Entire Week
         function resetEntireWeek() {
-            if (confirm("هل أنتِ متأكدة من إفراغ كافة مهام وملصقات الأسبوع لبدء أسبوع جديد؟")) {
+            if (confirm("هل أنتِ متأكدة من إفراغ كافة مهام وملاحظات الأسبوع لبدء أسبوع جديد؟")) {
                 days.forEach(day => {
                     document.getElementById(`list-${day}`).innerHTML = '';
                     document.getElementById(`stickers-${day}`).innerHTML = '';
                     rateDay(day, 0);
                     updateDayProgress(day);
                 });
+                document.getElementById('reviewObstacles').value = '';
+                document.getElementById('reviewSolutions').value = '';
                 saveAllData();
             }
         }
@@ -1135,10 +1194,16 @@
             localStorage.setItem('planner_priority', document.getElementById('weeklyPriorityInput').value);
         }
 
+        function saveReviewData() {
+            saveAllData();
+        }
+
         function saveAllData() {
             let data = {
                 priority: document.getElementById('weeklyPriorityInput').value,
                 title: document.getElementById('plannerTitle').innerText,
+                reviewObstacles: document.getElementById('reviewObstacles').value,
+                reviewSolutions: document.getElementById('reviewSolutions').value,
                 days: {},
                 achievements: [],
                 subjects: [],
@@ -1191,6 +1256,8 @@
 
             if (data.title) document.getElementById('plannerTitle').innerText = data.title;
             if (data.priority) document.getElementById('weeklyPriorityInput').value = data.priority;
+            if (data.reviewObstacles) document.getElementById('reviewObstacles').value = data.reviewObstacles;
+            if (data.reviewSolutions) document.getElementById('reviewSolutions').value = data.reviewSolutions;
 
             if (data.days) {
                 days.forEach(day => {
