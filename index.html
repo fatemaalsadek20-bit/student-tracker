@@ -15,6 +15,7 @@
             --text-main: #4a3e3d;
             --text-muted: #8c7b79;
             --border-color: #eededb;
+            --gold-star: #ffb703;
         }
 
         * {
@@ -115,7 +116,13 @@
             font-weight: 900;
         }
 
-        /* Status Badges Section */
+        /* Animated Badges & Stickers */
+        @keyframes floatSticker {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0px); }
+        }
+
         .status-container {
             margin-bottom: 1.2rem;
             background: var(--pink-soft);
@@ -144,8 +151,15 @@
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
             color: var(--text-main);
+            display: inline-block;
+            animation: floatSticker 3s ease-in-out infinite;
+        }
+
+        .badge-btn:hover {
+            transform: scale(1.08) translateY(-2px);
+            border-color: var(--pink-accent);
         }
 
         .badge-btn.selected {
@@ -154,31 +168,31 @@
             border-color: var(--pink-accent);
         }
 
-        /* Progress Bar Section */
-        .progress-box {
-            background-color: var(--pink-soft);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+        /* Interactive Day Progress Bar */
+        .day-progress-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
         }
 
-        .progress-title {
-            font-size: 1.1rem;
+        .day-progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
         }
 
         .progress-bar-container {
-            background-color: var(--card-bg);
+            background-color: var(--pink-soft);
             border-radius: 20px;
-            height: 22px;
+            height: 14px;
             width: 100%;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            margin-bottom: 0.5rem;
         }
 
         .progress-bar-fill {
@@ -188,10 +202,78 @@
             transition: width 0.4s ease;
         }
 
-        .progress-percentage {
-            font-size: 1.2rem;
-            font-weight: 900;
+        /* Animated Star Rating System */
+        .star-rating-box {
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--pink-soft);
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+        }
+
+        .star-rating-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .stars-container {
+            display: flex;
+            direction: ltr;
+            gap: 0.3rem;
+        }
+
+        .star-icon {
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #d1c4c2;
+            transition: transform 0.2s ease, color 0.2s ease;
+            display: inline-block;
+        }
+
+        .star-icon:hover {
+            transform: scale(1.3) rotate(8deg);
+        }
+
+        .star-icon.active {
+            color: var(--gold-star);
+            animation: popStar 0.3s ease;
+        }
+
+        @keyframes popStar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* Day Sticker Container */
+        .applied-stickers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .applied-sticker-chip {
+            background-color: var(--pink-soft);
             color: var(--pink-accent);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            animation: floatSticker 2.5s ease-in-out infinite;
+        }
+
+        .applied-sticker-chip span {
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
 
         /* Inputs & Buttons */
@@ -245,11 +327,17 @@
             width: 100%;
         }
 
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
         .day-title {
             font-size: 1.2rem;
             font-weight: 900;
             color: var(--text-main);
-            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -383,104 +471,270 @@
         <!-- Page 1: Weekly Plan -->
         <div id="p1" class="page-content active">
             <h2>🌸 الخطة الأسبوعية والمهام</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1rem; font-weight: 500;">أضيفي مهام كل يوم وتزيد المربعات تلقائيًا كالنوتة:</p>
+            
+            <!-- Global Interactive Stickers Box -->
+            <div class="status-container">
+                <div class="status-title">اضغطي على الملصق لإضافته ليومك الحالي:</div>
+                <div class="badges-group">
+                    <button class="badge-btn" onclick="addStickerToDay('✨ إنجاز')">✨ إنجاز</button>
+                    <button class="badge-btn" onclick="addStickerToDay('📚 اختبار')">📚 اختبار</button>
+                    <button class="badge-btn" onclick="addStickerToDay('☕ راحة')">☕ راحة</button>
+                    <button class="badge-btn" onclick="addStickerToDay('💡 فكرة')">💡 فكرة</button>
+                    <button class="badge-btn" onclick="addStickerToDay('🎯 هام')">🎯 هام</button>
+                    <button class="badge-btn" onclick="addStickerToDay('🔥 حماس')">🔥 حماس</button>
+                </div>
+            </div>
 
             <div id="weeklyDaysContainer">
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الأحد</div>
+                <!-- Sunday Block -->
+                <div class="day-block" id="block-sun">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الأحد</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-sun"></div>
                     <div class="input-group">
                         <input type="text" id="input-sun" placeholder="أضيفي مهام يوم الأحد...">
                         <button class="btn" onclick="addDayTask('sun')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-sun"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-sun">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-sun"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-sun">
+                            <span class="star-icon" onclick="rateDay('sun', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('sun', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('sun', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('sun', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('sun', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الإثنين</div>
+                <!-- Monday Block -->
+                <div class="day-block" id="block-mon">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الإثنين</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-mon"></div>
                     <div class="input-group">
                         <input type="text" id="input-mon" placeholder="أضيفي مهام يوم الإثنين...">
                         <button class="btn" onclick="addDayTask('mon')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-mon"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-mon">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-mon"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-mon">
+                            <span class="star-icon" onclick="rateDay('mon', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('mon', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('mon', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('mon', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('mon', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الثلاثاء</div>
+                <!-- Tuesday Block -->
+                <div class="day-block" id="block-tue">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الثلاثاء</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-tue"></div>
                     <div class="input-group">
                         <input type="text" id="input-tue" placeholder="أضيفي مهام يوم الثلاثاء...">
                         <button class="btn" onclick="addDayTask('tue')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-tue"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-tue">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-tue"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-tue">
+                            <span class="star-icon" onclick="rateDay('tue', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('tue', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('tue', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('tue', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('tue', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الأربعاء</div>
+                <!-- Wednesday Block -->
+                <div class="day-block" id="block-wed">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الأربعاء</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-wed"></div>
                     <div class="input-group">
                         <input type="text" id="input-wed" placeholder="أضيفي مهام يوم الأربعاء...">
                         <button class="btn" onclick="addDayTask('wed')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-wed"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-wed">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-wed"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-wed">
+                            <span class="star-icon" onclick="rateDay('wed', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('wed', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('wed', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('wed', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('wed', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الخميس</div>
+                <!-- Thursday Block -->
+                <div class="day-block" id="block-thu">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الخميس</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-thu"></div>
                     <div class="input-group">
                         <input type="text" id="input-thu" placeholder="أضيفي مهام يوم الخميس...">
                         <button class="btn" onclick="addDayTask('thu')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-thu"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-thu">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-thu"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-thu">
+                            <span class="star-icon" onclick="rateDay('thu', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('thu', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('thu', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('thu', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('thu', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم الجمعة</div>
+                <!-- Friday Block -->
+                <div class="day-block" id="block-fri">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم الجمعة</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-fri"></div>
                     <div class="input-group">
                         <input type="text" id="input-fri" placeholder="أضيفي مهام يوم الجمعة...">
                         <button class="btn" onclick="addDayTask('fri')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-fri"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-fri">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-fri"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-fri">
+                            <span class="star-icon" onclick="rateDay('fri', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('fri', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('fri', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('fri', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('fri', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="day-block">
-                    <div class="day-title">🌸 يوم السبت</div>
+                <!-- Saturday Block -->
+                <div class="day-block" id="block-sat">
+                    <div class="day-header">
+                        <div class="day-title">🌸 يوم السبت</div>
+                    </div>
+                    <div class="applied-stickers" id="stickers-sat"></div>
                     <div class="input-group">
                         <input type="text" id="input-sat" placeholder="أضيفي مهام يوم السبت...">
                         <button class="btn" onclick="addDayTask('sat')">إضافة 🌸</button>
                     </div>
                     <ul class="item-list" id="list-sat"></ul>
+                    
+                    <div class="day-progress-box">
+                        <div class="day-progress-info">
+                            <span>نسبة إنجاز اليوم:</span>
+                            <span id="percent-sat">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="bar-sat"></div>
+                        </div>
+                    </div>
+
+                    <div class="star-rating-box">
+                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
+                        <div class="stars-container" id="stars-sat">
+                            <span class="star-icon" onclick="rateDay('sat', 1)">★</span>
+                            <span class="star-icon" onclick="rateDay('sat', 2)">★</span>
+                            <span class="star-icon" onclick="rateDay('sat', 3)">★</span>
+                            <span class="star-icon" onclick="rateDay('sat', 4)">★</span>
+                            <span class="star-icon" onclick="rateDay('sat', 5)">★</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 2: Achievement & Stickers -->
+        <!-- Page 2: Achievement & General Stickers -->
         <div id="p2" class="page-content">
-            <h2>✨ قائمة الإنجاز والملصقات</h2>
+            <h2>✨ قائمة الإنجاز العامة</h2>
 
-            <!-- Badges / Stickers Section -->
-            <div class="status-container">
-                <div class="status-title">اختر الملصق المناسب لإنجازك:</div>
-                <div class="badges-group">
-                    <button class="badge-btn" onclick="toggleBadge(this)">✨ إنجاز</button>
-                    <button class="badge-btn" onclick="toggleBadge(this)">📚 اختبار</button>
-                    <button class="badge-btn" onclick="toggleBadge(this)">☕ راحة</button>
-                    <button class="badge-btn" onclick="toggleBadge(this)">💡 فكرة</button>
-                    <button class="badge-btn" onclick="toggleBadge(this)">🎯 هام</button>
-                </div>
-            </div>
-
-            <!-- Progress Bar Section -->
-            <div class="progress-box">
-                <div class="progress-title">نسبة الإنجاز اليومية 🌸</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill" id="progressBar"></div>
-                </div>
-                <div class="progress-percentage" id="progressText">0%</div>
-            </div>
-
-            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضف إنجازًا جديدًا:</h3>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضفي إنجازًا عامًا للترم:</h3>
             <div class="input-group">
-                <input type="text" id="achievementInput" placeholder="أكتب الإنجاز الذي حققته اليوم...">
+                <input type="text" id="achievementInput" placeholder="أكتبي هدفًا أو إنجازًا كبيرًا...">
                 <button class="btn" onclick="addAchievementTask()">إضافة 🌸</button>
             </div>
             <ul class="item-list" id="achievementList"></ul>
@@ -527,23 +781,28 @@
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 5: Tips & Procrastination -->
+        <!-- Page 5: Realistic Procrastination Tips -->
         <div id="p5" class="page-content">
-            <h2>💡 خطوات واقعية لتقليل التسويف</h2>
+            <h2>💡 تجارب وخطوات واقعية لتجاوز التسويف</h2>
             
             <div class="tip-card">
-                <h4>1. قاعدة الـ 5 دقائق 🌸</h4>
-                <p>إذا تشعرين بثقل البدء في المذاكرة، ابدئي لمدة 5 دقائق فقط. غالبًا الحواجز النفسية تتلاشى فورًا بعد البداية.</p>
+                <h4>1. خدعة الـ 5 دقائق لبدء الحركة 🌸</h4>
+                <p>أغلب الثقل يختفي بمجرد أن تبدأي. أقنعي عقلك أنكِ ستدرسين لـ 5 دقائق فقط ثم تتوقفين إن أردتِ؛ ستكتشفين أن الاستمرار بعد البداية أسهل بكثير من خطوة البداية نفسها.</p>
             </div>
 
             <div class="tip-card">
-                <h4>2. تقسيم المهام الكبيرة 🌸</h4>
-                <p>بدلاً من كتابة "مذاكرة الفيزياء"، قسمي الهدف إلى "حل صفحتين" أو "قراءة عنوانين". الأهداف الصغيرة مشجعة ومريحة للعقل.</p>
+                <h4>2. جهزي بيئة المذاكرة من الليل 🌸</h4>
+                <p>لا تبدئي يومك بالبحث عن الكتاب أو فتح اللاب توب. اختصري المقاومة النفسية بفتح الصفحة المطلوبة وتجهيز الأقلام على المكتب قبل أن تنامي، لتجدي كل شيء جاهزًا فورًا.</p>
             </div>
 
             <div class="tip-card">
-                <h4>3. إبعاد المشتتات 🌸</h4>
-                <p>ضعي هاتفك في مكان بعيد تماماً أثناء تشغيل مؤقت المذاكرة ليظل تركيزك صافياً ومستقراً.</p>
+                <h4>3. جزئي العناوين الكبيرة لمهام صغيرة جدًا 🌸</h4>
+                <p>عبارة "مذاكرة الفصل الأول" مرعبة للذهن وتدفع للتأجيل. استبدليها بـ "قراءة صفحتين" أو "حل 3 تمارين". المهام الصغيرة لا تسبب خرقًا لطاقتك وتمنحك الشعور بالإنجاز المباشر.</p>
+            </div>
+
+            <div class="tip-card">
+                <h4>4. أبعدي الجوال عن مدى رؤيتك 🌸</h4>
+                <p>وجود الجوال بجانبك يستهلك جزءًا من تركيزك حتى لو لم تفتحيه. ضعيه في غرفة أخرى أو داخل الحقيبة أثناء وقت التركيز لتفريغ ذهنك تمامًا للمادة.</p>
             </div>
 
             <footer>@insta:ams_m_5</footer>
@@ -551,6 +810,8 @@
     </div>
 
     <script>
+        let currentTargetDay = 'sun';
+
         // Tab Navigation
         function showPage(pageId, btn) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
@@ -560,7 +821,7 @@
             btn.classList.add('active');
         }
 
-        // Add Task to Specific Day
+        // Add Task to Specific Day & Update Day Progress
         function addDayTask(dayKey) {
             let input = document.getElementById(`input-${dayKey}`);
             let text = input.value.trim();
@@ -569,16 +830,73 @@
             let li = document.createElement('li');
             li.innerHTML = `
                 <label class="checkbox-label">
-                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
+                    <input type="checkbox" onchange="toggleTaskDone(this, '${dayKey}')">
                     <span>🌸 ${text}</span>
                 </label>
-                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
+                <button class="btn-del" onclick="removeDayTask(this, '${dayKey}')">حذف</button>
             `;
             document.getElementById(`list-${dayKey}`).appendChild(li);
             input.value = '';
+            currentTargetDay = dayKey; // Auto set last edited day as active
+            updateDayProgress(dayKey);
         }
 
-        // Add Achievement Task & Calculate Progress
+        function toggleTaskDone(checkbox, dayKey) {
+            checkbox.closest('li').classList.toggle('done');
+            updateDayProgress(dayKey);
+        }
+
+        function removeDayTask(btn, dayKey) {
+            btn.parentElement.remove();
+            updateDayProgress(dayKey);
+        }
+
+        function updateDayProgress(dayKey) {
+            let list = document.getElementById(`list-${dayKey}`);
+            let items = list.querySelectorAll('li');
+            let total = items.length;
+            let percentSpan = document.getElementById(`percent-${dayKey}`);
+            let barFill = document.getElementById(`bar-${dayKey}`);
+
+            if (total === 0) {
+                percentSpan.innerText = '0%';
+                barFill.style.width = '0%';
+                return;
+            }
+
+            let doneCount = list.querySelectorAll('li.done').length;
+            let percentage = Math.round((doneCount / total) * 100);
+
+            percentSpan.innerText = percentage + '%';
+            barFill.style.width = percentage + '%';
+        }
+
+        // Add Floating Stickers to Active Day
+        function addStickerToDay(stickerText) {
+            let stickersContainer = document.getElementById(`stickers-${currentTargetDay}`);
+            
+            let chip = document.createElement('div');
+            chip.className = 'applied-sticker-chip';
+            chip.innerHTML = `${stickerText} <span onclick="this.parentElement.remove()">✕</span>`;
+            
+            stickersContainer.appendChild(chip);
+        }
+
+        // Star Rating Logic
+        function rateDay(dayKey, stars) {
+            let starsBox = document.getElementById(`stars-${dayKey}`);
+            let starElements = starsBox.querySelectorAll('.star-icon');
+
+            starElements.forEach((star, index) => {
+                if (index < stars) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Achievement List Logic
         function addAchievementTask() {
             let input = document.getElementById('achievementInput');
             let text = input.value.trim();
@@ -587,45 +905,13 @@
             let li = document.createElement('li');
             li.innerHTML = `
                 <label class="checkbox-label">
-                    <input type="checkbox" onchange="toggleAchievementDone(this)">
+                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
                     <span>✨ ${text}</span>
                 </label>
-                <button class="btn-del" onclick="removeAchievement(this)">حذف</button>
+                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
             `;
             document.getElementById('achievementList').appendChild(li);
             input.value = '';
-            updateProgress();
-        }
-
-        function toggleAchievementDone(checkbox) {
-            checkbox.closest('li').classList.toggle('done');
-            updateProgress();
-        }
-
-        function removeAchievement(btn) {
-            btn.parentElement.remove();
-            updateProgress();
-        }
-
-        function updateProgress() {
-            let list = document.getElementById('achievementList');
-            let items = list.querySelectorAll('li');
-            let total = items.length;
-            if (total === 0) {
-                document.getElementById('progressBar').style.width = '0%';
-                document.getElementById('progressText').innerText = '0%';
-                return;
-            }
-            let doneCount = list.querySelectorAll('li.done').length;
-            let percentage = Math.round((doneCount / total) * 100);
-            
-            document.getElementById('progressBar').style.width = percentage + '%';
-            document.getElementById('progressText').innerText = percentage + '%';
-        }
-
-        // Badge Select
-        function toggleBadge(btn) {
-            btn.classList.toggle('selected');
         }
 
         // Timer Logic
@@ -698,4 +984,3 @@
     </script>
 </body>
 </html>
-
