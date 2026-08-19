@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #f5f0eb;
-            --card-bg: #fffdfa;
-            --accent-warm: #d4a373;
-            --accent-soft: #e9edc9;
-            --accent-hover: #bc8a5f;
-            --text-dark: #4a3e3d;
-            --text-muted: #7d6e63;
-            --border-color: #e6ccb2;
+            --bg-main: #faf6f0;
+            --card-bg: #ffffff;
+            --accent-soft: #f3e8dc;
+            --accent-warm: #e2b989;
+            --accent-hover: #cd9a61;
+            --text-dark: #3d342f;
+            --text-muted: #8c7a6b;
+            --border-color: #ebdcd0;
+            --success: #81c784;
         }
 
         * {
@@ -24,20 +25,22 @@
             font-family: 'Tajawal', sans-serif;
         }
 
-        body {
+        html, body {
+            min-height: 100vh;
             background-color: var(--bg-main);
             color: var(--text-dark);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
         }
 
         .container {
-            max-width: 950px;
-            margin: 0 auto;
             width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -56,24 +59,25 @@
             font-size: 1.1rem;
         }
 
-        /* Navigation Tabs */
+        /* Nav Tabs */
         .nav-tabs {
             display: flex;
-            justify-content: center;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
         .nav-btn {
             background-color: var(--card-bg);
             color: var(--text-dark);
             border: 1px solid var(--border-color);
-            padding: 0.8rem 1.4rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 12px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
+            white-space: nowrap;
             transition: all 0.3s ease;
         }
 
@@ -83,15 +87,15 @@
             border-color: var(--accent-warm);
         }
 
-        /* Pages System */
+        /* Page System */
         .page-content {
             display: none;
             background-color: var(--card-bg);
             padding: 2rem;
             border-radius: 20px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            min-height: 420px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            flex: 1;
         }
 
         .page-content.active {
@@ -106,77 +110,38 @@
             padding-bottom: 0.5rem;
         }
 
-        /* Pomodoro UI */
-        .timer-box {
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .timer-display {
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: var(--accent-warm);
-            margin: 1rem 0;
-        }
-
-        .btn {
-            background-color: var(--accent-warm);
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.8rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            margin: 0 0.3rem;
-        }
-
-        .btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn-reset {
-            background-color: #dda15e;
-        }
-
-        /* Weekly Schedule Table */
-        .weekly-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .weekly-table th, .weekly-table td {
+        /* Progress Bar */
+        .progress-box {
+            background-color: var(--bg-main);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
             border: 1px solid var(--border-color);
-            padding: 0.8rem;
-            text-align: right;
-            vertical-align: top;
         }
 
-        .weekly-table th {
-            background-color: var(--accent-soft);
-            color: var(--text-dark);
-            width: 20%;
+        .progress-bar-bg {
+            background-color: #e0e0e0;
+            height: 18px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
         }
 
-        .weekly-table input {
-            width: 100%;
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            color: var(--text-dark);
-            outline: none;
+        .progress-bar-fill {
+            background-color: var(--accent-warm);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
         }
 
-        /* Habit Checkboxes & Interactive Inputs */
+        /* Inputs & Buttons */
         .input-group {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1.2rem;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="url"], textarea {
             flex: 1;
             padding: 0.8rem;
             border-radius: 10px;
@@ -184,26 +149,34 @@
             background-color: var(--bg-main);
             color: var(--text-dark);
             font-size: 1rem;
+            outline: none;
         }
 
-        .habit-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 0;
-            border-bottom: 1px dashed var(--border-color);
-            font-size: 1.1rem;
+        textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
-        .habit-item input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            accent-color: var(--accent-warm);
+        .btn {
+            background-color: var(--accent-warm);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 10px;
             cursor: pointer;
+            transition: 0.2s ease;
         }
 
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* List Items */
         .item-list {
             list-style: none;
+            margin-bottom: 1.5rem;
         }
 
         .item-list li {
@@ -212,17 +185,32 @@
             border-radius: 10px;
             margin-bottom: 0.6rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
         }
 
-        .item-list li.done {
+        .item-list li.done span {
             text-decoration: line-through;
             opacity: 0.6;
         }
 
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-label input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent-warm);
+        }
+
         .btn-del {
-            background-color: #e63946;
+            background-color: #e57373;
             color: #fff;
             border: none;
             padding: 0.3rem 0.6rem;
@@ -231,11 +219,32 @@
             font-size: 0.85rem;
         }
 
-        /* Footer Signature */
+        /* Weekly Accordion/Tabs */
+        .week-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .week-btn {
+            flex: 1;
+            padding: 0.6rem;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .week-btn.active {
+            background-color: var(--accent-soft);
+            border-color: var(--accent-warm);
+        }
+
         footer {
             text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
+            padding: 1.5rem 0;
             font-size: 0.85rem;
             color: var(--text-muted);
             direction: ltr;
@@ -247,135 +256,245 @@
     <div class="container">
         <header>
             <h1>منظم الطالب الذكي 2027</h1>
-            <p>دليلك التفاعلي لعام دراسي منظم ومريح</p>
+            <p>مساحتك التفاعلية المتكاملة لتنظيم الدراسة والعادات</p>
         </header>
 
-        <!-- Navigation -->
+        <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-btn active" onclick="showPage('p1', this)">⏱️ مؤقت التركيز</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">📅 الجدول الأسبوعي</button>
-            <button class="nav-btn" onclick="showPage('p3', this)">🌱 العادات اليومية</button>
-            <button class="nav-btn" onclick="showPage('p4', this)">🎯 الأهداف والواجبات</button>
+            <button class="nav-btn active" onclick="showPage('p1', this)">🎯 اليوم والتقدم</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">📅 الخطة الأسبوعية (4 أسابيع)</button>
+            <button class="nav-btn" onclick="showPage('p3', this)">📚 المواد وملفاتي</button>
+            <button class="nav-btn" onclick="showPage('p4', this)">🔗 الشروحات والروابط</button>
+            <button class="nav-btn" onclick="showPage('p5', this)">📝 العوائق والحلول</button>
         </div>
 
-        <!-- Page 1: Pomodoro Timer -->
+        <!-- Page 1: Today's Goals & Progress -->
         <div id="p1" class="page-content active">
-            <h2>جلسة التركيز (تقنية البومودورو)</h2>
-            <p style="color: var(--text-muted);">ذاكر لمدة 25 دقيقة بتركيز تام ثم خذ استراحة لمدة 5 دقائق.</p>
-            <div class="timer-box">
-                <div class="timer-display" id="timer">25:00</div>
-                <button class="btn" onclick="startTimer()">بدء الجلسة</button>
-                <button class="btn btn-reset" onclick="resetTimer()">إعادة ضبط</button>
+            <h2>تقدمي وأهداف اليوم</h2>
+            
+            <div class="progress-box">
+                <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                    <span>نسبة الإنجاز:</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Page 2: Weekly Schedule -->
-        <div id="p2" class="page-content">
-            <h2>الجدول والمهام الأسبوعية</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem;">دون خطتك وملاحظاتك لكل يوم:</p>
-            <table class="weekly-table">
-                <tr><th>الأحد</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
-                <tr><th>الإثنين</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
-                <tr><th>الثلاثاء</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
-                <tr><th>الأربعاء</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
-                <tr><th>الخميس</th><td><input type="text" placeholder="اكتب مهام اليوم..."></td></tr>
-                <tr><th>الجمعة والسبت</th><td><input type="text" placeholder="مراجعة واستراحة..."></td></tr>
-            </table>
-        </div>
-
-        <!-- Page 3: Habit Tracker -->
-        <div id="p3" class="page-content">
-            <h2>متتبع العادات الدراسية</h2>
-            <div class="habit-item">
-                <input type="checkbox" id="h1">
-                <label for="h1">المراجعة اليومية (20 دقيقة لكل مادة)</label>
-            </div>
-            <div class="habit-item">
-                <input type="checkbox" id="h2">
-                <label for="h2">حل الواجبات فور العودة من المدرسة/الجامعة</label>
-            </div>
-            <div class="habit-item">
-                <input type="checkbox" id="h3">
-                <label for="h3">شرب قدر كافٍ من الماء والرياضة الخفيفة</label>
-            </div>
-            <div class="habit-item">
-                <input type="checkbox" id="h4">
-                <label for="h4">النوم المنتظم (7-8 ساعات)</label>
-            </div>
-        </div>
-
-        <!-- Page 4: Goals & Tasks -->
-        <div id="p4" class="page-content">
-            <h2>الأهداف والواجبات الدراسية</h2>
+            <h3 style="margin-bottom: 0.8rem; color: var(--text-muted);">أهداف اليوم:</h3>
             <div class="input-group">
-                <input type="text" id="taskInput" placeholder="أضف أهدافك أو واجباتك هنا...">
-                <button class="btn" onclick="addTask()">إضافة</button>
+                <input type="text" id="todayGoalInput" placeholder="أضف هدفًا يوميًا جديدًا...">
+                <button class="btn" onclick="addTodayGoal()">إضافة</button>
             </div>
-            <ul class="item-list" id="taskList"></ul>
+            <ul class="item-list" id="todayGoalList"></ul>
+        </div>
+
+        <!-- Page 2: 4 Weeks Plan -->
+        <div id="p2" class="page-content">
+            <h2>الخطة الدراسية (4 أسابيع)</h2>
+            
+            <div class="week-selector">
+                <button class="week-btn active" onclick="switchWeek(1)">الأسبوع 1</button>
+                <button class="week-btn" onclick="switchWeek(2)">الأسبوع 2</button>
+                <button class="week-btn" onclick="switchWeek(3)">الأسبوع 3</button>
+                <button class="week-btn" onclick="switchWeek(4)">الأسبوع 4</button>
+            </div>
+
+            <div id="weekContent">
+                <h3 id="weekTitle" style="margin: 1rem 0; color: var(--accent-hover);">أهداف الأسبوع 1</h3>
+                <div class="input-group">
+                    <input type="text" id="weekGoalInput" placeholder="أضف هدفًا خاصًا بهذا الأسبوع...">
+                    <button class="btn" onclick="addWeekGoal()">إضافة</button>
+                </div>
+                <ul class="item-list" id="weekGoalList"></ul>
+            </div>
+        </div>
+
+        <!-- Page 3: Subjects & PDF Files -->
+        <div id="p3" class="page-content">
+            <h2>المواد الدراسية وملفاتي (PDF)</h2>
+            
+            <h3 style="margin-bottom: 0.8rem; color: var(--text-muted);">قائمة المواد الدراسية:</h3>
+            <div class="input-group">
+                <input type="text" id="subjectInput" placeholder="إضافة مادة دراسية...">
+                <button class="btn" onclick="addSubject()">إضافة</button>
+            </div>
+            <ul class="item-list" id="subjectList"></ul>
+
+            <h3 style="margin: 1.5rem 0 0.8rem; color: var(--text-muted);">ملفاتي والكتب الدراسية (PDF):</h3>
+            <div class="input-group">
+                <input type="text" id="pdfNameInput" placeholder="اسم الكتاب/الملف...">
+                <input type="url" id="pdfUrlInput" placeholder="رابط الملف (Google Drive/PDF)...">
+                <button class="btn" onclick="addPdf()">إضافة</button>
+            </div>
+            <ul class="item-list" id="pdfList"></ul>
+        </div>
+
+        <!-- Page 4: Links & Explanations -->
+        <div id="p4" class="page-content">
+            <h2>الروابط والشروحات الدراسية</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">أضف روابط دروس اليوتيوب والشروحات الخارجية لسهولة الوصول إليها:</p>
+            
+            <div class="input-group">
+                <input type="text" id="linkTitleInput" placeholder="عنوان الدرس / الشرح...">
+                <input type="url" id="linkUrlInput" placeholder="رابط الشرح (YouTube/موقع)...">
+                <button class="btn" onclick="addLink()">إضافة</button>
+            </div>
+            <ul class="item-list" id="linkList"></ul>
+        </div>
+
+        <!-- Page 5: Obstacles & Solutions -->
+        <div id="p5" class="page-content">
+            <h2>ملاحظات الأسبوع والعوائق</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">في حال عدم تحقيق نسبة إنجاز 100%، دون الأسباب والحلول لتتجاوزها:</p>
+            
+            <div style="margin-bottom: 1.2rem;">
+                <label style="display:block; font-weight: 700; margin-bottom: 0.5rem;">العوائق التي كانت سببًا في تأخري عن تنفيذ المهام:</label>
+                <textarea id="obstaclesInput" placeholder="اكتب العوائق والتشتت الذي واجهك..."></textarea>
+            </div>
+
+            <div style="margin-bottom: 1.2rem;">
+                <label style="display:block; font-weight: 700; margin-bottom: 0.5rem;">حلول عملية لهذه العوائق للأسبوع القادم:</label>
+                <textarea id="solutionsInput" placeholder="اكتب الحلول الممكنة لتجنب التقصير..."></textarea>
+            </div>
         </div>
     </div>
 
-    <!-- Fixed Instagram Signature on every page view -->
     <footer>
         @insta:ams_m_5
     </footer>
 
     <script>
-        // Page Navigation
+        // Tab Navigation
         function showPage(pageId, btn) {
-            let pages = document.querySelectorAll('.page-content');
-            pages.forEach(p => p.classList.remove('active'));
-
-            let btns = document.querySelectorAll('.nav-btn');
-            btns.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
             btn.classList.add('active');
         }
 
-        // Pomodoro Timer Logic
-        let timerInterval;
-        let timeLeft = 25 * 60;
-
-        function updateTimer() {
-            let min = Math.floor(timeLeft / 60);
-            let sec = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
+        // Today's Goals & Progress Logic
+        function updateProgress() {
+            let items = document.querySelectorAll('#todayGoalList input[type="checkbox"]');
+            if (items.length === 0) {
+                document.getElementById('progressBar').style.width = '0%';
+                document.getElementById('progressText').innerText = '0%';
+                return;
+            }
+            let checked = document.querySelectorAll('#todayGoalList input[type="checkbox"]:checked');
+            let percentage = Math.round((checked.length / items.length) * 100);
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = percentage + '%';
         }
 
-        function startTimer() {
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateTimer();
-                } else {
-                    clearInterval(timerInterval);
-                    alert("انتهت جلسة التركيز! خذ استراحة لمدة 5 دقائق.");
-                }
-            }, 1000);
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timeLeft = 25 * 60;
-            updateTimer();
-        }
-
-        // Add Task Logic
-        function addTask() {
-            let input = document.getElementById('taskInput');
+        function addTodayGoal() {
+            let input = document.getElementById('todayGoalInput');
             let text = input.value.trim();
-            if(!text) return;
+            if (!text) return;
 
             let li = document.createElement('li');
             li.innerHTML = `
-                <span onclick="this.parentElement.classList.toggle('done')" style="cursor:pointer">${text}</span>
+                <label class="checkbox-label">
+                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done'); updateProgress();">
+                    <span>${text}</span>
+                </label>
+                <button class="btn-del" onclick="this.parentElement.remove(); updateProgress();">حذف</button>
+            `;
+            document.getElementById('todayGoalList').appendChild(li);
+            input.value = '';
+            updateProgress();
+        }
+
+        // 4 Weeks System
+        let currentWeek = 1;
+        let weekGoalsData = { 1: [], 2: [], 3: [], 4: [] };
+
+        function switchWeek(weekNum) {
+            currentWeek = weekNum;
+            document.querySelectorAll('.week-btn').forEach((b, idx) => {
+                b.classList.toggle('active', idx + 1 === weekNum);
+            });
+            document.getElementById('weekTitle').innerText = `أهداف الأسبوع ${weekNum}`;
+            renderWeekGoals();
+        }
+
+        function addWeekGoal() {
+            let input = document.getElementById('weekGoalInput');
+            let text = input.value.trim();
+            if (!text) return;
+
+            weekGoalsData[currentWeek].push(text);
+            input.value = '';
+            renderWeekGoals();
+        }
+
+        function renderWeekGoals() {
+            let list = document.getElementById('weekGoalList');
+            list.innerHTML = '';
+            weekGoalsData[currentWeek].forEach((goal, idx) => {
+                let li = document.createElement('li');
+                li.innerHTML = `
+                    <span>📌 ${goal}</span>
+                    <button class="btn-del" onclick="weekGoalsData[${currentWeek}].splice(${idx}, 1); renderWeekGoals();">حذف</button>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        // Add Subjects
+        function addSubject() {
+            let input = document.getElementById('subjectInput');
+            let text = input.value.trim();
+            if (!text) return;
+
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <span>📖 ${text}</span>
                 <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
             `;
-            document.getElementById('taskList').appendChild(li);
+            document.getElementById('subjectList').appendChild(li);
             input.value = '';
+        }
+
+        // Add PDF Files
+        function addPdf() {
+            let nameInput = document.getElementById('pdfNameInput');
+            let urlInput = document.getElementById('pdfUrlInput');
+            let name = nameInput.value.trim();
+            let url = urlInput.value.trim() || '#';
+
+            if (!name) return;
+
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <span>📄 <a href="${url}" target="_blank" style="color:var(--text-dark); text-decoration:underline;">${name}</a></span>
+                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
+            `;
+            document.getElementById('pdfList').appendChild(li);
+            nameInput.value = '';
+            urlInput.value = '';
+        }
+
+        // Add Links
+        function addLink() {
+            let titleInput = document.getElementById('linkTitleInput');
+            let urlInput = document.getElementById('linkUrlInput');
+            let title = titleInput.value.trim();
+            let url = urlInput.value.trim() || '#';
+
+            if (!title) return;
+
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <span>🎥 <a href="${url}" target="_blank" style="color:var(--accent-hover); font-weight:700;">${title}</a></span>
+                <button class="btn-del" onclick="this.parentElement.remove()">حذف</button>
+            `;
+            document.getElementById('linkList').appendChild(li);
+            titleInput.value = '';
+            urlInput.value = '';
         }
     </script>
 </body>
