@@ -80,7 +80,7 @@
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.25 ease;
+            transition: all 0.25s ease;
         }
 
         .nav-btn.active, .nav-btn:hover {
@@ -115,7 +115,7 @@
             font-weight: 900;
         }
 
-        /* Status Badges Section (From Image) */
+        /* Status Badges Section */
         .status-container {
             margin-bottom: 1.2rem;
             background: var(--pink-soft);
@@ -154,6 +154,46 @@
             border-color: var(--pink-accent);
         }
 
+        /* Progress Bar Section */
+        .progress-box {
+            background-color: var(--pink-soft);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-bar-container {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            height: 22px;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--pink-accent);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-percentage {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--pink-accent);
+        }
+
         /* Inputs & Buttons */
         .input-group {
             display: flex;
@@ -176,11 +216,6 @@
 
         input[type="text"]:focus, textarea:focus {
             border-color: var(--pink-accent);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
         }
 
         .btn {
@@ -274,32 +309,6 @@
             font-weight: 700;
         }
 
-        /* Calendar Row (From Image) */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--text-main);
-        }
-
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.4rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .calendar-day-head {
-            font-weight: 700;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            padding: 0.3rem;
-        }
-
         /* Timer Box */
         .timer-box {
             background-color: var(--bg-main);
@@ -359,19 +368,19 @@
     <div class="container">
         <header>
             <h1>مُخططي الدراسي 🌸</h1>
-            <p>منظم الترم التفاعلي🌸</p>
+            <p>منظم الترم التفاعلي</p>
         </header>
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
             <button class="nav-btn active" onclick="showPage('p1', this)">📅 الخطة الأسبوعية</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">🗓️ التقويم واليوم</button>
+            <button class="nav-btn" onclick="showPage('p2', this)">✨ قائمة الإنجاز</button>
             <button class="nav-btn" onclick="showPage('p3', this)">⏱️ مؤقت التركيز</button>
             <button class="nav-btn" onclick="showPage('p4', this)">📚 المواد والروابط</button>
             <button class="nav-btn" onclick="showPage('p5', this)">💡 نصائح عدم التسويف</button>
         </div>
 
-        <!-- Page 1: Weekly Plan (Main Notebook) -->
+        <!-- Page 1: Weekly Plan -->
         <div id="p1" class="page-content active">
             <h2>🌸 الخطة الأسبوعية والمهام</h2>
             <p style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 1rem; font-weight: 500;">أضيفي مهام كل يوم وتزيد المربعات تلقائيًا كالنوتة:</p>
@@ -444,29 +453,13 @@
             <footer>@insta:ams_m_5</footer>
         </div>
 
-        <!-- Page 2: Calendar & Daily Note (From Provided Image) -->
+        <!-- Page 2: Achievement & Stickers -->
         <div id="p2" class="page-content">
-            <h2>🗓️ اختاري يومًا من التقويم</h2>
+            <h2>✨ قائمة الإنجاز والملصقات</h2>
 
-            <div class="calendar-header">
-                <span>‹</span>
-                <span>الشهر الحالي 🌸</span>
-                <span>›</span>
-            </div>
-
-            <div class="calendar-days">
-                <div class="calendar-day-head">الأحد</div>
-                <div class="calendar-day-head"الإثنين</div>
-                <div class="calendar-day-head">الثلاثاء</div>
-                <div class="calendar-day-head">الأربعاء</div>
-                <div class="calendar-day-head">الخميس</div>
-                <div class="calendar-day-head">الجمعة</div>
-                <div class="calendar-day-head">السبت</div>
-            </div>
-
-            <!-- Badges Section from Image -->
+            <!-- Badges / Stickers Section -->
             <div class="status-container">
-                <div class="status-title">حالة اليوم / ملصق:</div>
+                <div class="status-title">اختر الملصق المناسب لإنجازك:</div>
                 <div class="badges-group">
                     <button class="badge-btn" onclick="toggleBadge(this)">✨ إنجاز</button>
                     <button class="badge-btn" onclick="toggleBadge(this)">📚 اختبار</button>
@@ -476,17 +469,21 @@
                 </div>
             </div>
 
-            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">مهام اليوم:</h3>
-            <div class="input-group">
-                <input type="text" id="calTaskInput" placeholder="أضف مادة أو مهمة جديدة...">
-                <button class="btn" onclick="addCalTask()">إضافة 🌸</button>
+            <!-- Progress Bar Section -->
+            <div class="progress-box">
+                <div class="progress-title">نسبة الإنجاز اليومية 🌸</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-percentage" id="progressText">0%</div>
             </div>
-            <ul class="item-list" id="calTaskList"></ul>
 
-            <div style="margin-top: 1.2rem;">
-                <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">ملاحظات وتدوين:</h3>
-                <textarea placeholder="اكتبي ملخص يومك، انطباعاتك، أو تذكيرات للغد..."></textarea>
+            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضف إنجازًا جديدًا:</h3>
+            <div class="input-group">
+                <input type="text" id="achievementInput" placeholder="أكتب الإنجاز الذي حققته اليوم...">
+                <button class="btn" onclick="addAchievementTask()">إضافة 🌸</button>
             </div>
+            <ul class="item-list" id="achievementList"></ul>
 
             <footer>@insta:ams_m_5</footer>
         </div>
@@ -546,7 +543,7 @@
 
             <div class="tip-card">
                 <h4>3. إبعاد المشتتات 🌸</h4>
-                <p>ضعي هاتفك في مكان بعيد تمامًا أثناء تشغيل مؤقت المذاكرة ليظل تركيزك صافيًا ومستقرًا.</p>
+                <p>ضعي هاتفك في مكان بعيد تماماً أثناء تشغيل مؤقت المذاكرة ليظل تركيزك صافياً ومستقراً.</p>
             </div>
 
             <footer>@insta:ams_m_5</footer>
@@ -581,22 +578,49 @@
             input.value = '';
         }
 
-        // Calendar Day Task
-        function addCalTask() {
-            let input = document.getElementById('calTaskInput');
+        // Add Achievement Task & Calculate Progress
+        function addAchievementTask() {
+            let input = document.getElementById('achievementInput');
             let text = input.value.trim();
             if (!text) return;
 
             let li = document.createElement('li');
             li.innerHTML = `
                 <label class="checkbox-label">
-                    <input type="checkbox" onchange="this.closest('li').classList.toggle('done');">
-                    <span>🌸 ${text}</span>
+                    <input type="checkbox" onchange="toggleAchievementDone(this)">
+                    <span>✨ ${text}</span>
                 </label>
-                <button class="btn-del" onclick="this.parentElement.remove();">حذف</button>
+                <button class="btn-del" onclick="removeAchievement(this)">حذف</button>
             `;
-            document.getElementById('calTaskList').appendChild(li);
+            document.getElementById('achievementList').appendChild(li);
             input.value = '';
+            updateProgress();
+        }
+
+        function toggleAchievementDone(checkbox) {
+            checkbox.closest('li').classList.toggle('done');
+            updateProgress();
+        }
+
+        function removeAchievement(btn) {
+            btn.parentElement.remove();
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let list = document.getElementById('achievementList');
+            let items = list.querySelectorAll('li');
+            let total = items.length;
+            if (total === 0) {
+                document.getElementById('progressBar').style.width = '0%';
+                document.getElementById('progressText').innerText = '0%';
+                return;
+            }
+            let doneCount = list.querySelectorAll('li.done').length;
+            let percentage = Math.round((doneCount / total) * 100);
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = percentage + '%';
         }
 
         // Badge Select
