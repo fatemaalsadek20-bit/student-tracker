@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كتاب التلوين الرقمي الدافئ | Cozy Coloring Book</title>
+    <title>كتاب التلوين الرقمي الاحترافي بالعرض | Cozy Landscape Coloring Book</title>
     <style>
         :root {
             --bg-color: #f7f3ed;
@@ -28,23 +28,22 @@
             overflow: hidden;
         }
 
-        /* القائمة الجانبية */
+        /* القائمة الجانبية بالعرض */
         .sidebar {
-            width: 320px;
+            width: 280px;
             background: var(--panel-bg);
             border-left: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            gap: 15px;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.02);
+            padding: 15px;
+            gap: 12px;
         }
 
         .sidebar h2 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #5c6b61;
             text-align: center;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--bg-color);
         }
 
@@ -52,18 +51,17 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            padding-left: 4px;
+            gap: 8px;
         }
 
         .page-item {
-            padding: 12px 15px;
+            padding: 10px 12px;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 8px;
             background: #faf7f2;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -76,16 +74,14 @@
         }
 
         .badge {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 12px;
+            font-size: 0.72rem;
+            padding: 2px 6px;
+            border-radius: 10px;
             background: rgba(0,0,0,0.06);
         }
-        .page-item.active .badge {
-            background: rgba(255,255,255,0.25);
-        }
+        .page-item.active .badge { background: rgba(255,255,255,0.25); }
 
-        /* منطقة العمل والرسم */
+        /* منطقة العمل بالعرض (Landscape) */
         .workspace {
             flex: 1;
             display: flex;
@@ -93,302 +89,183 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 20px;
+            padding: 15px;
         }
 
-        /* شريط الأدوات العلوي */
         .toolbar {
             position: absolute;
-            top: 20px;
+            top: 15px;
             background: var(--panel-bg);
-            padding: 10px 25px;
-            border-radius: 40px;
+            padding: 8px 20px;
+            border-radius: 30px;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid var(--border-color);
             z-index: 10;
         }
 
-        .palette {
-            display: flex;
-            gap: 8px;
-        }
+        .palette { display: flex; gap: 6px; }
 
         .color-dot {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             border: 2px solid white;
             cursor: pointer;
-            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+            box-shadow: 0 0 3px rgba(0,0,0,0.2);
             transition: transform 0.15s ease;
         }
 
         .color-dot:hover, .color-dot.active {
-            transform: scale(1.22);
+            transform: scale(1.2);
             border-color: #4a443f;
         }
 
         .tool-btn {
             background: #f0eadf;
             border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-color);
-            transition: background 0.2s;
         }
 
-        .tool-btn:hover, .tool-btn.active {
+        .tool-btn.active {
             background: var(--accent-color);
             color: white;
             border-color: var(--accent-color);
         }
 
-        /* مساحة الكانفاس */
+        /* مقاس الصفحة بالعرض A4 Ratio (800x500) */
         .canvas-container {
-            width: 600px;
-            height: 750px;
+            width: 800px;
+            height: 500px;
             background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            border-radius: 10px;
             position: relative;
             overflow: hidden;
-            margin-top: 40px;
+            margin-top: 35px;
+        }
+
+        svg.drawing-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
         }
 
         canvas {
-            touch-action: none;
-            cursor: crosshair;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        @media (max-width: 950px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: 180px; }
-            .canvas-container { width: 90vw; height: 115vw; margin-top: 0; }
-            .toolbar { position: static; margin-bottom: 10px; }
+            z-index: 1;
+            touch-action: none;
+            cursor: crosshair;
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية بالرسومات -->
     <div class="sidebar">
-        <h2>صفحات التلوين الدافئة ☕🌿</h2>
+        <h2>رسومات التلوين بالعرض ☕🎨</h2>
         <div class="pages-list" id="pagesList"></div>
     </div>
 
-    <!-- منطقة العمل والتحكم -->
     <div class="workspace">
         <div class="toolbar">
-            <!-- أداة التعبير بنقرة واحدة والتلوين بالفرشاة -->
-            <button class="tool-btn active" id="fillToolBtn">🪣 تعبئة بنقرة</button>
-            <button class="tool-btn" id="brushToolBtn">✏️ فرشاة</button>
+            <button class="tool-btn active" id="brushBtn">✏️ قلم تلوين</button>
             <button class="tool-btn" id="eraserBtn">🧹 ممحاة</button>
-            
-            <div style="height: 20px; width: 1px; background: var(--border-color);"></div>
+            <label style="font-size: 0.8rem; display:flex; align-items:center; gap:5px;">
+                الحجم: <input type="range" id="brushSize" min="4" max="35" value="12">
+            </label>
+            <div style="height: 16px; width: 1px; background: var(--border-color);"></div>
 
-            <!-- لوحة الألوان الدافئة -->
             <div class="palette" id="palette"></div>
-            <input type="color" id="customColor" value="#d4a373" style="width:28px; height:28px; border:none; cursor:pointer; background:none;">
+            <input type="color" id="customColor" value="#d4a373" style="width:24px; height:24px; border:none; cursor:pointer; background:none;">
 
-            <div style="height: 20px; width: 1px; background: var(--border-color);"></div>
+            <div style="height: 16px; width: 1px; background: var(--border-color);"></div>
 
-            <button class="tool-btn" id="clearBtn">مسح الكل</button>
-            <button class="tool-btn" id="saveBtn" style="background: #e8c5a5; font-weight: bold;">حفظ الصورة</button>
+            <button class="tool-btn" id="clearBtn">مسح</button>
+            <button class="tool-btn" id="saveBtn" style="background: #e8c5a5; font-weight: bold;">طباعة / حفظ PDF</button>
         </div>
 
         <div class="canvas-container">
-            <canvas id="paintCanvas" width="600" height="750"></canvas>
+            <canvas id="paintCanvas" width="800" height="500"></canvas>
+            <svg id="svgOverlay" class="drawing-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
     </div>
 
     <script>
-        // مصفوفة الرسم الخطية الدافئة (SVG Line Art) المستوحاة من صورك
+        // الرسومات المجهزة بالعرض (Landscape)
         const drawings = [
             {
-                title: "1. فنجان قهوة وكتب ونبات",
+                title: "1. الكتب وفنجان القهوة",
                 level: "متوسط",
-                draw: function(ctx) {
-                    drawBorder(ctx);
-                    // الكتب
-                    for(let i=0; i<4; i++) {
-                        ctx.strokeRect(180, 480 - (i*55), 240, 45);
-                        // تفاصيل زخرفة الكتب
-                        ctx.beginPath();
-                        ctx.arc(300, 457 - (i*55), 8, 0, Math.PI * 2);
-                        ctx.stroke();
-                    }
-                    // فنجان القوة مع القلب
-                    ctx.beginPath();
-                    ctx.arc(300, 210, 45, 0, Math.PI);
-                    ctx.lineTo(345, 210);
-                    ctx.stroke();
-                    // مقبض الفنجان
-                    ctx.beginPath();
-                    ctx.arc(350, 195, 18, 0, Math.PI * 2);
-                    ctx.stroke();
-                    // القلب على الفنجان
-                    drawHeart(ctx, 300, 195, 14);
-
-                    // أصيص النبات
-                    ctx.strokeRect(430, 420, 80, 110);
-                    drawHeart(ctx, 470, 475, 12);
-                    // أغصان وأوراق النبات
-                    ctx.beginPath();
-                    ctx.moveTo(470, 420); ctx.quadraticCurveTo(460, 260, 480, 200);
-                    ctx.stroke();
-                    for(let y=230; y<400; y+=35) {
-                        drawLeaf(ctx, 470, y, -35, -15);
-                        drawLeaf(ctx, 470, y+15, 35, -15);
-                    }
-                }
+                svg: `
+                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
+                    <!-- كتب متراكمة -->
+                    <path d="M 220 380 L 480 380 L 470 420 L 210 420 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <path d="M 240 335 L 460 335 L 452 380 L 232 380 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <path d="M 260 295 L 440 295 L 435 335 L 255 335 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <!-- كوب القهوة -->
+                    <path d="M 310 295 C 310 220, 390 220, 390 295 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <path d="M 390 245 C 415 245, 415 280, 385 285" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <!-- أصيص النبات -->
+                    <path d="M 530 300 L 610 300 L 590 420 L 550 420 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <path d="M 570 300 Q 530 220 490 200 Q 550 250 570 300" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <path d="M 570 300 Q 610 210 650 180 Q 600 240 570 300" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <line x1="100" y1="420" x2="700" y2="420" stroke="#2b2623" stroke-width="3"/>
+                `
             },
             {
                 title: "2. أغصان الليمون والمزهرية",
                 level: "متوسط",
-                draw: function(ctx) {
-                    // المزهرية المخططة
-                    ctx.beginPath();
-                    ctx.moveTo(250, 620); ctx.lineTo(350, 620);
-                    ctx.quadraticCurveTo(390, 450, 360, 380);
-                    ctx.lineTo(240, 380);
-                    ctx.quadraticCurveTo(210, 450, 250, 620);
-                    ctx.stroke();
-                    // خطوط المزهرية الطولية
-                    for(let x=265; x<=335; x+=18) {
-                        ctx.beginPath(); ctx.moveTo(x, 380); ctx.lineTo(x, 620); ctx.stroke();
-                    }
-                    // حبات الليمون
-                    drawLemon(ctx, 210, 280, 30);
-                    drawLemon(ctx, 380, 290, 32);
-                    drawLemon(ctx, 290, 230, 28);
-                    drawLemon(ctx, 450, 360, 26);
-                    drawLemon(ctx, 160, 350, 28);
-                    // أوراق الليمون
-                    for(let a=0; a<6; a++) {
-                        drawLeaf(ctx, 200 + (a*40), 180 + (a*25), 40, 20);
-                        drawLeaf(ctx, 180 + (a*45), 240 + (a*15), -40, 20);
-                    }
-                }
+                svg: `
+                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
+                    <path d="M 350 270 C 310 310, 300 380, 320 430 L 480 430 C 500 380, 490 310, 450 270 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <rect x="340" y="240" width="120" height="30" rx="5" fill="none" stroke="#2b2623" stroke-width="3"/>
+                    <ellipse cx="270" cy="180" rx="30" ry="40" transform="rotate(-20 270 180)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <ellipse cx="480" cy="140" rx="28" ry="38" transform="rotate(25 480 140)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <ellipse cx="540" cy="200" rx="28" ry="38" transform="rotate(40 540 200)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <line x1="150" y1="430" x2="650" y2="430" stroke="#2b2623" stroke-width="3"/>
+                `
             },
             {
-                title: "3. أصيص الصبار البسيط",
+                title: "3. نبتة الصبار البسيطة",
                 level: "مبتدئ جداً",
-                draw: function(ctx) {
-                    // أصيص عريض بسيط
-                    ctx.beginPath();
-                    ctx.moveTo(200, 380); ctx.lineTo(400, 380);
-                    ctx.lineTo(370, 580); ctx.lineTo(230, 580); ctx.closePath();
-                    ctx.stroke();
-                    // صبار مبتدئ
-                    ctx.beginPath();
-                    ctx.arc(300, 300, 80, Math.PI, 0);
-                    ctx.lineTo(380, 380); ctx.lineTo(220, 380); ctx.closePath();
-                    ctx.stroke();
-                    // زهرة الصبار فوق
-                    drawHeart(ctx, 300, 210, 18);
-                    // خطوط طولية
-                    ctx.beginPath();
-                    ctx.moveTo(300, 220); ctx.lineTo(300, 380);
-                    ctx.moveTo(260, 230); ctx.quadraticCurveTo(255, 300, 250, 380);
-                    ctx.moveTo(340, 230); ctx.quadraticCurveTo(345, 300, 350, 380);
-                    ctx.stroke();
-                }
-            },
-            {
-                title: "4. فنجان الشاي الدافئ",
-                level: "مبتدئ",
-                draw: function(ctx) {
-                    // كوب دافئ بسيط جداً
-                    ctx.beginPath();
-                    ctx.arc(300, 420, 110, 0, Math.PI);
-                    ctx.lineTo(410, 330); ctx.lineTo(190, 330); ctx.closePath();
-                    ctx.stroke();
-                    // الصحن السفلي
-                    ctx.beginPath();
-                    ctx.ellipse(300, 440, 150, 25, 0, 0, Math.PI * 2);
-                    ctx.stroke();
-                    // الدخان المتصاعد لطيف
-                    ctx.beginPath();
-                    ctx.moveTo(270, 280); ctx.quadraticCurveTo(250, 200, 270, 140);
-                    ctx.moveTo(330, 280); ctx.quadraticCurveTo(350, 200, 330, 140);
-                    ctx.stroke();
-                    // قلب في المنتصف
-                    drawHeart(ctx, 300, 380, 25);
-                }
-            },
-            {
-                title: "5. إطار وقلوب دافئة",
-                level: "مبتدئ",
-                draw: function(ctx) {
-                    drawBorder(ctx);
-                    drawHeart(ctx, 300, 375, 60);
-                    drawHeart(ctx, 200, 260, 35);
-                    drawHeart(ctx, 400, 260, 35);
-                    drawHeart(ctx, 200, 490, 35);
-                    drawHeart(ctx, 400, 490, 35);
-                }
+                svg: `
+                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
+                    <path d="M 310 270 L 490 270 L 460 410 L 340 410 Z" fill="none" stroke="#2b2623" stroke-width="3.5"/>
+                    <rect x="295" y="245" width="210" height="25" rx="5" fill="none" stroke="#2b2623" stroke-width="3.5"/>
+                    <path d="M 350 245 C 350 140, 450 140, 450 245 Z" fill="none" stroke="#2b2623" stroke-width="3.5"/>
+                    <circle cx="400" cy="140" r="14" fill="none" stroke="#2b2623" stroke-width="2.5"/>
+                    <line x1="180" y1="410" x2="620" y2="410" stroke="#2b2623" stroke-width="3.5"/>
+                `
             }
         ];
 
-        // أدوات مساعدة لرسم العناصر بخطوط سوداء ناعمة
-        function drawBorder(ctx) {
-            ctx.beginPath();
-            ctx.roundRect(40, 40, 520, 670, 25);
-            ctx.stroke();
-            // نجوم وقلوب على الإطار
-            for(let i=80; i<500; i+=120) {
-                drawHeart(ctx, i+30, 25, 6);
-                drawHeart(ctx, i+30, 725, 6);
-            }
-        }
-
-        function drawHeart(ctx, x, y, size) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.bezierCurveTo(x - size, y - size, x - size * 1.5, y + size / 3, x, y + size);
-            ctx.bezierCurveTo(x + size * 1.5, y + size / 3, x + size, y - size, x, y);
-            ctx.stroke();
-        }
-
-        function drawLeaf(ctx, x, y, width, height) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.quadraticCurveTo(x + width, y + height, x + width*1.2, y + height*2);
-            ctx.quadraticCurveTo(x + width*0.2, y + height*1.8, x, y);
-            ctx.stroke();
-        }
-
-        function drawLemon(ctx, x, y, r) {
-            ctx.beginPath();
-            ctx.ellipse(x, y, r, r*1.3, Math.PI/4, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-
-        // إعدادات التطبيق والتفاعل
-        const paletteColors = [
-            "#e8c5a5", "#d4a373", "#9cb09d", "#6b7c6c",
-            "#b8bedd", "#f4acb7", "#ffe5ec", "#fefae0",
-            "#e9edc9", "#4a443f", "#ffffff", "#d8e2dc"
-        ];
-
+        const paletteColors = ["#e8c5a5", "#d4a373", "#9cb09d", "#6b7c6c", "#b8bedd", "#f4acb7", "#ffe5ec", "#fefae0", "#000000"];
         const canvas = document.getElementById('paintCanvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const ctx = canvas.getContext('2d');
+        const svgOverlay = document.getElementById('svgOverlay');
         const pagesList = document.getElementById('pagesList');
         const palette = document.getElementById('palette');
-        const customColor = document.getElementById('customColor');
+        const brushSize = document.getElementById('brushSize');
 
-        let activeTool = 'fill'; // 'fill' or 'brush' or 'eraser'
-        let currentColor = '#d4a373';
+        let isDrawing = false;
+        let currentColor = paletteColors[1];
+        let isEraser = false;
         let currentPage = 0;
 
-        // إنشاء قائمة الرسومات بالجانب
         drawings.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = `page-item ${index === 0 ? 'active' : ''}`;
@@ -397,190 +274,103 @@
             pagesList.appendChild(div);
         });
 
-        // لوحة الألوان
         paletteColors.forEach((color, i) => {
             const dot = document.createElement('div');
-            dot.className = `color-dot ${i === 0 ? 'active' : ''}`;
+            dot.className = `color-dot ${i === 1 ? 'active' : ''}`;
             dot.style.backgroundColor = color;
             dot.onclick = () => {
                 document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
                 dot.classList.add('active');
                 currentColor = color;
-                if(activeTool === 'eraser') setTool('brush');
+                isEraser = false;
+                document.getElementById('brushBtn').classList.add('active');
+                document.getElementById('eraserBtn').classList.remove('active');
             };
             palette.appendChild(dot);
         });
 
-        customColor.oninput = (e) => {
-            currentColor = e.target.value;
-            if(activeTool === 'eraser') setTool('brush');
-        };
-
-        // تبديل الأدوات
-        function setTool(tool) {
-            activeTool = tool;
-            document.getElementById('fillToolBtn').classList.toggle('active', tool === 'fill');
-            document.getElementById('brushToolBtn').classList.toggle('active', tool === 'brush');
-            document.getElementById('eraserBtn').classList.toggle('active', tool === 'eraser');
-        }
-
-        document.getElementById('fillToolBtn').onclick = () => setTool('fill');
-        document.getElementById('brushToolBtn').onclick = () => setTool('brush');
-        document.getElementById('eraserBtn').onclick = () => setTool('eraser');
-
-        // تحميل الرسمة
         function loadDrawing(index) {
             currentPage = index;
-            document.querySelectorAll('.page-item').forEach((el, i) => {
-                el.classList.toggle('active', i === index);
-            });
-
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.strokeStyle = "#2b2623";
-            ctx.lineWidth = 3.5;
-            ctx.lineCap = "round";
-            ctx.lineJoin = "round";
-
-            drawings[index].draw(ctx);
+            document.querySelectorAll('.page-item').forEach((el, i) => el.classList.toggle('active', i === index));
+            svgOverlay.innerHTML = drawings[index].svg;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
-        // أداة التعبئة بنقرة واحدة (Flood Fill Algorithm)
-        function hexToRgb(hex) {
-            let bigint = parseInt(hex.replace('#', ''), 16);
-            return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255, 255];
-        }
-
-        function floodFill(startX, startY, fillColorHex) {
-            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imgData.data;
-            const targetColor = getPixel(imgData, startX, startY);
-            const fillColor = hexToRgb(fillColorHex);
-
-            if (colorsMatch(targetColor, fillColor, 10)) return;
-
-            const pixelStack = [[startX, startY]];
-
-            while (pixelStack.length) {
-                const newPos = pixelStack.pop();
-                const x = newPos[0];
-                let y = newPos[1];
-
-                let pixelPos = (y * canvas.width + x) * 4;
-
-                while (y >= 0 && colorsMatch(getPixelAtPos(data, pixelPos), targetColor, 50)) {
-                    y--;
-                    pixelPos -= canvas.width * 4;
-                }
-                pixelPos += canvas.width * 4;
-                y++;
-
-                let reachLeft = false;
-                let reachRight = false;
-
-                while (y < canvas.height && colorsMatch(getPixelAtPos(data, pixelPos), targetColor, 50)) {
-                    setPixelAtPos(data, pixelPos, fillColor);
-
-                    if (x > 0) {
-                        if (colorsMatch(getPixelAtPos(data, pixelPos - 4), targetColor, 50)) {
-                            if (!reachLeft) {
-                                pixelStack.push([x - 1, y]);
-                                reachLeft = true;
-                            }
-                        } else if (reachLeft) {
-                            reachLeft = false;
-                        }
-                    }
-
-                    if (x < canvas.width - 1) {
-                        if (colorsMatch(getPixelAtPos(data, pixelPos + 4), targetColor, 50)) {
-                            if (!reachRight) {
-                                pixelStack.push([x + 1, y]);
-                                reachRight = true;
-                            }
-                        } else if (reachRight) {
-                            reachRight = false;
-                        }
-                    }
-
-                    y++;
-                    pixelPos += canvas.width * 4;
-                }
-            }
-            ctx.putImageData(imgData, 0, 0);
-        }
-
-        function getPixel(imgData, x, y) {
-            const i = (y * canvas.width + x) * 4;
-            return [imgData.data[i], imgData.data[i+1], imgData.data[i+2], imgData.data[i+3]];
-        }
-        function getPixelAtPos(data, i) {
-            return [data[i], data[i+1], data[i+2], data[i+3]];
-        }
-        function setPixelAtPos(data, i, color) {
-            data[i] = color[0]; data[i+1] = color[1]; data[i+2] = color[2]; data[i+3] = 255;
-        }
-        function colorsMatch(a, b, range = 20) {
-            return Math.abs(a[0] - b[0]) <= range &&
-                   Math.abs(a[1] - b[1]) <= range &&
-                   Math.abs(a[2] - b[2]) <= range;
-        }
-
-        // أحداث الرسم والتلوين بالفأرة واللمس
-        let isDrawing = false;
-
-        function getCanvasPos(e) {
+        function getPos(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
             return {
-                x: Math.floor((clientX - rect.left) * scaleX),
-                y: Math.floor((clientY - rect.top) * scaleY)
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
 
-        function handleStart(e) {
-            const pos = getCanvasPos(e);
-            if (activeTool === 'fill') {
-                floodFill(pos.x, pos.y, currentColor);
-            } else {
-                isDrawing = true;
-                ctx.beginPath();
-                ctx.moveTo(pos.x, pos.y);
-            }
-        }
+        function start(e) { isDrawing = true; draw(e); }
+        function stop() { isDrawing = false; ctx.beginPath(); }
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getPos(e);
+            ctx.lineWidth = brushSize.value;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
 
-        function handleMove(e) {
-            if (!isDrawing || activeTool === 'fill') return;
-            const pos = getCanvasPos(e);
-            ctx.lineWidth = activeTool === 'eraser' ? 25 : 8;
-            ctx.strokeStyle = activeTool === 'eraser' ? '#ffffff' : currentColor;
+            if (isEraser) {
+                ctx.globalCompositeOperation = 'destination-out';
+            } else {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = currentColor;
+            }
+
             ctx.lineTo(pos.x, pos.y);
             ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
         }
 
-        function handleEnd() { isDrawing = false; }
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stop);
+        canvas.addEventListener('mouseleave', stop);
 
-        canvas.addEventListener('mousedown', handleStart);
-        canvas.addEventListener('mousemove', handleMove);
-        canvas.addEventListener('mouseup', handleEnd);
+        canvas.addEventListener('touchstart', (e) => { start(e); e.preventDefault(); });
+        canvas.addEventListener('touchmove', (e) => { draw(e); e.preventDefault(); });
+        canvas.addEventListener('touchend', stop);
 
-        canvas.addEventListener('touchstart', (e) => { handleStart(e); e.preventDefault(); });
-        canvas.addEventListener('touchmove', (e) => { handleMove(e); e.preventDefault(); });
-        canvas.addEventListener('touchend', handleEnd);
-
-        document.getElementById('clearBtn').onclick = () => loadDrawing(currentPage);
-        document.getElementById('saveBtn').onclick = () => {
-            const link = document.createElement('a');
-            link.download = `cozy-coloring-${currentPage+1}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
+        document.getElementById('brushBtn').onclick = () => {
+            isEraser = false;
+            document.getElementById('brushBtn').classList.add('active');
+            document.getElementById('eraserBtn').classList.remove('active');
+        };
+        document.getElementById('eraserBtn').onclick = () => {
+            isEraser = true;
+            document.getElementById('eraserBtn').classList.add('active');
+            document.getElementById('brushBtn').classList.remove('active');
         };
 
-        // البدء بتشغيل الرسمة الأولى
+        document.getElementById('clearBtn').onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        document.getElementById('saveBtn').onclick = () => {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.fillStyle = '#ffffff';
+            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+            tempCtx.drawImage(canvas, 0, 0);
+
+            const xml = new XMLSerializer().serializeToString(svgOverlay);
+            const svgImg = new Image();
+            svgImg.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(xml)));
+            svgImg.onload = () => {
+                tempCtx.drawImage(svgImg, 0, 0);
+                const link = document.createElement('a');
+                link.download = `cozy-landscape-page-${currentPage+1}.png`;
+                link.href = tempCanvas.toDataURL();
+                link.click();
+            };
+        };
+
         loadDrawing(0);
     </script>
 </body>
