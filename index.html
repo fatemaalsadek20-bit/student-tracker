@@ -3,1654 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مُخططي الدراسي 🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <title>كتاب التلوين الرقمي | مساحة الهدوء والإبداع</title>
     <style>
         :root {
-            --bg-main: #fcf8f6;
-            --card-bg: #ffffff;
-            --pink-soft: #f7ebe8;
-            --pink-accent: #d8969f;
-            --pink-hover: #c7838c;
-            --text-main: #4a3e3d;
-            --text-muted: #8c7b79;
-            --border-color: #eededb;
-            --gold-star: #ffb703;
+            --bg-color: #f4ece1;
+            --panel-bg: #ffffff;
+            --accent-color: #9cb09d;
+            --text-color: #4a4a4a;
+            --border-color: #e0d7cb;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html, body {
-            min-height: 100vh;
-            width: 100%;
-            background-color: var(--bg-main);
-            color: var(--text-main);
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Directory */
+        .sidebar {
+            width: 320px;
+            background: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
+            padding: 20px;
+            gap: 15px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 25px 18px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: #6b7c6c;
             text-align: center;
-            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bg-color);
         }
 
-        header h1 {
-            font-size: 2.3rem;
-            color: var(--pink-accent);
-            font-weight: 900;
-            outline: none;
-            border-bottom: 2px dashed transparent;
-            display: inline-block;
-            transition: border 0.3s;
-        }
-
-        header h1:focus {
-            border-bottom-color: var(--pink-accent);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 5px;
-            font-weight: 500;
-        }
-
-        /* Top Bar: Weekly Progress & Priorities */
-        .top-overview-card {
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 18px;
-            padding: 1.2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(216, 150, 159, 0.05);
-        }
-
-        .priority-box {
-            margin-bottom: 1rem;
-        }
-
-        .priority-title {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: var(--pink-accent);
-            margin-bottom: 0.5rem;
-        }
-
-        /* Nav Tabs */
-        .nav-tabs {
-            display: flex;
-            gap: 0.6rem;
-            margin-bottom: 1.5rem;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .nav-btn {
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            border: 2px solid var(--border-color);
-            padding: 0.8rem 1.3rem;
-            border-radius: 14px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.25s ease;
-        }
-
-        .nav-btn.active, .nav-btn:hover {
-            background-color: var(--pink-accent);
-            color: #ffffff;
-            border-color: var(--pink-accent);
-        }
-
-        /* Page Content */
-        .page-content {
-            display: none;
-            background-color: var(--card-bg);
-            padding: 1.8rem;
-            border-radius: 22px;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(216, 150, 159, 0.08);
-            flex: 1;
-            width: 100%;
-        }
-
-        .page-content.active {
+        .pages-list {
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            padding-left: 5px;
         }
 
-        h2 {
-            font-size: 1.6rem;
-            color: var(--pink-accent);
-            margin-bottom: 1.2rem;
-            border-bottom: 2px solid var(--pink-soft);
-            padding-bottom: 0.6rem;
-            font-weight: 900;
-        }
-
-        /* Animated Badges & Stickers */
-        @keyframes floatSticker {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .status-container {
-            margin-bottom: 1.2rem;
-            background: var(--pink-soft);
-            padding: 1rem;
-            border-radius: 14px;
-        }
-
-        .status-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 0.6rem;
-        }
-
-        .badges-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .badge-btn {
-            background: var(--card-bg);
+        .page-item {
+            padding: 12px;
             border: 1px solid var(--border-color);
-            padding: 0.5rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            font-weight: 700;
+            border-radius: 8px;
+            background: #faf8f5;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: var(--text-main);
-            display: inline-block;
-            animation: floatSticker 3s ease-in-out infinite;
-        }
-
-        .badge-btn:hover {
-            transform: scale(1.08) translateY(-2px);
-            border-color: var(--pink-accent);
-        }
-
-        /* Interactive Day Progress Bar */
-        .day-progress-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.8rem;
-            margin-top: 0.8rem;
-        }
-
-        .day-progress-info {
-            display: flex;
-            justify-content: space-between;
             font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
         }
 
-        .progress-bar-container {
-            background-color: var(--pink-soft);
-            border-radius: 20px;
-            height: 14px;
-            width: 100%;
+        .page-item:hover, .page-item.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* Main Workspace */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .canvas-container {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            position: relative;
             overflow: hidden;
-            border: 1px solid var(--border-color);
         }
 
-        .progress-bar-fill {
-            background-color: var(--pink-accent);
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease;
+        canvas {
+            touch-action: none;
+            cursor: crosshair;
         }
 
-        /* Water Tracker Bar */
-        .water-tracker-box {
-            background-color: var(--pink-soft);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.8rem 1rem;
-            margin-top: 0.8rem;
+        /* Toolbar Header */
+        .toolbar {
+            position: absolute;
+            top: 20px;
+            background: var(--panel-bg);
+            padding: 10px 25px;
+            border-radius: 30px;
             display: flex;
+            gap: 15px;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .water-cups {
+        .color-palette {
             display: flex;
-            gap: 0.4rem;
+            gap: 8px;
         }
 
-        .water-cup {
-            font-size: 1.3rem;
+        .color-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid white;
             cursor: pointer;
-            opacity: 0.3;
-            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
         }
 
-        .water-cup.active {
-            opacity: 1;
-            transform: scale(1.15);
+        .color-btn:hover, .color-btn.active {
+            transform: scale(1.2);
         }
 
-        /* Motivational Card Generator */
-        .quote-box {
-            background-color: var(--pink-soft);
-            border-right: 4px solid var(--pink-accent);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .quote-text {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--pink-accent);
-            margin-bottom: 0.6rem;
-        }
-
-        /* Reward Box */
-        .reward-card {
-            background-color: var(--bg-main);
-            border: 2px dashed var(--pink-accent);
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-top: 1.2rem;
-        }
-
-        /* Animated Star Rating System */
-        .star-rating-box {
-            margin-top: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--pink-soft);
-            padding: 0.6rem 1rem;
-            border-radius: 12px;
-        }
-
-        .star-rating-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .stars-container {
-            display: flex;
-            direction: ltr;
-            gap: 0.3rem;
-        }
-
-        .star-icon {
-            font-size: 1.4rem;
+        .tool-btn {
+            background: #f0eae1;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            color: #d1c4c2;
-            transition: transform 0.2s ease, color 0.2s ease;
-            display: inline-block;
-        }
-
-        .star-icon:hover {
-            transform: scale(1.3) rotate(8deg);
-        }
-
-        .star-icon.active {
-            color: var(--gold-star);
-            animation: popStar 0.3s ease;
-        }
-
-        @keyframes popStar {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-
-        /* Day Sticker Container */
-        .applied-stickers {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .applied-sticker-chip {
-            background-color: var(--pink-soft);
-            color: var(--pink-accent);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 0.2rem 0.6rem;
             font-size: 0.85rem;
-            font-weight: 700;
+            color: var(--text-color);
+            transition: background 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #e2dad0;
+        }
+
+        .size-picker {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-            animation: floatSticker 2.5s ease-in-out infinite;
+            gap: 8px;
+            font-size: 0.85rem;
         }
 
-        .applied-sticker-chip span {
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        /* Inputs & Buttons */
-        .input-group {
-            display: flex;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-            width: 100%;
-        }
-
-        input[type="text"], input[type="number"], input[type="date"], input[type="url"], textarea, select {
-            flex: 1;
-            padding: 0.85rem 1rem;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-size: 1.05rem;
-            font-weight: 500;
-            outline: none;
-        }
-
-        input[type="text"]:focus, textarea:focus, select:focus {
-            border-color: var(--pink-accent);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-            line-height: 1.5;
-        }
-
-        .btn {
-            background-color: var(--pink-accent);
-            color: #ffffff;
-            border: none;
-            padding: 0.85rem 1.4rem;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .btn:hover {
-            background-color: var(--pink-hover);
-        }
-
-        .btn-reset {
-            background-color: var(--pink-soft);
-            color: var(--text-main);
-            border: 2px solid var(--border-color);
-            margin-top: 1rem;
-            width: 100%;
-        }
-
-        /* Weekly Review Block */
-        .weekly-review-box {
-            background-color: var(--bg-main);
-            border: 2px solid var(--border-color);
-            border-radius: 18px;
-            padding: 1.4rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .weekly-review-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--pink-accent);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .review-field {
-            margin-bottom: 1rem;
-        }
-
-        .review-field label {
-            display: block;
-            font-weight: 700;
-            font-size: 0.98rem;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-        }
-
-        /* Notebook Day Block */
-        .day-block {
-            background-color: var(--bg-main);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-bottom: 1.2rem;
-            width: 100%;
-        }
-
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-
-        .day-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        /* Lists & Items */
-        .item-list {
-            list-style: none;
-            margin-bottom: 0.5rem;
-            width: 100%;
-        }
-
-        .item-list li {
-            background-color: var(--card-bg);
-            padding: 0.85rem 1rem;
-            border-radius: 12px;
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.6rem;
-            border-right: 4px solid var(--pink-accent);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
-            font-size: 1.05rem;
-        }
-
-        .item-list li.done span {
-            text-decoration: line-through;
-            opacity: 0.5;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            cursor: pointer;
-            flex: 1;
-            font-weight: 700;
-        }
-
-        .checkbox-label input {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--pink-accent);
-        }
-
-        .btn-del {
-            background-color: var(--pink-soft);
-            color: var(--text-main);
-            border: none;
-            padding: 0.4rem 0.7rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        /* Timer Box & Task Splitter */
-        .timer-box {
-            background-color: var(--bg-main);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 1.2rem;
-        }
-
-        .timer-display {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--pink-accent);
-            margin: 0.4rem 0;
-        }
-
-        .calculator-card {
-            background-color: var(--bg-main);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-top: 1.2rem;
-        }
-
-        /* Procrastination Cards */
-        .tip-card {
-            background-color: var(--bg-main);
-            border-right: 4px solid var(--pink-accent);
-            padding: 1.1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
-        }
-
-        .tip-card h4 {
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin-bottom: 0.4rem;
-            font-weight: 900;
-        }
-
-        .tip-card p {
-            font-size: 0.98rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        /* Exam Table & Habit Tracker */
-        .exam-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .exam-table th, .exam-table td {
-            border: 1px solid var(--border-color);
-            padding: 0.75rem;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .exam-table th {
-            background-color: var(--pink-soft);
-            color: var(--pink-accent);
-            font-weight: 900;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem 0 0.5rem;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            direction: ltr;
-            margin-top: auto;
+        /* Responsive Layout */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: 180px; }
+            .toolbar { position: static; margin-bottom: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1 contenteditable="true" id="plannerTitle" onblur="savePlannerTitle()">مُخططي الدراسي 🌸</h1>
-            <p>منظم الترم التفاعلي (اضغطي على العنوان لتعديل اسمك)</p>
-        </header>
+    <!-- Sidebar with 30 Prompts -->
+    <div class="sidebar">
+        <h2>صفحات التلوين (30 فكرة)</h2>
+        <div class="pages-list" id="pagesList"></div>
+    </div>
 
-        <!-- Motivational Quote Banner -->
-        <div class="quote-box">
-            <div class="quote-text" id="quoteDisplay">"كل خطوة صغيرة تقومين بها اليوم تقربك من هدفك الكبير 💫"</div>
-            <button class="btn" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="generateQuote()">عبارة تشجيعية جديدة ✨</button>
+    <!-- Canvas & Tools Area -->
+    <div class="main-content">
+        <div class="toolbar">
+            <div class="color-palette" id="palette"></div>
+            <input type="color" id="customColor" value="#9cb09d" style="width:30px; height:30px; border:none; cursor:pointer; background:none;">
+            <div class="size-picker">
+                <span>الحجم:</span>
+                <input type="range" id="brushSize" min="2" max="30" value="8">
+            </div>
+            <button class="tool-btn" id="eraserBtn">ممحاة</button>
+            <button class="tool-btn" id="clearBtn">مسح الكل</button>
+            <button class="tool-btn" id="saveBtn">حفظ الصورة</button>
         </div>
 
-        <!-- Top Overview Section -->
-        <div class="top-overview-card">
-            <div class="priority-box">
-                <div class="priority-title">🎯 أولوية الأسبوع الكبرى:</div>
-                <input type="text" id="weeklyPriorityInput" placeholder="اكتبي هدفك الرئيسي لهذا الأسبوع..." oninput="savePriorityData()">
-            </div>
-            <div>
-                <div class="day-progress-info">
-                    <span style="font-weight: 900; color: var(--pink-accent);">إجمالي إنجاز الأسبوع كاملًا:</span>
-                    <span id="totalWeeklyPercent" style="font-weight: 900; color: var(--pink-accent);">0%</span>
-                </div>
-                <div class="progress-bar-container" style="height: 18px;">
-                    <div class="progress-bar-fill" id="totalWeeklyBar"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <button class="nav-btn active" onclick="showPage('p1', this)">📅 الخطة الأسبوعية</button>
-            <button class="nav-btn" onclick="showPage('p2', this)">✨ قائمة الإنجاز والمكافأة</button>
-            <button class="nav-btn" onclick="showPage('p3', this)">📝 الاختبارات والعادات</button>
-            <button class="nav-btn" onclick="showPage('p4', this)">⏱️ المؤقت وحاسبة المهام</button>
-            <button class="nav-btn" onclick="showPage('p5', this)">📚 المواد والأسئلة</button>
-            <button class="nav-btn" onclick="showPage('p6', this)">💡 نصائح عدم التسويف</button>
-        </div>
-
-        <!-- Page 1: Weekly Plan -->
-        <div id="p1" class="page-content active">
-            <h2>🌸 الخطة الأسبوعية والمهام</h2>
-            
-            <!-- Global Interactive Stickers Box -->
-            <div class="status-container">
-                <div class="status-title">اضغطي على الملصق لإضافته ليومك الحالي:</div>
-                <div class="badges-group">
-                    <button class="badge-btn" onclick="addStickerToDay('👑 ممتازة')">👑 ممتازة</button>
-                    <button class="badge-btn" onclick="addStickerToDay('🌟 متفوقة')">🌟 متفوقة</button>
-                    <button class="badge-btn" onclick="addStickerToDay('💪 بطلة الأسبوع')">💪 بطلة الأسبوع</button>
-                    <button class="badge-btn" onclick="addStickerToDay('⭐ فخورة بك')">⭐ فخورة بك</button>
-                    <button class="badge-btn" onclick="addStickerToDay('✨ إنجاز')">✨ إنجاز</button>
-                    <button class="badge-btn" onclick="addStickerToDay('📚 اختبار')">📚 اختبار</button>
-                    <button class="badge-btn" onclick="addStickerToDay('☕ راحة')">☕ راحة</button>
-                    <button class="badge-btn" onclick="addStickerToDay('💡 فكرة')">💡 فكرة</button>
-                    <button class="badge-btn" onclick="addStickerToDay('🎯 هام')">🎯 هام</button>
-                    <button class="badge-btn" onclick="addStickerToDay('🔥 حماس')">🔥 حماس</button>
-                </div>
-            </div>
-
-            <div id="weeklyDaysContainer">
-                <!-- Sunday Block -->
-                <div class="day-block" id="block-sun">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الأحد</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-sun"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-sun" placeholder="أضيفي مهام يوم الأحد...">
-                        <button class="btn" onclick="addDayTask('sun')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-sun"></ul>
-                    
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-sun">
-                            <span class="water-cup" onclick="toggleWater('sun', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sun', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sun', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sun', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sun', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-sun">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-sun"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-sun">
-                            <span class="star-icon" onclick="rateDay('sun', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('sun', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('sun', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('sun', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('sun', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Monday Block -->
-                <div class="day-block" id="block-mon">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الإثنين</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-mon"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-mon" placeholder="أضيفي مهام يوم الإثنين...">
-                        <button class="btn" onclick="addDayTask('mon')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-mon"></ul>
-                    
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-mon">
-                            <span class="water-cup" onclick="toggleWater('mon', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('mon', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('mon', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('mon', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('mon', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-mon">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-mon"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-mon">
-                            <span class="star-icon" onclick="rateDay('mon', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('mon', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('mon', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('mon', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('mon', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tuesday Block -->
-                <div class="day-block" id="block-tue">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الثلاثاء</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-tue"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-tue" placeholder="أضيفي مهام يوم الثلاثاء...">
-                        <button class="btn" onclick="addDayTask('tue')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-tue"></ul>
-                    
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-tue">
-                            <span class="water-cup" onclick="toggleWater('tue', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('tue', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('tue', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('tue', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('tue', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-tue">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-tue"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-tue">
-                            <span class="star-icon" onclick="rateDay('tue', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('tue', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('tue', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('tue', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('tue', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wednesday Block -->
-                <div class="day-block" id="block-wed">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الأربعاء</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-wed"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-wed" placeholder="أضيفي مهام يوم الأربعاء...">
-                        <button class="btn" onclick="addDayTask('wed')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-wed"></ul>
-
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-wed">
-                            <span class="water-cup" onclick="toggleWater('wed', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('wed', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('wed', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('wed', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('wed', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-wed">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-wed"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-wed">
-                            <span class="star-icon" onclick="rateDay('wed', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('wed', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('wed', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('wed', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('wed', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thursday Block -->
-                <div class="day-block" id="block-thu">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الخميس</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-thu"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-thu" placeholder="أضيفي مهام يوم الخميس...">
-                        <button class="btn" onclick="addDayTask('thu')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-thu"></ul>
-
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-thu">
-                            <span class="water-cup" onclick="toggleWater('thu', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('thu', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('thu', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('thu', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('thu', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-thu">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-thu"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-thu">
-                            <span class="star-icon" onclick="rateDay('thu', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('thu', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('thu', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('thu', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('thu', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Friday Block -->
-                <div class="day-block" id="block-fri">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم الجمعة</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-fri"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-fri" placeholder="أضيفي مهام يوم الجمعة...">
-                        <button class="btn" onclick="addDayTask('fri')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-fri"></ul>
-
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-fri">
-                            <span class="water-cup" onclick="toggleWater('fri', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('fri', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('fri', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('fri', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('fri', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-fri">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-fri"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-fri">
-                            <span class="star-icon" onclick="rateDay('fri', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('fri', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('fri', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('fri', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('fri', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Saturday Block -->
-                <div class="day-block" id="block-sat">
-                    <div class="day-header">
-                        <div class="day-title">🌸 يوم السبت</div>
-                    </div>
-                    <div class="applied-stickers" id="stickers-sat"></div>
-                    <div class="input-group">
-                        <input type="text" id="input-sat" placeholder="أضيفي مهام يوم السبت...">
-                        <button class="btn" onclick="addDayTask('sat')">إضافة 🌸</button>
-                    </div>
-                    <ul class="item-list" id="list-sat"></ul>
-
-                    <div class="water-tracker-box">
-                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted);">💧 شرب الماء اليومي:</span>
-                        <div class="water-cups" id="water-sat">
-                            <span class="water-cup" onclick="toggleWater('sat', 0)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sat', 1)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sat', 2)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sat', 3)">💧</span>
-                            <span class="water-cup" onclick="toggleWater('sat', 4)">💧</span>
-                        </div>
-                    </div>
-
-                    <div class="day-progress-box">
-                        <div class="day-progress-info">
-                            <span>نسبة إنجاز اليوم:</span>
-                            <span id="percent-sat">0%</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="bar-sat"></div>
-                        </div>
-                    </div>
-
-                    <div class="star-rating-box">
-                        <span class="star-rating-title">تقييمك لإنجاز اليوم:</span>
-                        <div class="stars-container" id="stars-sat">
-                            <span class="star-icon" onclick="rateDay('sat', 1)">★</span>
-                            <span class="star-icon" onclick="rateDay('sat', 2)">★</span>
-                            <span class="star-icon" onclick="rateDay('sat', 3)">★</span>
-                            <span class="star-icon" onclick="rateDay('sat', 4)">★</span>
-                            <span class="star-icon" onclick="rateDay('sat', 5)">★</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Weekly Review Block -->
-            <div class="weekly-review-box">
-                <div class="weekly-review-title">📝 مراجعة وملاحظات الأسبوع</div>
-                
-                <div class="review-field">
-                    <label for="reviewObstacles">العوائق التي كانت سببًا في تأخري عن تنفيذ بعض المهام:</label>
-                    <textarea id="reviewObstacles" placeholder="مثال: التشتت بالجوال، عدم تحديد وقت معين للمذاكرة، التعب..." oninput="saveReviewData()"></textarea>
-                </div>
-
-                <div class="review-field">
-                    <label for="reviewSolutions">حلول واقتراحات لتفادي هذه العوائق الأسبوع القادم:</label>
-                    <textarea id="reviewSolutions" placeholder="مثال: وضع الجوال في غرفة أخرى، البدء بمهام أصغر، النوم المبكر..." oninput="saveReviewData()"></textarea>
-                </div>
-            </div>
-
-            <button class="btn btn-reset" onclick="resetEntireWeek()">🔄 بدء أسبوع جديد (مسح كافة مهام وملاحظات الأسبوع)</button>
-
-            <footer>@insta:ams_m_5</footer>
-        </div>
-
-        <!-- Page 2: Achievement & Rewards -->
-        <div id="p2" class="page-content">
-            <h2>✨ قائمة الإنجاز العامة وصندوق المكافآت</h2>
-
-            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">أضيفي إنجازًا عامًا للترم:</h3>
-            <div class="input-group">
-                <input type="text" id="achievementInput" placeholder="أكتبي هدفًا أو إنجازًا كبيرًا...">
-                <button class="btn" onclick="addAchievementTask()">إضافة 🌸</button>
-            </div>
-            <ul class="item-list" id="achievementList"></ul>
-
-            <!-- Reward System -->
-            <div class="reward-card">
-                <h3 style="color: var(--pink-accent); font-weight: 900; margin-bottom: 0.5rem;">🎁 صندوق المكافآت الأسبوعية</h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.8rem;">حددي مكافأتكِ عند تحقق نسبة إنجاز 80% أو أكثر في الأسبوع:</p>
-                <div class="input-group">
-                    <input type="text" id="rewardInput" placeholder="مثال: الخروج مع صديقة، طلب وجبة مفضلة، قراءة كتاب مفضل..." oninput="saveRewardData()">
-                </div>
-            </div>
-
-            <footer>@insta:ams_m_5</footer>
-        </div>
-
-        <!-- Page 3: Exams & Habit Tracker -->
-        <div id="p3" class="page-content">
-            <h2>📝 جدول الاختبارات ومُتتبع العادات</h2>
-
-            <h3 style="margin-bottom: 0.6rem; color: var(--pink-accent); font-weight: 900;">📅 جدول الاختبارات الشهرية والنهائية</h3>
-            <div class="input-group">
-                <input type="text" id="examSubject" placeholder="المادة...">
-                <input type="date" id="examDate">
-                <input type="text" id="examScope" placeholder="التحديد المقرر...">
-                <button class="btn" onclick="addExam()">إضافة 🌸</button>
-            </div>
-
-            <table class="exam-table">
-                <thead>
-                    <tr>
-                        <th>المادة</th>
-                        <th>التاريخ</th>
-                        <th>التحديد المقرر</th>
-                        <th>إجراء</th>
-                    </tr>
-                </thead>
-                <tbody id="examTableBody"></tbody>
-            </table>
-
-            <h3 style="margin: 2rem 0 0.6rem; color: var(--pink-accent); font-weight: 900;">🌱 مُتتبع العادات الدراسية والصحية</h3>
-            <div class="input-group">
-                <input type="text" id="habitInput" placeholder="أضيفي عادتكِ (مثال: قراءة 10 دقائق، نوم مبكر)...">
-                <button class="btn" onclick="addHabit()">إضافة 🌸</button>
-            </div>
-            <ul class="item-list" id="habitList"></ul>
-
-            <footer>@insta:ams_m_5</footer>
-        </div>
-
-        <!-- Page 4: Timer & Task Splitter -->
-        <div id="p4" class="page-content">
-            <h2>⏱️ مؤقت التركيز وحاسبة المهام</h2>
-
-            <div class="timer-box">
-                <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-muted);">جلسة التركيز (25 دقيقة)</div>
-                <div class="timer-display" id="timer">25:00</div>
-                <div style="display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem;">
-                    <button class="btn" onclick="startTimer()">بدء 🌸</button>
-                    <button class="btn" style="background-color: var(--pink-soft); color: var(--text-main);" onclick="pauseTimer()">إيقاف</button>
-                    <button class="btn" style="background-color: var(--pink-soft); color: var(--text-main);" onclick="resetTimer()">إعادة</button>
-                </div>
-            </div>
-
-            <!-- Task Splitter -->
-            <div class="calculator-card">
-                <h3 style="color: var(--pink-accent); font-weight: 900; margin-bottom: 0.8rem;">📐 مُقسّم الوقت والصفحات للواجبات</h3>
-                <div class="input-group">
-                    <input type="number" id="totalPages" placeholder="إجمالي عدد الصفحات...">
-                    <input type="number" id="totalMinutes" placeholder="الوقت المتاح (بالدقائق)...">
-                    <button class="btn" onclick="calculateSplit()">حساب 🌸</button>
-                </div>
-                <div id="calculatorResult" style="font-weight: 700; color: var(--text-main); margin-top: 0.5rem;"></div>
-            </div>
-
-            <footer>@insta:ams_m_5</footer>
-        </div>
-
-        <!-- Page 5: Subjects & Teacher Questions -->
-        <div id="p5" class="page-content">
-            <h2>📚 المواد والروابط وأسئلة المعلم/المعلمة</h2>
-            
-            <h3 style="margin-bottom: 0.6rem; color: var(--text-muted); font-size: 1.05rem;">المواد الدراسية:</h3>
-            <div class="input-group">
-                <input type="text" id="subjectInput" placeholder="أضيفي مادة دراسية...">
-                <button class="btn" onclick="addSubject()">إضافة 🌸</button>
-            </div>
-            <ul class="item-list" id="subjectList"></ul>
-
-            <h3 style="margin: 1.5rem 0 0.6rem; color: var(--text-muted); font-size: 1.05rem;">الروابط الشروحات ودروس اليوتيوب:</h3>
-            <div class="input-group">
-                <input type="text" id="linkTitleInput" placeholder="عنوان الدرس / الشرح...">
-                <input type="url" id="linkUrlInput" placeholder="الرابط (YouTube/Drive)...">
-                <button class="btn" onclick="addLink()">إضافة 🌸</button>
-            </div>
-            <ul class="item-list" id="linkList"></ul>
-
-            <!-- Teacher Questions Section -->
-            <h3 style="margin: 1.5rem 0 0.6rem; color: var(--pink-accent); font-weight: 900;">❓ أسئلة واستفسارات أود سؤال المعلم/المعلمة عنها</h3>
-            <div class="input-group">
-                <input type="text" id="questionInput" placeholder="دون النقاط غير الواضحة أثناء المذاكرة...">
-                <button class="btn" onclick="addTeacherQuestion()">إضافة 🌸</button>
-            </div>
-            <ul class="item-list" id="teacherQuestionList"></ul>
-
-            <footer>@insta:ams_m_5</footer>
-        </div>
-
-        <!-- Page 6: Realistic Procrastination Tips -->
-        <div id="p6" class="page-content">
-            <h2>💡 تجارب وخطوات واقعية لتجاوز التسويف</h2>
-            
-            <div class="tip-card">
-                <h4>1. خدعة الـ 5 دقائق لبدء الحركة 🌸</h4>
-                <p>أغلب الثقل يختفي بمجرد أن تبدأي. أقنعي عقلك أنكِ ستدرسين لـ 5 دقائق فقط ثم تتوقفين إن أردتِ؛ ستكتشفين أن الاستمرار بعد البداية أسهل بكثير من خطوة البداية نفسها.</p>
-            </div>
-
-            <div class="tip-card">
-                <h4>2. جهزي بيئة المذاكرة من الليل 🌸</h4>
-                <p>لا تبدئي يومك بالبحث عن الكتاب أو فتح اللاب توب. اختصري المقاومة النفسية بفتح الصفحة المطلوبة وتجهيز الأقلام على المكتب قبل أن تنامي، لتجدي كل شيء جاهزًا فورًا.</p>
-            </div>
-
-            <div class="tip-card">
-                <h4>3. جزئي العناوين الكبيرة لمهام صغيرة جدًا 🌸</h4>
-                <p>عبارة "مذاكرة الفصل الأول" مرعبة للذهن وتدفع للتأجيل. استبدليها بـ "قراءة صفحتين" أو "حل 3 تمارين". المهام الصغيرة لا تسبب خرقًا لطاقتك وتمنحك الشعور بالإنجاز المباشر.</p>
-            </div>
-
-            <div class="tip-card">
-                <h4>4. أبعدي الجوال عن مدى رؤيتك 🌸</h4>
-                <p>وجود الجوال بجانبك يستهلك جزءًا من تركيزك حتى لو لم تفتحيه. ضعيه في غرفة أخرى أو داخل الحقيبة أثناء وقت التركيز لتفريغ ذهنك تمامًا للمادة.</p>
-            </div>
-
-            <footer>@insta:ams_m_5</footer>
+        <div class="canvas-container">
+            <canvas id="paintCanvas" width="650" height="750"></canvas>
         </div>
     </div>
 
     <script>
-        let currentTargetDay = 'sun';
-        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-        
-        const quotes = [
-            "كل خطوة صغيرة تقومين بها اليوم تقربك من هدفك الكبير 💫",
-            "أنتِ أقدر مما تظنين والنجاح يليق بكِ دائمًا ✨",
-            "الاستمرارية الهادئة تحقق ما لا تحققه البدايات القوية 🌸",
-            "ركزي على إنجاز اليوم، والغد سيتكفل بنفسه 👑",
-            "الفخر الحقيقي هو أن تتحدي كاهلك وتستمرين 💪"
+        // 30 Creative Theme Titles without facial features
+        const pages = [
+            "1. ماندالا الهدوء والسكينة",
+            "2. فتاة تقرأ كتاب تحت الشجرة (بدون ملامح)",
+            "3. غابة الصنوبر والغيوم الناعمة",
+            "4. عبارة خط عربي: 'وَتَطْمَئِنُّ قُلُوبُهُم'",
+            "5. فنجان قهوة دافئ وأوراق خريفية",
+            "6. قطة مستلقية على النافذة (بدون ملامح)",
+            "7. بستان زهور اللافندر والبابونج",
+            "8. تصميم هندسي إسلامي مكرر",
+            "9. عبارة خط عربي: 'يُدَبِّرُ الْأَمْرَ'",
+            "10. منظر جبال وطرق متعرجة",
+            "11. شخص يتأمل السماء والنجوم (بدون ملامح)",
+            "12. مزهرية عتيقة ونباتات ظلية",
+            "13. ماندالا دائري كلاسيكي",
+            "14. طائر يتنقل بين الأغصان (ظلي بدون تفاصيل دقيقة)",
+            "15. عبارة خط عربي: 'وَاصْبِرْ لِحُكْمِ رَبِّكَ'",
+            "16. بيت ريفي قديم وسط الحقول",
+            "17. أشكال متموجة للتفريغ النفسي",
+            "18. أيادي تحمل شتلة صغيرة (بدون ملامح)",
+            "19. تجميعة صدف وأمواج بحرية",
+            "20. عبارة خط عربي: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا'",
+            "21. منارة على شاطئ البحر",
+            "22. دراجة كلاسيكية بسلة زهور",
+            "23. غرف منزلية بتصميم دافئ",
+            "24. نمط ماندالا زهرة اللوتس",
+            "25. عبارة خط عربي: 'سَيَجْعَلُ اللَّهُ بَعْدَ عُسْرٍ يُسْرًا'",
+            "26. فتاة في حقل عباد الشمس (ظلية بدون ملامح)",
+            "27. فراشات وأشكال هندسية متداخلة",
+            "28. كوكب وأوراق شجر سريالية",
+            "29. مكتبة مليئة بالكتب والوسائد",
+            "30. عبارة خط عربي: 'سَلاَمٌ هِيَ حَتَّى مَطْلَعِ الْفَجْرِ'"
         ];
 
-        function generateQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('quoteDisplay').innerText = quotes[randomIndex];
-        }
+        // Soft Color Palette
+        const colors = [
+            "#000000", "#6b7c6c", "#9cb09d", "#c5d3c6", 
+            "#d4a373", "#e9edc9", "#fefae0", "#faedcd", 
+            "#e8aeb7", "#b8bedd", "#d8e2dc", "#ffe5ec"
+        ];
 
-        // Sound Generator
-        function playPopSound() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
-                gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch (e) {}
-        }
+        const canvas = document.getElementById('paintCanvas');
+        const ctx = canvas.getContext('2d');
+        const pagesList = document.getElementById('pagesList');
+        const palette = document.getElementById('palette');
+        const brushSize = document.getElementById('brushSize');
+        const customColor = document.getElementById('customColor');
 
-        // Navigation
-        function showPage(pageId, btn) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        let isDrawing = false;
+        let currentColor = '#9cb09d';
+        let isEraser = false;
+        let currentPageIndex = 0;
 
-            document.getElementById(pageId).classList.add('active');
-            btn.classList.add('active');
-        }
+        // Render Page Titles
+        pages.forEach((pageTitle, index) => {
+            const item = document.createElement('div');
+            item.className = `page-item ${index === 0 ? 'active' : ''}`;
+            item.textContent = pageTitle;
+            item.onclick = () => loadPage(index);
+            pagesList.appendChild(item);
+        });
 
-        // Day Task Handlers
-        function addDayTask(dayKey) {
-            let input = document.getElementById(`input-${dayKey}`);
-            let text = input.value.trim();
-            if (!text) return;
-
-            createTaskElement(dayKey, text, false);
-            input.value = '';
-            currentTargetDay = dayKey;
-            playPopSound();
-            updateDayProgress(dayKey);
-            saveAllData();
-        }
-
-        function createTaskElement(dayKey, text, isDone) {
-            let li = document.createElement('li');
-            if (isDone) li.classList.add('done');
-
-            li.innerHTML = `
-                <label class="checkbox-label">
-                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTaskDone(this, '${dayKey}')">
-                    <span>🌸 ${text}</span>
-                </label>
-                <button class="btn-del" onclick="removeDayTask(this, '${dayKey}')">حذف</button>
-            `;
-            document.getElementById(`list-${dayKey}`).appendChild(li);
-        }
-
-        function toggleTaskDone(checkbox, dayKey) {
-            checkbox.closest('li').classList.toggle('done');
-            playPopSound();
-            updateDayProgress(dayKey);
-            saveAllData();
-        }
-
-        function removeDayTask(btn, dayKey) {
-            btn.parentElement.remove();
-            updateDayProgress(dayKey);
-            saveAllData();
-        }
-
-        function updateDayProgress(dayKey) {
-            let list = document.getElementById(`list-${dayKey}`);
-            let items = list.querySelectorAll('li');
-            let total = items.length;
-            let percentSpan = document.getElementById(`percent-${dayKey}`);
-            let barFill = document.getElementById(`bar-${dayKey}`);
-
-            if (total === 0) {
-                percentSpan.innerText = '0%';
-                barFill.style.width = '0%';
-                updateTotalWeeklyProgress();
-                return;
-            }
-
-            let doneCount = list.querySelectorAll('li.done').length;
-            let percentage = Math.round((doneCount / total) * 100);
-
-            percentSpan.innerText = percentage + '%';
-            barFill.style.width = percentage + '%';
-
-            if (percentage === 100) {
-                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
-            }
-
-            updateTotalWeeklyProgress();
-        }
-
-        function updateTotalWeeklyProgress() {
-            let totalTasks = 0;
-            let totalDone = 0;
-
-            days.forEach(day => {
-                let list = document.getElementById(`list-${day}`);
-                let items = list.querySelectorAll('li');
-                totalTasks += items.length;
-                totalDone += list.querySelectorAll('li.done').length;
-            });
-
-            let totalPercent = totalTasks === 0 ? 0 : Math.round((totalDone / totalTasks) * 100);
-            document.getElementById('totalWeeklyPercent').innerText = totalPercent + '%';
-            document.getElementById('totalWeeklyBar').style.width = totalPercent + '%';
-        }
-
-        // Water Tracker Toggle
-        function toggleWater(dayKey, index) {
-            let cups = document.querySelectorAll(`#water-${dayKey} .water-cup`);
-            for (let i = 0; i <= index; i++) {
-                cups[i].classList.toggle('active');
-            }
-            playPopSound();
-            saveAllData();
-        }
-
-        // Sticker System
-        function addStickerToDay(stickerText) {
-            createStickerElement(currentTargetDay, stickerText);
-            playPopSound();
-            saveAllData();
-        }
-
-        function createStickerElement(dayKey, stickerText) {
-            let stickersContainer = document.getElementById(`stickers-${dayKey}`);
-            let chip = document.createElement('div');
-            chip.className = 'applied-sticker-chip';
-            chip.innerHTML = `${stickerText} <span onclick="this.parentElement.remove(); saveAllData();">✕</span>`;
-            stickersContainer.appendChild(chip);
-        }
-
-        // Rating Stars
-        function rateDay(dayKey, stars) {
-            let starsBox = document.getElementById(`stars-${dayKey}`);
-            let starElements = starsBox.querySelectorAll('.star-icon');
-
-            starElements.forEach((star, index) => {
-                if (index < stars) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
-            playPopSound();
-            saveAllData();
-        }
-
-        // Reset Week
-        function resetEntireWeek() {
-            if (confirm("هل أنتِ متأكدة من إفراغ كافة مهام وملاحظات الأسبوع لبدء أسبوع جديد؟")) {
-                days.forEach(day => {
-                    document.getElementById(`list-${day}`).innerHTML = '';
-                    document.getElementById(`stickers-${day}`).innerHTML = '';
-                    document.querySelectorAll(`#water-${day} .water-cup`).forEach(c => c.classList.remove('active'));
-                    rateDay(day, 0);
-                    updateDayProgress(day);
-                });
-                document.getElementById('reviewObstacles').value = '';
-                document.getElementById('reviewSolutions').value = '';
-                saveAllData();
-            }
-        }
-
-        // Achievements
-        function addAchievementTask() {
-            let input = document.getElementById('achievementInput');
-            let text = input.value.trim();
-            if (!text) return;
-
-            createAchievementElement(text, false);
-            input.value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createAchievementElement(text, isDone) {
-            let li = document.createElement('li');
-            if (isDone) li.classList.add('done');
-            li.innerHTML = `
-                <label class="checkbox-label">
-                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="this.closest('li').classList.toggle('done'); saveAllData();">
-                    <span>✨ ${text}</span>
-                </label>
-                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
-            `;
-            document.getElementById('achievementList').appendChild(li);
-        }
-
-        // Exam Manager
-        function addExam() {
-            let subject = document.getElementById('examSubject').value.trim();
-            let date = document.getElementById('examDate').value;
-            let scope = document.getElementById('examScope').value.trim();
-
-            if (!subject || !date) return;
-
-            createExamRow(subject, date, scope);
-            document.getElementById('examSubject').value = '';
-            document.getElementById('examDate').value = '';
-            document.getElementById('examScope').value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createExamRow(subject, date, scope) {
-            let tbody = document.getElementById('examTableBody');
-            let tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><b>${subject}</b></td>
-                <td>${date}</td>
-                <td>${scope || 'غير محدد'}</td>
-                <td><button class="btn-del" onclick="this.closest('tr').remove(); saveAllData();">حذف</button></td>
-            `;
-            tbody.appendChild(tr);
-        }
-
-        // Habit Tracker
-        function addHabit() {
-            let input = document.getElementById('habitInput');
-            let text = input.value.trim();
-            if (!text) return;
-
-            createHabitElement(text, false);
-            input.value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createHabitElement(text, isDone) {
-            let li = document.createElement('li');
-            if (isDone) li.classList.add('done');
-            li.innerHTML = `
-                <label class="checkbox-label">
-                    <input type="checkbox" ${isDone ? 'checked' : ''} onchange="this.closest('li').classList.toggle('done'); saveAllData();">
-                    <span>🌱 ${text}</span>
-                </label>
-                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
-            `;
-            document.getElementById('habitList').appendChild(li);
-        }
-
-        // Timer
-        let timerInterval;
-        let timeLeft = 25 * 60;
-
-        function updateTimerDisplay() {
-            let min = Math.floor(timeLeft / 60);
-            let sec = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
-        }
-
-        function startTimer() {
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    alert("انتهت جلسة التركيز! خذي استراحة قصيرة 🌸");
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() { clearInterval(timerInterval); }
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timeLeft = 25 * 60;
-            updateTimerDisplay();
-        }
-
-        // Task Splitter Calculation
-        function calculateSplit() {
-            let pages = parseFloat(document.getElementById('totalPages').value);
-            let minutes = parseFloat(document.getElementById('totalMinutes').value);
-            let resultDiv = document.getElementById('calculatorResult');
-
-            if (!pages || !minutes || pages <= 0 || minutes <= 0) {
-                resultDiv.innerText = "الرجاء إدخال أرقام صحيحة أكبر من الصفر.";
-                return;
-            }
-
-            let perPage = (minutes / pages).toFixed(1);
-            resultDiv.innerText = `💡 تحتاجين إلى حوالي (${perPage}) دقيقة لكل صفحة لإتمام الواجب في الوقت المحدد!`;
-        }
-
-        // Subjects, Links & Questions
-        function addSubject() {
-            let input = document.getElementById('subjectInput');
-            let text = input.value.trim();
-            if (!text) return;
-
-            createSubjectElement(text);
-            input.value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createSubjectElement(text) {
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <span>📖 ${text}</span>
-                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
-            `;
-            document.getElementById('subjectList').appendChild(li);
-        }
-
-        function addLink() {
-            let titleInput = document.getElementById('linkTitleInput');
-            let urlInput = document.getElementById('linkUrlInput');
-            let title = titleInput.value.trim();
-            let url = urlInput.value.trim() || '#';
-
-            if (!title) return;
-
-            createLinkElement(title, url);
-            titleInput.value = '';
-            urlInput.value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createLinkElement(title, url) {
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <span>🎥 <a href="${url}" target="_blank" style="color:var(--pink-accent); font-weight:700;">${title}</a></span>
-                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
-            `;
-            document.getElementById('linkList').appendChild(li);
-        }
-
-        function addTeacherQuestion() {
-            let input = document.getElementById('questionInput');
-            let text = input.value.trim();
-            if (!text) return;
-
-            createTeacherQuestionElement(text);
-            input.value = '';
-            playPopSound();
-            saveAllData();
-        }
-
-        function createTeacherQuestionElement(text) {
-            let li = document.createElement('li');
-            li.innerHTML = `
-                <span>❓ ${text}</span>
-                <button class="btn-del" onclick="this.parentElement.remove(); saveAllData();">حذف</button>
-            `;
-            document.getElementById('teacherQuestionList').appendChild(li);
-        }
-
-        // LocalStorage Engine
-        function savePlannerTitle() {
-            localStorage.setItem('planner_title', document.getElementById('plannerTitle').innerText);
-        }
-
-        function savePriorityData() {
-            localStorage.setItem('planner_priority', document.getElementById('weeklyPriorityInput').value);
-        }
-
-        function saveRewardData() {
-            localStorage.setItem('planner_reward', document.getElementById('rewardInput').value);
-        }
-
-        function saveReviewData() {
-            saveAllData();
-        }
-
-        function saveAllData() {
-            let data = {
-                priority: document.getElementById('weeklyPriorityInput').value,
-                title: document.getElementById('plannerTitle').innerText,
-                reward: document.getElementById('rewardInput').value,
-                reviewObstacles: document.getElementById('reviewObstacles').value,
-                reviewSolutions: document.getElementById('reviewSolutions').value,
-                days: {},
-                achievements: [],
-                exams: [],
-                habits: [],
-                subjects: [],
-                links: [],
-                questions: []
+        // Render Color Palette
+        colors.forEach(color => {
+            const btn = document.createElement('div');
+            btn.className = 'color-btn';
+            btn.style.backgroundColor = color;
+            btn.onclick = () => {
+                currentColor = color;
+                isEraser = false;
             };
+            palette.appendChild(btn);
+        });
 
-            days.forEach(day => {
-                let dayTasks = [];
-                document.querySelectorAll(`#list-${day} li`).forEach(li => {
-                    dayTasks.push({
-                        text: li.querySelector('span').innerText.replace('🌸 ', ''),
-                        done: li.classList.contains('done')
-                    });
-                });
+        customColor.oninput = (e) => {
+            currentColor = e.target.value;
+            isEraser = false;
+        };
 
-                let stickers = [];
-                document.querySelectorAll(`#stickers-${day} .applied-sticker-chip`).forEach(chip => {
-                    stickers.push(chip.childNodes[0].textContent.trim());
-                });
-
-                let waterCount = document.querySelectorAll(`#water-${day} .water-cup.active`).length;
-                let stars = document.querySelectorAll(`#stars-${day} .star-icon.active`).length;
-
-                data.days[day] = { tasks: dayTasks, stickers: stickers, water: waterCount, stars: stars };
+        // Draw Line Art Templates dynamically
+        function loadPage(index) {
+            currentPageIndex = index;
+            document.querySelectorAll('.page-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
             });
 
-            document.querySelectorAll('#achievementList li').forEach(li => {
-                data.achievements.push({
-                    text: li.querySelector('span').innerText.replace('✨ ', ''),
-                    done: li.classList.contains('done')
-                });
-            });
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            document.querySelectorAll('#examTableBody tr').forEach(tr => {
-                let tds = tr.querySelectorAll('td');
-                data.exams.push({ subject: tds[0].innerText, date: tds[1].innerText, scope: tds[2].innerText });
-            });
+            // Basic Dynamic Line-art outline generator based on page theme
+            ctx.strokeStyle = '#333333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
 
-            document.querySelectorAll('#habitList li').forEach(li => {
-                data.habits.push({
-                    text: li.querySelector('span').innerText.replace('🌱 ', ''),
-                    done: li.classList.contains('done')
-                });
-            });
-
-            document.querySelectorAll('#subjectList li span').forEach(span => {
-                data.subjects.push(span.innerText.replace('📖 ', ''));
-            });
-
-            document.querySelectorAll('#linkList li').forEach(li => {
-                let a = li.querySelector('a');
-                data.links.push({ title: a.innerText, url: a.href });
-            });
-
-            document.querySelectorAll('#teacherQuestionList li span').forEach(span => {
-                data.questions.push(span.innerText.replace('❓ ', ''));
-            });
-
-            localStorage.setItem('planner_master_data', JSON.stringify(data));
-        }
-
-        function loadAllData() {
-            let saved = localStorage.getItem('planner_master_data');
-            if (!saved) return;
-
-            let data = JSON.parse(saved);
-
-            if (data.title) document.getElementById('plannerTitle').innerText = data.title;
-            if (data.priority) document.getElementById('weeklyPriorityInput').value = data.priority;
-            if (data.reward) document.getElementById('rewardInput').value = data.reward;
-            if (data.reviewObstacles) document.getElementById('reviewObstacles').value = data.reviewObstacles;
-            if (data.reviewSolutions) document.getElementById('reviewSolutions').value = data.reviewSolutions;
-
-            if (data.days) {
-                days.forEach(day => {
-                    if (data.days[day]) {
-                        data.days[day].tasks.forEach(t => createTaskElement(day, t.text, t.done));
-                        data.days[day].stickers.forEach(s => createStickerElement(day, s));
-                        
-                        let cups = document.querySelectorAll(`#water-${day} .water-cup`);
-                        for (let i = 0; i < (data.days[day].water || 0); i++) {
-                            if (cups[i]) cups[i].classList.add('active');
-                        }
-
-                        rateDay(day, data.days[day].stars || 0);
-                        updateDayProgress(day);
-                    }
-                });
+            // Geometric & Vector Shapes (Clean outline drawings for coloring)
+            if (index % 4 === 0) { // Mandalas
+                for (let i = 0; i < 8; i++) {
+                    ctx.arc(325, 375, (i + 1) * 35, 0, Math.PI * 2);
+                }
+            } else if (index % 4 === 1) { // Calligraphy / Text Box Outline
+                ctx.rect(100, 250, 450, 250);
+                ctx.stroke();
+                ctx.font = '30px Cairo, sans-serif';
+                ctx.fillStyle = '#333';
+                ctx.textAlign = 'center';
+                ctx.fillText(pages[index].split(':')[1] || pages[index], 325, 385);
+            } else if (index % 4 === 2) { // Nature elements
+                ctx.arc(325, 300, 150, 0, Math.PI * 2);
+                ctx.rect(150, 450, 350, 200);
+            } else { // Faceless silhouettes
+                ctx.arc(325, 250, 70, 0, Math.PI * 2); // Head without features
+                ctx.rect(225, 320, 200, 300); // Body outline
             }
-
-            if (data.achievements) data.achievements.forEach(a => createAchievementElement(a.text, a.done));
-            if (data.exams) data.exams.forEach(e => createExamRow(e.subject, e.date, e.scope));
-            if (data.habits) data.habits.forEach(h => createHabitElement(h.text, h.done));
-            if (data.subjects) data.subjects.forEach(s => createSubjectElement(s));
-            if (data.links) data.links.forEach(l => createLinkElement(l.title, l.url));
-            if (data.questions) data.questions.forEach(q => createTeacherQuestionElement(q));
-
-            updateTotalWeeklyProgress();
+            ctx.stroke();
         }
 
-        window.onload = loadAllData;
+        // Canvas Interaction Setup
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        // Touch support for iPad/Tablets
+        canvas.addEventListener('touchstart', (e) => { startDrawing(e.touches[0]); e.preventDefault(); });
+        canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.strokeStyle = isEraser ? '#ffffff' : currentColor;
+            ctx.lineWidth = brushSize.value;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        document.getElementById('eraserBtn').onclick = () => isEraser = true;
+        document.getElementById('clearBtn').onclick = () => loadPage(currentPageIndex);
+        document.getElementById('saveBtn').onclick = () => {
+            const link = document.createElement('a');
+            link.download = `coloring-page-${currentPageIndex + 1}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        };
+
+        // Initialize First Page
+        loadPage(0);
     </script>
 </body>
 </html>
