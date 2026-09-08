@@ -3,25 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>المنظم اليومي والدراسي</title>
+<title>منظمي اليومي 🌸</title>
 <style>
   :root {
-    --linen: #F5F1EA;
-    --khaki: #D7C9B8;
-    --camel: #B2967D;
-    
-    --bg-color: var(--linen);
-    --card-bg: #FFFFFF;
-    --primary: #5C4636;
-    --accent: var(--camel);
-    --text-dark: #2C221E;
-    --text-light: #6E5E52;
-    --border: #E2D7C8;
-    
-    --progress-bg: #EAE3D9;
-    --progress-fill: #947156;
-    --water-color: #5A8390;
-    --water-bg: #EAF2F4;
+    --pink-bg: #FFF5F7;
+    --pink-card: #FFFFFF;
+    --pink-light: #FCE8ED;
+    --pink-accent: #E8A0B8;
+    --pink-primary: #8C4A60;
+    --text-dark: #3A232B;
+    --text-light: #73515C;
+    --border: #F3D2DC;
+    --progress-bg: #F8E3E8;
+    --progress-fill: #D97897;
+    --water-color: #618999;
+    --water-bg: #F0F7F9;
   }
 
   * {
@@ -33,7 +29,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color);
+    background-color: var(--pink-bg);
     color: var(--text-dark);
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
@@ -48,125 +44,107 @@
     width: 100%;
     max-width: 700px;
     min-height: 100vh;
-    background: var(--card-bg);
+    background: var(--pink-card);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(232, 160, 184, 0.15);
   }
 
   .app-header {
-    background: var(--linen);
-    padding: 25px 20px 20px 20px;
+    background: linear-gradient(135deg, #FFF0F4, #FCE8ED);
+    padding: 28px 20px 22px 20px;
     text-align: center;
     border-bottom: 3px solid var(--border);
   }
 
   .app-header h1 {
-    font-size: 2.4rem;
-    color: var(--primary);
-    margin: 0 0 6px 0;
+    font-size: 2.5rem;
+    color: var(--pink-primary);
+    margin: 0 0 8px 0;
     font-weight: 900;
   }
 
   .app-header p {
     color: var(--text-light);
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     margin: 0;
     font-weight: 700;
   }
 
   .main-content {
-    padding: 20px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
 
-  .pomodoro-card {
-    background: var(--linen);
+  /* بطاقة عبارة تحفيزية */
+  .quote-card {
+    background: var(--pink-light);
     border: 3px solid var(--border);
-    border-radius: 24px;
-    padding: 24px 20px;
+    border-radius: 22px;
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(232, 160, 184, 0.1);
   }
 
-  .card-title {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--primary);
-    margin-bottom: 12px;
-  }
-
-  .timer-display {
-    font-size: 3.8rem;
-    font-weight: 900;
-    color: var(--primary);
-    margin: 10px 0;
-    font-family: monospace;
-  }
-
-  .timer-controls {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-  }
-
-  .btn {
-    padding: 14px 28px;
+  .quote-title {
     font-size: 1.3rem;
     font-weight: 800;
-    border-radius: 16px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    color: var(--pink-primary);
+    margin-bottom: 6px;
   }
 
-  .btn-primary {
-    background: var(--accent);
-    color: white;
+  .quote-text {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1.4;
   }
 
-  .btn-secondary {
-    background: #E5DCD0;
-    color: var(--primary);
-    border: 2px solid var(--border);
-  }
-
+  /* نسبة الإنجاز */
   .progress-card {
-    background: #FAF7F2;
+    background: #FFF0F4;
     border: 3px solid var(--border);
     border-radius: 24px;
     padding: 22px;
     text-align: center;
   }
 
+  .card-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--pink-primary);
+    margin-bottom: 10px;
+  }
+
   .progress-bar-container {
     background: var(--progress-bg);
-    height: 26px;
+    height: 28px;
     border-radius: 14px;
     overflow: hidden;
-    margin: 14px 0 10px 0;
+    margin: 12px 0 10px 0;
     border: 2px solid var(--border);
   }
 
   .progress-bar {
-    background: linear-gradient(90deg, #A88870, var(--progress-fill));
+    background: linear-gradient(90deg, #E8A0B8, var(--progress-fill));
     height: 100%;
     width: 0%;
     transition: width 0.4s ease;
   }
 
   .progress-percentage {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 900;
     color: var(--progress-fill);
   }
 
   .section-header {
     font-size: 1.8rem;
-    color: var(--primary);
+    color: var(--pink-primary);
     font-weight: 900;
-    border-right: 6px solid var(--accent);
+    border-right: 6px solid var(--pink-accent);
     padding-right: 12px;
     margin: 10px 0 -10px 0;
   }
@@ -180,7 +158,7 @@
   .task-item {
     display: flex;
     align-items: center;
-    background: var(--linen);
+    background: var(--pink-bg);
     border: 3px solid var(--border);
     padding: 20px;
     border-radius: 20px;
@@ -189,8 +167,8 @@
   }
 
   .task-item.completed {
-    background: #EAE3D9;
-    border-color: #C5B6A4;
+    background: #F9ECEF;
+    border-color: #E2C0CA;
   }
 
   .task-item.completed .task-title {
@@ -199,10 +177,10 @@
   }
 
   .checkbox {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    border: 3px solid var(--accent);
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 3px solid var(--pink-accent);
     margin-left: 16px;
     display: flex;
     align-items: center;
@@ -212,14 +190,14 @@
   }
 
   .task-item.completed .checkbox {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--pink-accent);
+    border-color: var(--pink-accent);
   }
 
   .checkbox::after {
     content: '✓';
     color: white;
-    font-size: 22px;
+    font-size: 24px;
     display: none;
     font-weight: 900;
   }
@@ -233,35 +211,35 @@
   }
 
   .task-title {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 900;
     margin-bottom: 4px;
     color: var(--text-dark);
   }
 
   .task-time {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--text-light);
     font-weight: 700;
   }
 
   .water-card {
     background: var(--water-bg);
-    border: 3px solid #B2C9CE;
+    border: 3px solid #BCE0E8;
     border-radius: 24px;
     padding: 22px;
   }
 
   .water-title {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 900;
     color: var(--water-color);
     text-align: center;
   }
 
   .water-count {
-    font-size: 1.3rem;
-    color: #35535E;
+    font-size: 1.35rem;
+    color: #3B5F6C;
     font-weight: 800;
     text-align: center;
     margin-bottom: 16px;
@@ -275,12 +253,12 @@
 
   .water-cup {
     background: white;
-    border: 3px solid #9EBEC7;
+    border: 3px solid #A8D1DD;
     border-radius: 16px;
     padding: 16px;
     text-align: center;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     font-weight: 900;
     color: var(--water-color);
   }
@@ -294,11 +272,11 @@
   .reset-btn {
     width: 100%;
     padding: 18px;
-    background: #E5DCD0;
+    background: #FCE8ED;
     border: 3px solid var(--border);
     border-radius: 20px;
-    color: var(--primary);
-    font-size: 1.4rem;
+    color: var(--pink-primary);
+    font-size: 1.45rem;
     font-weight: 900;
     cursor: pointer;
     margin-top: 10px;
@@ -310,30 +288,28 @@
 <div class="app-container">
   
   <div class="app-header">
-    <h1>المنظم اليومي والدراسي 🌿</h1>
-    <p>«قَلِيلٌ مُدَاوَمٌ عَلَيْهِ خَيْرٌ مِنْ كَثِيرٍ مُنْقَطِعٍ»</p>
+    <h1>منظمي اليومي 🌸</h1>
+    <p>«خطوة صغيرة كل يوم تصنع إنجازاً عظيماً»</p>
   </div>
 
   <div class="main-content">
 
-    <div class="pomodoro-card">
-      <div class="card-title">⏱️ مؤقت التركيز (25 دقيقة)</div>
-      <div class="timer-display" id="timer">25:00</div>
-      <div class="timer-controls">
-        <button class="btn btn-primary" onclick="startTimer()">بدء</button>
-        <button class="btn btn-secondary" onclick="pauseTimer()">إيقاف</button>
-        <button class="btn btn-secondary" onclick="resetTimer()">إعادة</button>
-      </div>
+    <!-- بطاقة التحفيز اليومي -->
+    <div class="quote-card">
+      <div class="quote-title">💡 رسالة اليوم لكِ</div>
+      <div class="quote-text" id="quoteText">«أنتِ قادرة على تحويل أهدافكِ إلى واقع، استمري بكل حب!»</div>
     </div>
 
+    <!-- نسبة الإنجاز -->
     <div class="progress-card">
-      <div class="card-title">نسبة إنجازك اليوم</div>
+      <div class="card-title">نسبة إنجازك اليوم 💖</div>
       <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
       <div class="progress-percentage" id="progressText">0%</div>
     </div>
 
+    <!-- الفترة الصباحية -->
     <div class="section-header">☀️ الفترة الصباحية</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -361,6 +337,7 @@
       </div>
     </div>
 
+    <!-- الفترة المسائية -->
     <div class="section-header">⛅ الفترة بعد الظهر والمساء</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -388,6 +365,7 @@
       </div>
     </div>
 
+    <!-- الفترة الليلية -->
     <div class="section-header">🌙 الفترة الليلية</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -415,6 +393,7 @@
       </div>
     </div>
 
+    <!-- متتبع شرب الماء -->
     <div class="water-card">
       <div class="water-title">💧 شرب الماء اليومي</div>
       <div class="water-count" id="waterCount">0 من 8 أكواب (2 لتر)</div>
@@ -437,6 +416,22 @@
 </div>
 
 <script>
+  /* قائمة عبارات التحفيز */
+  const quotes = [
+    "«أنتِ قادرة على تحويل أهدافكِ إلى واقع، استمري بكل حب!»",
+    "«الإنجازات الصغيرة اليومية هي سر النجاحات الكبيرة.»",
+    "«ثقي بنفسك وبقدرتك على التطور والوصول لأحلامك.»",
+    "«كل بداية جديدة تحمل معها فرصة لتكوني أفضل.»",
+    "«تذكري دائماً أن استمراريتك هي قوتك الحقيقية.»"
+  ];
+
+  function setRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    document.getElementById('quoteText').innerText = quotes[randomIndex];
+  }
+
+  setRandomQuote();
+
   function toggleTask(element) {
     element.classList.toggle('completed');
     updateProgress();
@@ -467,46 +462,11 @@
       document.querySelectorAll('.water-cup').forEach(cup => cup.classList.remove('filled'));
       updateProgress();
       updateWaterCount();
-      resetTimer();
+      setRandomQuote();
     }
-  }
-
-  let timerInterval;
-  let timeLeft = 25 * 60;
-
-  function updateTimerDisplay() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    document.getElementById('timer').innerText = 
-      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
-
-  function startTimer() {
-    if (!timerInterval) {
-      timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          alert("انتهت جلسة التركيز! خذي قسطاً من الراحة.");
-        }
-      }, 1000);
-    }
-  }
-
-  function pauseTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-
-  function resetTimer() {
-    pauseTimer();
-    timeLeft = 25 * 60;
-    updateTimerDisplay();
   }
 </script>
 
 </body>
 </html>
+
