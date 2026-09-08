@@ -5,26 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>منظمي اليومي 🌸</title>
 <style>
-  /* الألوان المستوحاة من الصورة المرفقة */
+  /* درجات وردي أفتح وأهدى للعين */
   :root {
-    --pink-beige: #EDCECC;
-    --solid-coral: #F2D2D5;
-    --dusty-rose: #DFB2B5;
-    --chill-mauve: #C79A97;
-    --soft-pink: #BB7F82;
+    --pink-light-bg: #FFF8F9;
+    --solid-coral-light: #FAF0F2;
+    --dusty-rose-light: #E8C8CB;
+    --chill-mauve-light: #B88E91;
+    --soft-pink-dark: #A06B6F;
     
-    --bg-color: var(--solid-coral);
+    --bg-color: var(--solid-coral-light);
     --card-bg: #FFFFFF;
-    --primary: var(--soft-pink); /* أغمق درجة للعناوين */
-    --accent: var(--chill-mauve);
-    --text-dark: #4A3638; /* لون غامق لضمان وضوح القراءة */
-    --text-light: #7A5C60;
-    --border: var(--dusty-rose);
+    --primary: var(--soft-pink-dark);
+    --accent: var(--chill-mauve-light);
+    --text-dark: #3D2C2E;
+    --text-light: #705457;
+    --border: var(--dusty-rose-light);
     
-    --progress-bg: var(--pink-beige);
-    --progress-fill: var(--soft-pink);
-    --water-color: var(--chill-mauve);
-    --water-bg: #FCF4F5;
+    --progress-bg: #F7E4E7;
+    --progress-fill: var(--soft-pink-dark);
+    --water-color: var(--chill-mauve-light);
+    --water-bg: #FCF6F7;
   }
 
   * {
@@ -49,87 +49,86 @@
 
   .app-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 650px;
     min-height: 100vh;
     background: var(--card-bg);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(187, 127, 130, 0.15);
+    box-shadow: 0 8px 25px rgba(160, 107, 111, 0.1);
   }
 
   .app-header {
-    background: var(--pink-beige);
-    padding: 28px 20px 22px 20px;
+    background: var(--pink-light-bg);
+    padding: 22px 18px 18px 18px;
     text-align: center;
-    border-bottom: 3px solid var(--border);
+    border-bottom: 2px solid var(--border);
   }
 
+  /* تصغير العناوين والخطوط قليلاً */
   .app-header h1 {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     color: var(--primary);
-    margin: 0 0 8px 0;
-    font-weight: 900;
+    margin: 0 0 6px 0;
+    font-weight: 800;
   }
 
   .app-header p {
     color: var(--text-light);
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     margin: 0;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .main-content {
-    padding: 22px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
-  /* بطاقة الاقتباس الإسلامي/التحفيزي */
   .quote-card {
     background: var(--water-bg);
-    border: 3px solid var(--border);
-    border-radius: 22px;
-    padding: 22px;
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
     text-align: center;
   }
 
   .quote-title {
-    font-size: 1.3rem;
-    font-weight: 800;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--accent);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .quote-text {
-    font-size: 1.5rem;
-    font-weight: 900;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--primary);
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
-  /* نسبة الإنجاز */
   .progress-card {
-    background: var(--solid-coral);
-    border: 3px solid var(--border);
-    border-radius: 24px;
-    padding: 22px;
+    background: var(--solid-coral-light);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 18px;
     text-align: center;
   }
 
   .card-title {
-    font-size: 1.8rem;
-    font-weight: 900;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--text-dark);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .progress-bar-container {
     background: var(--progress-bg);
-    height: 28px;
-    border-radius: 14px;
+    height: 24px;
+    border-radius: 12px;
     overflow: hidden;
-    margin: 12px 0 10px 0;
+    margin: 10px 0 8px 0;
     border: 2px solid var(--border);
   }
 
@@ -141,40 +140,40 @@
   }
 
   .progress-percentage {
-    font-size: 2.3rem;
-    font-weight: 900;
+    font-size: 1.9rem;
+    font-weight: 800;
     color: var(--primary);
   }
 
   .section-header {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--primary);
-    font-weight: 900;
-    border-right: 6px solid var(--accent);
-    padding-right: 12px;
-    margin: 10px 0 -10px 0;
+    font-weight: 800;
+    border-right: 5px solid var(--accent);
+    padding-right: 10px;
+    margin: 6px 0 -8px 0;
   }
 
   .task-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
   .task-item {
     display: flex;
     align-items: center;
     background: var(--water-bg);
-    border: 3px solid var(--border);
-    padding: 20px;
-    border-radius: 20px;
+    border: 2px solid var(--border);
+    padding: 16px;
+    border-radius: 16px;
     cursor: pointer;
     user-select: none;
   }
 
   .task-item.completed {
-    background: var(--pink-beige);
-    border-color: var(--dusty-rose);
+    background: var(--pink-light-bg);
+    border-color: var(--dusty-rose-light);
   }
 
   .task-item.completed .task-title {
@@ -183,11 +182,11 @@
   }
 
   .checkbox {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    border: 3px solid var(--accent);
-    margin-left: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    margin-left: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -203,9 +202,9 @@
   .checkbox::after {
     content: '✓';
     color: white;
-    font-size: 24px;
+    font-size: 20px;
     display: none;
-    font-weight: 900;
+    font-weight: 800;
   }
 
   .task-item.completed .checkbox::after {
@@ -217,55 +216,55 @@
   }
 
   .task-title {
-    font-size: 1.7rem;
-    font-weight: 900;
-    margin-bottom: 4px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 3px;
     color: var(--text-dark);
   }
 
   .task-time {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--text-light);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .water-card {
     background: var(--water-bg);
-    border: 3px solid var(--border);
-    border-radius: 24px;
-    padding: 22px;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 18px;
   }
 
   .water-title {
-    font-size: 1.8rem;
-    font-weight: 900;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--text-dark);
     text-align: center;
   }
 
   .water-count {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     color: var(--text-light);
-    font-weight: 800;
+    font-weight: 700;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .water-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .water-cup {
     background: white;
-    border: 3px solid var(--dusty-rose);
-    border-radius: 16px;
-    padding: 16px;
+    border: 2px solid var(--dusty-rose-light);
+    border-radius: 14px;
+    padding: 14px;
     text-align: center;
     cursor: pointer;
-    font-size: 1.45rem;
-    font-weight: 900;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--primary);
   }
 
@@ -277,15 +276,15 @@
 
   .reset-btn {
     width: 100%;
-    padding: 18px;
-    background: var(--pink-beige);
-    border: 3px solid var(--border);
-    border-radius: 20px;
+    padding: 16px;
+    background: var(--pink-light-bg);
+    border: 2px solid var(--border);
+    border-radius: 18px;
     color: var(--primary);
-    font-size: 1.45rem;
-    font-weight: 900;
+    font-size: 1.3rem;
+    font-weight: 800;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 6px;
   }
 </style>
 </head>
@@ -300,7 +299,7 @@
 
   <div class="main-content">
 
-    <!-- بطاقة العبارات الإسلامية والتحفيزية -->
+    <!-- العبارة المتغيرة -->
     <div class="quote-card">
       <div class="quote-title">💡 رسالة اليوم</div>
       <div class="quote-text" id="quoteText">«وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ»</div>
@@ -323,6 +322,14 @@
         <div class="task-info">
           <div class="task-title">أذكار الصباح 🌿</div>
           <div class="task-time">بعد صلاة الفجر مباشرة</div>
+        </div>
+      </div>
+
+      <div class="task-item" onclick="toggleTask(this)">
+        <div class="checkbox"></div>
+        <div class="task-info">
+          <div class="task-title">جلسة التعلم الصباحية 💻</div>
+          <div class="task-time">ساعة واحدة</div>
         </div>
       </div>
 
@@ -357,14 +364,6 @@
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
         <div class="task-info">
-          <div class="task-title">تعلم إدارة المتاجر 💻</div>
-          <div class="task-time">ساعتين</div>
-        </div>
-      </div>
-
-      <div class="task-item" onclick="toggleTask(this)">
-        <div class="checkbox"></div>
-        <div class="task-info">
           <div class="task-title">أذكار المساء 🌇</div>
           <div class="task-time">قبل المغرب أو بعده</div>
         </div>
@@ -377,8 +376,8 @@
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
         <div class="task-info">
-          <div class="task-title">تعلم علم شرعي 📚</div>
-          <div class="task-time">9:30 م – 10:30 م</div>
+          <div class="task-title">جلسة التعلم المسائية 📚</div>
+          <div class="task-time">ساعة واحدة</div>
         </div>
       </div>
 
@@ -422,7 +421,6 @@
 </div>
 
 <script>
-  /* عبارات إسلامية وتحفيزية متغيرة */
   const quotes = [
     "«وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ»",
     "«وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ»",
@@ -437,7 +435,7 @@
     document.getElementById('quoteText').innerText = quotes[randomIndex];
   }
 
-  setRandomQuote(); // تعيين عبارة عند فتح التطبيق
+  setRandomQuote();
 
   function toggleTask(element) {
     element.classList.toggle('completed');
@@ -469,7 +467,7 @@
       document.querySelectorAll('.water-cup').forEach(cup => cup.classList.remove('filled'));
       updateProgress();
       updateWaterCount();
-      setRandomQuote(); // تغيير العبارة عند بداية يوم جديد
+      setRandomQuote();
     }
   }
 </script>
