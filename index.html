@@ -6,73 +6,88 @@
 <title>جدول العادات والمهام اليومية</title>
 <style>
   :root {
-    --bg-color: #F7F9F7;
-    --card-bg: #FFFFFF;
-    --primary: #5B7B70;
-    --primary-light: #E4ECE8;
-    --accent: #8DAA9D;
-    --text-dark: #36433E;
-    --text-light: #82928B;
-    --border: #E2EAE6;
-    --success: #6B8E80;
-    --water-color: #72A2AC;
-    --water-bg: #F0F6F7;
+    --bg-color: #FAF5EF;
+    --card-bg: #FFFDF9;
+    --primary: #8C7362;
+    --primary-light: #EFE6DD;
+    --accent: #BBA594;
+    --text-dark: #4A403A;
+    --text-light: #94857A;
+    --border: #E8DEC6;
+    --border-light: #F0E8DD;
+    --success: #889C83;
+    --water-color: #799CA8;
+    --water-bg: #F0F5F7;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
 
   body {
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-dark);
-    padding: 20px 10px;
-    margin: 0;
-    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;
   }
 
   .container {
-    max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    min-height: calc(100vh - 30px);
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 25px 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.02);
-    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(140, 115, 98, 0.05);
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 22px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--accent);
   }
 
   .header h1 {
     font-size: 1.4rem;
     color: var(--primary);
-    margin: 0 0 6px 0;
+    margin: 0 0 4px 0;
     font-weight: 700;
   }
 
   .header p {
     color: var(--text-light);
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     margin: 0;
   }
 
   /* Progress Section */
   .progress-card {
-    background: #FAFCFA;
-    border: 1px solid var(--border);
+    background: #FDFBF7;
+    border: 1px solid var(--border-light);
     border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 22px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
     text-align: center;
   }
 
   .progress-title {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .progress-bar-container {
@@ -80,7 +95,7 @@
     height: 12px;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .progress-bar {
@@ -92,16 +107,16 @@
   }
 
   .progress-percentage {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: var(--text-dark);
   }
 
   /* Section Styles */
   .section-title {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--primary);
-    margin: 20px 0 10px 0;
+    margin: 16px 0 8px 0;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -111,16 +126,16 @@
   .task-list {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 8px;
   }
 
   .task-item {
     display: flex;
     align-items: center;
-    background: #FFFFFF;
-    border: 1px solid var(--border);
+    background: #FAF7F2;
+    border: 1px solid var(--border-light);
     padding: 12px 14px;
-    border-radius: 12px;
+    border-radius: 14px;
     transition: all 0.2s ease;
     cursor: pointer;
     user-select: none;
@@ -131,8 +146,8 @@
   }
 
   .task-item.completed {
-    background: #F4F7F5;
-    border-color: #D8E2DC;
+    background: #F2F5F1;
+    border-color: #D8E0D7;
   }
 
   .task-item.completed .task-title {
@@ -175,7 +190,7 @@
   }
 
   .task-title {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 2px;
   }
@@ -188,28 +203,28 @@
   /* Water Tracker */
   .water-card {
     background: var(--water-bg);
-    border: 1px solid #D8ECEF;
+    border: 1px solid #D8E5E8;
     border-radius: 16px;
     padding: 16px;
-    margin-top: 25px;
+    margin-top: 22px;
   }
 
   .water-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .water-title {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--water-color);
   }
 
   .water-count {
-    font-size: 0.82rem;
-    color: #5C838C;
+    font-size: 0.8rem;
+    color: #5C7F8B;
   }
 
   .water-grid {
@@ -220,7 +235,7 @@
 
   .water-cup {
     background: white;
-    border: 1.5px solid #CDE2E6;
+    border: 1.5px solid #CCDDE2;
     border-radius: 10px;
     padding: 8px;
     text-align: center;
@@ -242,8 +257,9 @@
     background: transparent;
     border: none;
     color: var(--text-light);
-    font-size: 0.82rem;
-    margin-top: 20px;
+    font-size: 0.8rem;
+    margin-top: auto;
+    padding-top: 15px;
     cursor: pointer;
     text-decoration: underline;
   }
