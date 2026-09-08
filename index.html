@@ -1,378 +1,407 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كتاب التلوين الرقمي الاحترافي بالعرض | Cozy Landscape Coloring Book</title>
-    <style>
-        :root {
-            --bg-color: #f7f3ed;
-            --panel-bg: #ffffff;
-            --accent-color: #8b9b90;
-            --border-color: #e2dacd;
-            --text-color: #4a443f;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جدول العادات والمهام اليومية</title>
+<style>
+  :root {
+    --bg-color: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --primary: #9E7B66;
+    --primary-light: #E8DFD8;
+    --accent: #C2A693;
+    --text-dark: #4A3E3D;
+    --text-light: #8A7B7A;
+    --border: #EFE8E1;
+    --success: #88A08A;
+    --water-color: #83A6B2;
+  }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    padding: 20px 10px;
+    margin: 0;
+    line-height: 1.6;
+  }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+  }
 
-        /* القائمة الجانبية بالعرض */
-        .sidebar {
-            width: 280px;
-            background: var(--panel-bg);
-            border-left: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            gap: 12px;
-        }
+  .header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed var(--primary-light);
+  }
 
-        .sidebar h2 {
-            font-size: 1.1rem;
-            color: #5c6b61;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--bg-color);
-        }
+  .header h1 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin: 0 0 8px 0;
+  }
 
-        .pages-list {
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+  .header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
 
-        .page-item {
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: #faf7f2;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.88rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  /* Progress Section */
+  .progress-card {
+    background: #FDFBF7;
+    border: 1px solid var(--primary-light);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
 
-        .page-item:hover, .page-item.active {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
+  .progress-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
 
-        .badge {
-            font-size: 0.72rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.06);
-        }
-        .page-item.active .badge { background: rgba(255,255,255,0.25); }
+  .progress-bar-container {
+    background: var(--primary-light);
+    height: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
 
-        /* منطقة العمل بالعرض (Landscape) */
-        .workspace {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 15px;
-        }
+  .progress-bar {
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 10px;
+  }
 
-        .toolbar {
-            position: absolute;
-            top: 15px;
-            background: var(--panel-bg);
-            padding: 8px 20px;
-            border-radius: 30px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-            z-index: 10;
-        }
+  .progress-percentage {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-dark);
+  }
 
-        .palette { display: flex; gap: 6px; }
+  /* Section Styles */
+  .section-title {
+    font-size: 1rem;
+    color: var(--primary);
+    margin: 20px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+  }
 
-        .color-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid white;
-            cursor: pointer;
-            box-shadow: 0 0 3px rgba(0,0,0,0.2);
-            transition: transform 0.15s ease;
-        }
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-        .color-dot:hover, .color-dot.active {
-            transform: scale(1.2);
-            border-color: #4a443f;
-        }
+  .task-item {
+    display: flex;
+    align-items: center;
+    background: #FFFCF9;
+    border: 1px solid var(--border);
+    padding: 12px 15px;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+  }
 
-        .tool-btn {
-            background: #f0eadf;
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 0.82rem;
-            color: var(--text-color);
-        }
+  .task-item:hover {
+    border-color: var(--accent);
+  }
 
-        .tool-btn.active {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
+  .task-item.completed {
+    background: #F4F7F4;
+    border-color: #D3E0D3;
+  }
 
-        /* مقاس الصفحة بالعرض A4 Ratio (800x500) */
-        .canvas-container {
-            width: 800px;
-            height: 500px;
-            background: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            margin-top: 35px;
-        }
+  .task-item.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
 
-        svg.drawing-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 2px solid var(--accent);
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
 
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            touch-action: none;
-            cursor: crosshair;
-        }
-    </style>
+  .task-item.completed .checkbox {
+    background: var(--success);
+    border-color: var(--success);
+  }
+
+  .checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    display: none;
+    font-weight: bold;
+  }
+
+  .task-item.completed .checkbox::after {
+    display: block;
+  }
+
+  .task-info {
+    flex-grow: 1;
+  }
+
+  .task-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .task-time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  /* Water Tracker */
+  .water-card {
+    background: #F4F8F9;
+    border: 1px solid #D5E3E8;
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 25px;
+  }
+
+  .water-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .water-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--water-color);
+  }
+
+  .water-count {
+    font-size: 0.85rem;
+    color: #5E7D87;
+  }
+
+  .water-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .water-cup {
+    background: white;
+    border: 1.5px solid #BDD5DC;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+  }
+
+  .water-cup.filled {
+    background: var(--water-color);
+    border-color: var(--water-color);
+    color: white;
+  }
+
+  .reset-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: 20px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>رسومات التلوين بالعرض ☕🎨</h2>
-        <div class="pages-list" id="pagesList"></div>
+<div class="container">
+  <div class="header">
+    <h1>جدول العادات والمهام اليومية 🌿</h1>
+    <p>«قَلِيلٌ مُدَاوَمٌ عَلَيْهِ خَيْرٌ مِنْ كَثِيرٍ مُنْقَطِعٍ»</p>
+  </div>
+
+  <!-- نسبة الإنجاز -->
+  <div class="progress-card">
+    <div class="progress-title">نسبة الإنجاز اليومي</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-percentage" id="progressText">0%</div>
+  </div>
+
+  <!-- الفترة الصباحية -->
+  <div class="section-title">☀️ الفترة الصباحية</div>
+  <div class="task-list">
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">أذكار الصباح 🌿</div>
+        <div class="task-time">بعد صلاة الفجر مباشرة (لطرد الغفوة)</div>
+      </div>
     </div>
 
-    <div class="workspace">
-        <div class="toolbar">
-            <button class="tool-btn active" id="brushBtn">✏️ قلم تلوين</button>
-            <button class="tool-btn" id="eraserBtn">🧹 ممحاة</button>
-            <label style="font-size: 0.8rem; display:flex; align-items:center; gap:5px;">
-                الحجم: <input type="range" id="brushSize" min="4" max="35" value="12">
-            </label>
-            <div style="height: 16px; width: 1px; background: var(--border-color);"></div>
-
-            <div class="palette" id="palette"></div>
-            <input type="color" id="customColor" value="#d4a373" style="width:24px; height:24px; border:none; cursor:pointer; background:none;">
-
-            <div style="height: 16px; width: 1px; background: var(--border-color);"></div>
-
-            <button class="tool-btn" id="clearBtn">مسح</button>
-            <button class="tool-btn" id="saveBtn" style="background: #e8c5a5; font-weight: bold;">طباعة / حفظ PDF</button>
-        </div>
-
-        <div class="canvas-container">
-            <canvas id="paintCanvas" width="800" height="500"></canvas>
-            <svg id="svgOverlay" class="drawing-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg"></svg>
-        </div>
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">جلسة المراجعة 📖</div>
+        <div class="task-time">ساعة واحدة</div>
+      </div>
     </div>
 
-    <script>
-        // الرسومات المجهزة بالعرض (Landscape)
-        const drawings = [
-            {
-                title: "1. الكتب وفنجان القهوة",
-                level: "متوسط",
-                svg: `
-                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
-                    <!-- كتب متراكمة -->
-                    <path d="M 220 380 L 480 380 L 470 420 L 210 420 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <path d="M 240 335 L 460 335 L 452 380 L 232 380 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <path d="M 260 295 L 440 295 L 435 335 L 255 335 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <!-- كوب القهوة -->
-                    <path d="M 310 295 C 310 220, 390 220, 390 295 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <path d="M 390 245 C 415 245, 415 280, 385 285" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <!-- أصيص النبات -->
-                    <path d="M 530 300 L 610 300 L 590 420 L 550 420 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <path d="M 570 300 Q 530 220 490 200 Q 550 250 570 300" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <path d="M 570 300 Q 610 210 650 180 Q 600 240 570 300" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <line x1="100" y1="420" x2="700" y2="420" stroke="#2b2623" stroke-width="3"/>
-                `
-            },
-            {
-                title: "2. أغصان الليمون والمزهرية",
-                level: "متوسط",
-                svg: `
-                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
-                    <path d="M 350 270 C 310 310, 300 380, 320 430 L 480 430 C 500 380, 490 310, 450 270 Z" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <rect x="340" y="240" width="120" height="30" rx="5" fill="none" stroke="#2b2623" stroke-width="3"/>
-                    <ellipse cx="270" cy="180" rx="30" ry="40" transform="rotate(-20 270 180)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <ellipse cx="480" cy="140" rx="28" ry="38" transform="rotate(25 480 140)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <ellipse cx="540" cy="200" rx="28" ry="38" transform="rotate(40 540 200)" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <line x1="150" y1="430" x2="650" y2="430" stroke="#2b2623" stroke-width="3"/>
-                `
-            },
-            {
-                title: "3. نبتة الصبار البسيطة",
-                level: "مبتدئ جداً",
-                svg: `
-                    <rect x="20" y="20" width="760" height="460" rx="15" fill="none" stroke="#2b2623" stroke-width="3" stroke-dasharray="6,4"/>
-                    <path d="M 310 270 L 490 270 L 460 410 L 340 410 Z" fill="none" stroke="#2b2623" stroke-width="3.5"/>
-                    <rect x="295" y="245" width="210" height="25" rx="5" fill="none" stroke="#2b2623" stroke-width="3.5"/>
-                    <path d="M 350 245 C 350 140, 450 140, 450 245 Z" fill="none" stroke="#2b2623" stroke-width="3.5"/>
-                    <circle cx="400" cy="140" r="14" fill="none" stroke="#2b2623" stroke-width="2.5"/>
-                    <line x1="180" y1="410" x2="620" y2="410" stroke="#2b2623" stroke-width="3.5"/>
-                `
-            }
-        ];
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">تمارين رياضية خفيفة 🏃‍♀️</div>
+        <div class="task-time">10 دقائق</div>
+      </div>
+    </div>
+  </div>
 
-        const paletteColors = ["#e8c5a5", "#d4a373", "#9cb09d", "#6b7c6c", "#b8bedd", "#f4acb7", "#ffe5ec", "#fefae0", "#000000"];
-        const canvas = document.getElementById('paintCanvas');
-        const ctx = canvas.getContext('2d');
-        const svgOverlay = document.getElementById('svgOverlay');
-        const pagesList = document.getElementById('pagesList');
-        const palette = document.getElementById('palette');
-        const brushSize = document.getElementById('brushSize');
+  <!-- الفترة بعد الظهر والمساء -->
+  <div class="section-title">⛅ الفترة بعد الظهر والمساء</div>
+  <div class="task-list">
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">التفريغ الصوتي 🎧</div>
+        <div class="task-time">ساعة واحدة</div>
+      </div>
+    </div>
 
-        let isDrawing = false;
-        let currentColor = paletteColors[1];
-        let isEraser = false;
-        let currentPage = 0;
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">تعلم إدارة المتاجر 💻</div>
+        <div class="task-time">ساعتين</div>
+      </div>
+    </div>
 
-        drawings.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = `page-item ${index === 0 ? 'active' : ''}`;
-            div.innerHTML = `<span>${item.title}</span><span class="badge">${item.level}</span>`;
-            div.onclick = () => loadDrawing(index);
-            pagesList.appendChild(div);
-        });
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">أذكار المساء 🌇</div>
+        <div class="task-time">قبل المغرب أو بعده</div>
+      </div>
+    </div>
+  </div>
 
-        paletteColors.forEach((color, i) => {
-            const dot = document.createElement('div');
-            dot.className = `color-dot ${i === 1 ? 'active' : ''}`;
-            dot.style.backgroundColor = color;
-            dot.onclick = () => {
-                document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
-                currentColor = color;
-                isEraser = false;
-                document.getElementById('brushBtn').classList.add('active');
-                document.getElementById('eraserBtn').classList.remove('active');
-            };
-            palette.appendChild(dot);
-        });
+  <!-- الفترة الليلية -->
+  <div class="section-title">🌙 الفترة الليلية</div>
+  <div class="task-list">
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">تعلم علم شرعي 📚</div>
+        <div class="task-time">9:30 م – 10:30 م</div>
+      </div>
+    </div>
 
-        function loadDrawing(index) {
-            currentPage = index;
-            document.querySelectorAll('.page-item').forEach((el, i) => el.classList.toggle('active', i === index));
-            svgOverlay.innerHTML = drawings[index].svg;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">مساج للوجه وعناية 🌸</div>
+        <div class="task-time">10 دقائق</div>
+      </div>
+    </div>
 
-        function getPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return {
-                x: (clientX - rect.left) * (canvas.width / rect.width),
-                y: (clientY - rect.top) * (canvas.height / rect.height)
-            };
-        }
+    <div class="task-item" onclick="toggleTask(this)">
+      <div class="checkbox"></div>
+      <div class="task-info">
+        <div class="task-title">صلاة الوتر وختام اليوم 🕌</div>
+        <div class="task-time">قبل النوم</div>
+      </div>
+    </div>
+  </div>
 
-        function start(e) { isDrawing = true; draw(e); }
-        function stop() { isDrawing = false; ctx.beginPath(); }
-        function draw(e) {
-            if (!isDrawing) return;
-            const pos = getPos(e);
-            ctx.lineWidth = brushSize.value;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+  <!-- متتبع شرب الماء -->
+  <div class="water-card">
+    <div class="water-header">
+      <div class="water-title">💧 شرب الماء اليومي</div>
+      <div class="water-count" id="waterCount">0 من 8 أكواب (2 لتر)</div>
+    </div>
+    <div class="water-grid">
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+      <div class="water-cup" onclick="toggleWater(this)">🥛</div>
+    </div>
+  </div>
 
-            if (isEraser) {
-                ctx.globalCompositeOperation = 'destination-out';
-            } else {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = currentColor;
-            }
+  <button class="reset-btn" onclick="resetDay()">إعادة ضبط اليوم (البداية من جديد)</button>
+</div>
 
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-        }
+<script>
+  function toggleTask(element) {
+    element.classList.toggle('completed');
+    updateProgress();
+  }
 
-        canvas.addEventListener('mousedown', start);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stop);
-        canvas.addEventListener('mouseleave', stop);
+  function updateProgress() {
+    const totalTasks = document.querySelectorAll('.task-item').length;
+    const completedTasks = document.querySelectorAll('.task-item.completed').length;
+    const percentage = Math.round((completedTasks / totalTasks) * 100);
 
-        canvas.addEventListener('touchstart', (e) => { start(e); e.preventDefault(); });
-        canvas.addEventListener('touchmove', (e) => { draw(e); e.preventDefault(); });
-        canvas.addEventListener('touchend', stop);
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressText').innerText = percentage + '%';
+  }
 
-        document.getElementById('brushBtn').onclick = () => {
-            isEraser = false;
-            document.getElementById('brushBtn').classList.add('active');
-            document.getElementById('eraserBtn').classList.remove('active');
-        };
-        document.getElementById('eraserBtn').onclick = () => {
-            isEraser = true;
-            document.getElementById('eraserBtn').classList.add('active');
-            document.getElementById('brushBtn').classList.remove('active');
-        };
+  function toggleWater(element) {
+    element.classList.toggle('filled');
+    updateWaterCount();
+  }
 
-        document.getElementById('clearBtn').onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function updateWaterCount() {
+    const filledCups = document.querySelectorAll('.water-cup.filled').length;
+    document.getElementById('waterCount').innerText = `${filledCups} من 8 أكواب (${(filledCups * 0.25).toFixed(2).replace('.00', '')} لتر)`;
+  }
 
-        document.getElementById('saveBtn').onclick = () => {
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.fillStyle = '#ffffff';
-            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-            tempCtx.drawImage(canvas, 0, 0);
+  function resetDay() {
+    document.querySelectorAll('.task-item').forEach(item => item.classList.remove('completed'));
+    document.querySelectorAll('.water-cup').forEach(cup => cup.classList.remove('filled'));
+    updateProgress();
+    updateWaterCount();
+  }
+</script>
 
-            const xml = new XMLSerializer().serializeToString(svgOverlay);
-            const svgImg = new Image();
-            svgImg.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(xml)));
-            svgImg.onload = () => {
-                tempCtx.drawImage(svgImg, 0, 0);
-                const link = document.createElement('a');
-                link.download = `cozy-landscape-page-${currentPage+1}.png`;
-                link.href = tempCanvas.toDataURL();
-                link.click();
-            };
-        };
-
-        loadDrawing(0);
-    </script>
 </body>
 </html>
 
