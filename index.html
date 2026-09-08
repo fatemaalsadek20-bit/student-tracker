@@ -5,19 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>منظمي اليومي 🌸</title>
 <style>
+  /* الألوان المستوحاة من الصورة المرفقة */
   :root {
-    --pink-bg: #FFF5F7;
-    --pink-card: #FFFFFF;
-    --pink-light: #FCE8ED;
-    --pink-accent: #E8A0B8;
-    --pink-primary: #8C4A60;
-    --text-dark: #3A232B;
-    --text-light: #73515C;
-    --border: #F3D2DC;
-    --progress-bg: #F8E3E8;
-    --progress-fill: #D97897;
-    --water-color: #618999;
-    --water-bg: #F0F7F9;
+    --pink-beige: #EDCECC;
+    --solid-coral: #F2D2D5;
+    --dusty-rose: #DFB2B5;
+    --chill-mauve: #C79A97;
+    --soft-pink: #BB7F82;
+    
+    --bg-color: var(--solid-coral);
+    --card-bg: #FFFFFF;
+    --primary: var(--soft-pink); /* أغمق درجة للعناوين */
+    --accent: var(--chill-mauve);
+    --text-dark: #4A3638; /* لون غامق لضمان وضوح القراءة */
+    --text-light: #7A5C60;
+    --border: var(--dusty-rose);
+    
+    --progress-bg: var(--pink-beige);
+    --progress-fill: var(--soft-pink);
+    --water-color: var(--chill-mauve);
+    --water-bg: #FCF4F5;
   }
 
   * {
@@ -29,7 +36,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: var(--pink-bg);
+    background-color: var(--bg-color);
     color: var(--text-dark);
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
@@ -44,14 +51,14 @@
     width: 100%;
     max-width: 700px;
     min-height: 100vh;
-    background: var(--pink-card);
+    background: var(--card-bg);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(232, 160, 184, 0.15);
+    box-shadow: 0 10px 30px rgba(187, 127, 130, 0.15);
   }
 
   .app-header {
-    background: linear-gradient(135deg, #FFF0F4, #FCE8ED);
+    background: var(--pink-beige);
     padding: 28px 20px 22px 20px;
     text-align: center;
     border-bottom: 3px solid var(--border);
@@ -59,7 +66,7 @@
 
   .app-header h1 {
     font-size: 2.5rem;
-    color: var(--pink-primary);
+    color: var(--primary);
     margin: 0 0 8px 0;
     font-weight: 900;
   }
@@ -78,33 +85,32 @@
     gap: 24px;
   }
 
-  /* بطاقة عبارة تحفيزية */
+  /* بطاقة الاقتباس الإسلامي/التحفيزي */
   .quote-card {
-    background: var(--pink-light);
+    background: var(--water-bg);
     border: 3px solid var(--border);
     border-radius: 22px;
-    padding: 20px;
+    padding: 22px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(232, 160, 184, 0.1);
   }
 
   .quote-title {
     font-size: 1.3rem;
     font-weight: 800;
-    color: var(--pink-primary);
-    margin-bottom: 6px;
+    color: var(--accent);
+    margin-bottom: 8px;
   }
 
   .quote-text {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 900;
-    color: var(--text-dark);
-    line-height: 1.4;
+    color: var(--primary);
+    line-height: 1.5;
   }
 
   /* نسبة الإنجاز */
   .progress-card {
-    background: #FFF0F4;
+    background: var(--solid-coral);
     border: 3px solid var(--border);
     border-radius: 24px;
     padding: 22px;
@@ -114,7 +120,7 @@
   .card-title {
     font-size: 1.8rem;
     font-weight: 900;
-    color: var(--pink-primary);
+    color: var(--text-dark);
     margin-bottom: 10px;
   }
 
@@ -128,7 +134,7 @@
   }
 
   .progress-bar {
-    background: linear-gradient(90deg, #E8A0B8, var(--progress-fill));
+    background: var(--progress-fill);
     height: 100%;
     width: 0%;
     transition: width 0.4s ease;
@@ -137,14 +143,14 @@
   .progress-percentage {
     font-size: 2.3rem;
     font-weight: 900;
-    color: var(--progress-fill);
+    color: var(--primary);
   }
 
   .section-header {
     font-size: 1.8rem;
-    color: var(--pink-primary);
+    color: var(--primary);
     font-weight: 900;
-    border-right: 6px solid var(--pink-accent);
+    border-right: 6px solid var(--accent);
     padding-right: 12px;
     margin: 10px 0 -10px 0;
   }
@@ -158,7 +164,7 @@
   .task-item {
     display: flex;
     align-items: center;
-    background: var(--pink-bg);
+    background: var(--water-bg);
     border: 3px solid var(--border);
     padding: 20px;
     border-radius: 20px;
@@ -167,8 +173,8 @@
   }
 
   .task-item.completed {
-    background: #F9ECEF;
-    border-color: #E2C0CA;
+    background: var(--pink-beige);
+    border-color: var(--dusty-rose);
   }
 
   .task-item.completed .task-title {
@@ -180,7 +186,7 @@
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    border: 3px solid var(--pink-accent);
+    border: 3px solid var(--accent);
     margin-left: 16px;
     display: flex;
     align-items: center;
@@ -190,8 +196,8 @@
   }
 
   .task-item.completed .checkbox {
-    background: var(--pink-accent);
-    border-color: var(--pink-accent);
+    background: var(--primary);
+    border-color: var(--primary);
   }
 
   .checkbox::after {
@@ -225,7 +231,7 @@
 
   .water-card {
     background: var(--water-bg);
-    border: 3px solid #BCE0E8;
+    border: 3px solid var(--border);
     border-radius: 24px;
     padding: 22px;
   }
@@ -233,13 +239,13 @@
   .water-title {
     font-size: 1.8rem;
     font-weight: 900;
-    color: var(--water-color);
+    color: var(--text-dark);
     text-align: center;
   }
 
   .water-count {
     font-size: 1.35rem;
-    color: #3B5F6C;
+    color: var(--text-light);
     font-weight: 800;
     text-align: center;
     margin-bottom: 16px;
@@ -253,29 +259,29 @@
 
   .water-cup {
     background: white;
-    border: 3px solid #A8D1DD;
+    border: 3px solid var(--dusty-rose);
     border-radius: 16px;
     padding: 16px;
     text-align: center;
     cursor: pointer;
     font-size: 1.45rem;
     font-weight: 900;
-    color: var(--water-color);
+    color: var(--primary);
   }
 
   .water-cup.filled {
-    background: var(--water-color);
-    border-color: var(--water-color);
+    background: var(--accent);
+    border-color: var(--accent);
     color: white;
   }
 
   .reset-btn {
     width: 100%;
     padding: 18px;
-    background: #FCE8ED;
+    background: var(--pink-beige);
     border: 3px solid var(--border);
     border-radius: 20px;
-    color: var(--pink-primary);
+    color: var(--primary);
     font-size: 1.45rem;
     font-weight: 900;
     cursor: pointer;
@@ -289,20 +295,20 @@
   
   <div class="app-header">
     <h1>منظمي اليومي 🌸</h1>
-    <p>«خطوة صغيرة كل يوم تصنع إنجازاً عظيماً»</p>
+    <p>بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ</p>
   </div>
 
   <div class="main-content">
 
-    <!-- بطاقة التحفيز اليومي -->
+    <!-- بطاقة العبارات الإسلامية والتحفيزية -->
     <div class="quote-card">
-      <div class="quote-title">💡 رسالة اليوم لكِ</div>
-      <div class="quote-text" id="quoteText">«أنتِ قادرة على تحويل أهدافكِ إلى واقع، استمري بكل حب!»</div>
+      <div class="quote-title">💡 رسالة اليوم</div>
+      <div class="quote-text" id="quoteText">«وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ»</div>
     </div>
 
     <!-- نسبة الإنجاز -->
     <div class="progress-card">
-      <div class="card-title">نسبة إنجازك اليوم 💖</div>
+      <div class="card-title">إنجاز اليوم 🎯</div>
       <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
@@ -310,7 +316,7 @@
     </div>
 
     <!-- الفترة الصباحية -->
-    <div class="section-header">☀️ الفترة الصباحية</div>
+    <div class="section-header">☀️ الصباح</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
@@ -338,7 +344,7 @@
     </div>
 
     <!-- الفترة المسائية -->
-    <div class="section-header">⛅ الفترة بعد الظهر والمساء</div>
+    <div class="section-header">⛅ المساء</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
@@ -366,7 +372,7 @@
     </div>
 
     <!-- الفترة الليلية -->
-    <div class="section-header">🌙 الفترة الليلية</div>
+    <div class="section-header">🌙 الليل</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
@@ -387,7 +393,7 @@
       <div class="task-item" onclick="toggleTask(this)">
         <div class="checkbox"></div>
         <div class="task-info">
-          <div class="task-title">صلاة الوتر وختام اليوم 🕌</div>
+          <div class="task-title">صلاة الوتر 🕌</div>
           <div class="task-time">قبل النوم</div>
         </div>
       </div>
@@ -395,34 +401,35 @@
 
     <!-- متتبع شرب الماء -->
     <div class="water-card">
-      <div class="water-title">💧 شرب الماء اليومي</div>
+      <div class="water-title">💧 شرب الماء</div>
       <div class="water-count" id="waterCount">0 من 8 أكواب (2 لتر)</div>
       <div class="water-grid">
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 1</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 2</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 3</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 4</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 5</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 6</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 7</div>
-        <div class="water-cup" onclick="toggleWater(this)">🥛 كوب 8</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 1</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 2</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 3</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 4</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 5</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 6</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 7</div>
+        <div class="water-cup" onclick="toggleWater(this)">🥛 8</div>
       </div>
     </div>
 
-    <button class="reset-btn" onclick="resetDay()">🔄 إعادة ضبط اليوم بالكامل</button>
+    <button class="reset-btn" onclick="resetDay()">🔄 بداية يوم جديد</button>
 
   </div>
 
 </div>
 
 <script>
-  /* قائمة عبارات التحفيز */
+  /* عبارات إسلامية وتحفيزية متغيرة */
   const quotes = [
-    "«أنتِ قادرة على تحويل أهدافكِ إلى واقع، استمري بكل حب!»",
-    "«الإنجازات الصغيرة اليومية هي سر النجاحات الكبيرة.»",
-    "«ثقي بنفسك وبقدرتك على التطور والوصول لأحلامك.»",
-    "«كل بداية جديدة تحمل معها فرصة لتكوني أفضل.»",
-    "«تذكري دائماً أن استمراريتك هي قوتك الحقيقية.»"
+    "«وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ»",
+    "«وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ»",
+    "«قَلِيلٌ مُدَاوَمٌ عَلَيْهِ خَيْرٌ مِنْ كَثِيرٍ مُنْقَطِعٍ»",
+    "«اسْتَعِنْ بِاللَّهِ وَلَا تَعْجَزْ»",
+    "«كل خطوة صغيرة تقربك، استمري وتوكلي على الله.»",
+    "«من سار على الدرب وصل، واصلي سعيك بكل يقين.»"
   ];
 
   function setRandomQuote() {
@@ -430,7 +437,7 @@
     document.getElementById('quoteText').innerText = quotes[randomIndex];
   }
 
-  setRandomQuote();
+  setRandomQuote(); // تعيين عبارة عند فتح التطبيق
 
   function toggleTask(element) {
     element.classList.toggle('completed');
@@ -457,12 +464,12 @@
   }
 
   function resetDay() {
-    if(confirm("هل ترغبين في إعادة ضبط اليوم بالكامل؟")) {
+    if(confirm("هل ترغبين في تصفير المهام وبدء يوم جديد؟")) {
       document.querySelectorAll('.task-item').forEach(item => item.classList.remove('completed'));
       document.querySelectorAll('.water-cup').forEach(cup => cup.classList.remove('filled'));
       updateProgress();
       updateWaterCount();
-      setRandomQuote();
+      setRandomQuote(); // تغيير العبارة عند بداية يوم جديد
     }
   }
 </script>
