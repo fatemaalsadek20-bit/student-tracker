@@ -6,18 +6,21 @@
 <title>جدول العادات والمهام اليومية</title>
 <style>
   :root {
-    --bg-color: #FAF5EF;
-    --card-bg: #FFFDF9;
-    --primary: #8C7362;
-    --primary-light: #EFE6DD;
-    --accent: #BBA594;
-    --text-dark: #4A403A;
-    --text-light: #94857A;
-    --border: #E8DEC6;
-    --border-light: #F0E8DD;
+    --linen: #F5F1EA;
+    --khaki: #D7C9B8;
+    --camel: #B2967D;
+    
+    --bg-color: var(--linen);
+    --card-bg: #FFFFFF;
+    --primary: #8A6E56;
+    --primary-light: var(--khaki);
+    --accent: var(--camel);
+    --text-dark: #3D332B;
+    --text-light: #7A6C60;
+    --border: #E8DFD3;
     --success: #889C83;
-    --water-color: #799CA8;
-    --water-bg: #F0F5F7;
+    --water-color: #6C8E99;
+    --water-bg: #F0F4F5;
   }
 
   * {
@@ -47,8 +50,8 @@
     background: var(--card-bg);
     border-radius: 24px;
     padding: 25px 20px;
-    box-shadow: 0 10px 30px rgba(140, 115, 98, 0.05);
-    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 30px rgba(178, 150, 125, 0.08);
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: column;
   }
@@ -75,8 +78,8 @@
 
   /* Progress Section */
   .progress-card {
-    background: #FDFBF7;
-    border: 1px solid var(--border-light);
+    background: var(--linen);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 14px 18px;
     margin-bottom: 20px;
@@ -91,7 +94,7 @@
   }
 
   .progress-bar-container {
-    background: var(--primary-light);
+    background: #E8DFC8;
     height: 12px;
     border-radius: 10px;
     overflow: hidden;
@@ -99,7 +102,7 @@
   }
 
   .progress-bar {
-    background: linear-gradient(90deg, var(--accent), var(--primary));
+    background: linear-gradient(90deg, var(--khaki), var(--camel));
     height: 100%;
     width: 0%;
     transition: width 0.4s ease;
@@ -132,8 +135,8 @@
   .task-item {
     display: flex;
     align-items: center;
-    background: #FAF7F2;
-    border: 1px solid var(--border-light);
+    background: var(--linen);
+    border: 1px solid var(--border);
     padding: 12px 14px;
     border-radius: 14px;
     transition: all 0.2s ease;
@@ -142,12 +145,12 @@
   }
 
   .task-item:hover {
-    border-color: var(--accent);
+    border-color: var(--camel);
   }
 
   .task-item.completed {
-    background: #F2F5F1;
-    border-color: #D8E0D7;
+    background: #EFEBE4;
+    border-color: #DDD4C8;
   }
 
   .task-item.completed .task-title {
@@ -159,7 +162,7 @@
     width: 20px;
     height: 20px;
     border-radius: 6px;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--camel);
     margin-left: 12px;
     display: flex;
     align-items: center;
@@ -169,8 +172,8 @@
   }
 
   .task-item.completed .checkbox {
-    background: var(--success);
-    border-color: var(--success);
+    background: var(--camel);
+    border-color: var(--camel);
   }
 
   .checkbox::after {
@@ -203,7 +206,7 @@
   /* Water Tracker */
   .water-card {
     background: var(--water-bg);
-    border: 1px solid #D8E5E8;
+    border: 1px solid #D8E4E8;
     border-radius: 16px;
     padding: 16px;
     margin-top: 22px;
@@ -224,7 +227,7 @@
 
   .water-count {
     font-size: 0.8rem;
-    color: #5C7F8B;
+    color: #587985;
   }
 
   .water-grid {
@@ -235,7 +238,7 @@
 
   .water-cup {
     background: white;
-    border: 1.5px solid #CCDDE2;
+    border: 1.5px solid #C8DCE2;
     border-radius: 10px;
     padding: 8px;
     text-align: center;
@@ -422,4 +425,3 @@
 
 </body>
 </html>
-
