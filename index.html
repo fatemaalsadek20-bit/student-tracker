@@ -54,7 +54,6 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
   }
 
-  /* الهيدر الرئيسي */
   .app-header {
     background: var(--linen);
     padding: 25px 20px 20px 20px;
@@ -83,7 +82,6 @@
     gap: 24px;
   }
 
-  /* بطاقة بومودورو للتركيز */
   .pomodoro-card {
     background: var(--linen);
     border: 3px solid var(--border);
@@ -134,7 +132,6 @@
     border: 2px solid var(--border);
   }
 
-  /* نسبة الإنجاز اليومي */
   .progress-card {
     background: #FAF7F2;
     border: 3px solid var(--border);
@@ -165,7 +162,6 @@
     color: var(--progress-fill);
   }
 
-  /* أقسام المهام والعناوين الضخمة */
   .section-header {
     font-size: 1.8rem;
     color: var(--primary);
@@ -249,7 +245,6 @@
     font-weight: 700;
   }
 
-  /* قسم شرب الماء */
   .water-card {
     background: var(--water-bg);
     border: 3px solid #B2C9CE;
@@ -321,7 +316,6 @@
 
   <div class="main-content">
 
-    <!-- مؤقت التركيز (Pomodoro) -->
     <div class="pomodoro-card">
       <div class="card-title">⏱️ مؤقت التركيز (25 دقيقة)</div>
       <div class="timer-display" id="timer">25:00</div>
@@ -332,7 +326,6 @@
       </div>
     </div>
 
-    <!-- نسبة الإنجاز -->
     <div class="progress-card">
       <div class="card-title">نسبة إنجازك اليوم</div>
       <div class="progress-bar-container">
@@ -341,7 +334,6 @@
       <div class="progress-percentage" id="progressText">0%</div>
     </div>
 
-    <!-- الفترة الصباحية -->
     <div class="section-header">☀️ الفترة الصباحية</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -369,7 +361,6 @@
       </div>
     </div>
 
-    <!-- الفترة المسائية -->
     <div class="section-header">⛅ الفترة بعد الظهر والمساء</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -397,7 +388,6 @@
       </div>
     </div>
 
-    <!-- الفترة الليلية -->
     <div class="section-header">🌙 الفترة الليلية</div>
     <div class="task-list">
       <div class="task-item" onclick="toggleTask(this)">
@@ -425,7 +415,6 @@
       </div>
     </div>
 
-    <!-- متتبع شرب الماء -->
     <div class="water-card">
       <div class="water-title">💧 شرب الماء اليومي</div>
       <div class="water-count" id="waterCount">0 من 8 أكواب (2 لتر)</div>
@@ -448,7 +437,6 @@
 </div>
 
 <script>
-  /* إدارة المهام والإنجاز */
   function toggleTask(element) {
     element.classList.toggle('completed');
     updateProgress();
@@ -463,7 +451,6 @@
     document.getElementById('progressText').innerText = percentage + '%';
   }
 
-  /* إدارة شرب الماء */
   function toggleWater(element) {
     element.classList.toggle('filled');
     updateWaterCount();
@@ -484,7 +471,6 @@
     }
   }
 
-  /* مؤقت بومودورو */
   let timerInterval;
   let timeLeft = 25 * 60;
 
@@ -524,4 +510,3 @@
 
 </body>
 </html>
-
